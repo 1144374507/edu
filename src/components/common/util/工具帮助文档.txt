@@ -1,0 +1,126 @@
+内容模板
+    1、import rjContainer from '@common/util/container.vue'
+    2、使用components 渲染 rjContainer 
+    3、定义
+        <rj-container @onWinResize="onWinResize" :showTip="true/false">
+            <div slot="seachForm">表单内容填充区</div>
+            <div slot="content">数据内容填充区</div>
+            <div slot="unDataTip">无数据提示区</div>
+        </rj-container>
+
+        说明：
+            onWinResize监听窗口变化回调，参数{w: 宽度, h: 高度}
+            showTip无数据界面统一提示，是否显示
+
+
+警告框
+	1、import alert from '@common/util/alert.vue'
+    2、使用components 渲染 alert 
+    3、定义<alert></alert>，实际是绑定rjAlert对象到当前组件
+    4、发起alert
+        this.rjAlert.
+    		icon(图标).//直接用：warning()失败、success()成功
+    		title(标题).
+    		content(内容).
+            subContent(附加文本).
+    		showClose(false).//是否显示关闭按钮
+                    closeOnClickModal(false).//是否点击遮罩层关闭
+    		show().
+    		then(回调);
+
+
+确认框
+	1、import confirm from '@common/util/confirm.vue'
+    2、使用components 渲染 confirm
+    3、定义<confirm></confirm>，实际是绑定rjConfirm对象到当前组件
+    4、发起confirm
+        this.rjConfirm.icon(图标).title(标题).content(内容).show().then(回调);
+
+
+遮罩加载
+	1、import loading from '@common/util/loading.vue'
+    2、使用components 渲染 loading 
+    3、定义<loading></loading>，实际是绑定rjLoading对象到当前组件
+    4、发起loading
+        self.rjLoading.width(图标宽度).height(图标高度).bgBlack().target(目标dom,目前只对body和content_main有效，默认content_main).text(文字提示).show();
+        //id:"#template_tb"、body、图标宽度：默认80px, 图标高度:默认80px, bgBlack：黑色背景，白色字体，默认，白色背景，黑色字体
+	5、关闭loading
+        self.rjLoading.close();
+
+分页
+	1、import page from '@common/util/page.vue'
+    2、使用components 渲染 page
+    3、定义<rjPage :pageInit="1" :pageSizeInit="10"></rjPage> ，实际是绑定rjPage对象到当前组件
+        注意：如果一个页面有多个rjPage,请一定用id标识，然后取对象用：this.rjPage[id]得到
+        写法：<rjPage :id="'id'" :pageInit="1" :pageSizeInit="10"></rjPage>
+        如果想把rjPage 挂到指定的父层下 :hadingOnNumParent="数值"
+        写法：<rjPage :id="'id'" :hadingOnNumParent="3" :pageInit="1" :pageSizeInit="10"></rjPage>
+    4、发起page
+	初始化：
+        	this.rjPage. 
+                handleSizeChange(function(val){
+		//修改一页显示数，触发回调
+                    self.go2Query();
+                }).
+                handleCurrentChange(function(val){
+		//跳到指定页触发回调
+                    this.go2Query();
+                });
+	
+    		取得当前页、一也显示多少条
+    		self.rjPage.page(); //取得当前页
+           	self.rjPage.size(); //取得一页显示多少条
+
+
+    		设置分页总数：
+    		self.rjPage.total(总数);
+
+dialog弹出框：
+	1、import page from '@common/util/dialog.vue'
+	2、引入业务组件，如userEdit.vue
+    2、使用components 渲染 dialog
+    3、定义<rjDialog></rjDialog>，实际是绑定rjDialog对象到当前组件
+    4、发起dialog
+       this.rjDialog.
+            title("添加").//标题
+            currentView(userEdit, {}).//业务组件及，参数，通过this.rjDialogParams();在mounted或created等生命周期内取得
+            showClose(false).//是否显示关闭按钮
+            closeOnClickModal(false).//是否点击遮罩层关闭
+            sizeTiny().//窗口大小，总的有4种：sizeTiny、sizeSmall、sizeLarge、sizeFull、
+                        加自定义的：sizeSelf(类名), 命名格式要求：.el-dialog--自定义{width:100px;}， 传入参数是：xxx
+            then(function(opt){//回调，可传参
+                self.go2Query();
+            }).
+            show();
+
+        //关闭弹出层
+        self.closeRjDialog({});
+
+message信息提示：
+方式一：
+	1、import page from '@common/util/message.vue' 
+    2、使用components 渲染 message
+    3、定义<rjMessage></rjMessage>，实际是绑定rjMessage对象到当前组件
+    4、发起message
+        this.rjMessage.success(成功提示);
+        this.rjMessage.error(错误提示);
+        this.rjMessage.warning(警告提示);
+        this.rjMessage.info(消息提示);
+
+
+方式二：
+
+    1、import rjMessage from '@common/util/js/message'
+    2、发起message
+        rjMessage.success(成功提示);
+        rjMessage.error(错误提示);
+        rjMessage.warning(警告提示);
+        rjMessage.info(消息提示);
+
+
+
+
+
+
+
+	
