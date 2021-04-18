@@ -3,7 +3,7 @@
   <div>
     <el-form :model="form" :rules="rules" ref="form">
       <el-form-item label="姓名：" label-width="150px" prop="ip">
-        <el-select v-model="form.ip" multiple placeholder="请选择"   >
+        <el-select v-model="form.ip" multiple placeholder="请选择"  filterable  >
           <el-option
             v-for="item in options"
             :key="item.value"
