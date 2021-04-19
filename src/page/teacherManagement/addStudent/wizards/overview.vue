@@ -2,7 +2,7 @@
     <div>
         <div>
             <div class="__p_12e_u_57">
-                <span class="__p_12e_u_58">添加班级</span>
+                <span class="__p_12e_u_58">添加学生</span>
             </div>
             <el-row :gutter="16">
                 <el-col :span="8">
@@ -17,12 +17,12 @@
                             class="__p_12e_u_61"
                         />
                         <div class="__p_12e_u_62">
-                            <span class="__p_12e_u_63">① 添加班级</span
-                            ><span class="__p_12e_u_64"></span>
+                            <span class="__p_12e_u_63">① 基础信息</span
+                            > 
                         </div>
                     </div>
                 </el-col>
-                <!-- <el-col :span="8">
+                <el-col :span="8">
                     <div
                         class="__p_12e_u_65"
                         id="qa-test-create-config-template"
@@ -34,11 +34,11 @@
                             class="__p_12e_u_66"
                         />
                         <div class="__p_12e_u_67">
-                            <span class="__p_12e_u_68">② 创建配置模板</span>
+                            <span class="__p_12e_u_68">② 个人简介</span>
                         </div>
                     </div>
-                </el-col> -->
-                <!-- <el-col :span="8">
+                </el-col>
+                <el-col :span="8">
                     <div
                         class="__p_12e_u_69"
                         id="qa-test-binding-config-template"
@@ -53,7 +53,7 @@
                             <span class="__p_12e_u_72">③ 绑定配置模板</span>
                         </div>
                     </div>
-                </el-col> -->
+                </el-col>
             </el-row>
             <div class="__p_12e_u_73">
                 <el-button

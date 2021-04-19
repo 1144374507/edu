@@ -14,7 +14,7 @@
             <template slot="title"
               ><i class="el-icon-message"></i>教务管理</template
             >
-            <el-menu-item index="6-1">添加学生</el-menu-item>
+            <el-menu-item index="6-1" @click.native="setIsShowTemplate('6-1')" >添加学生</el-menu-item>
             <el-menu-item index="6-2" @click.native="setIsShowTemplate('6-2')"  >创建班级</el-menu-item>
             <el-menu-item index="6-4" @click.native="setIsShowTemplate('2-4')" 
               >查看班级</el-menu-item
@@ -37,6 +37,7 @@
           </template>
 
           <addClass v-if="isShowTemplate == '6-2'"></addClass>
+          <addStudent v-if="isShowTemplate == '6-1'"></addStudent>
 
         </el-main>
 
@@ -51,13 +52,15 @@ import rjDialog from "@/common/dialog";
 import teacherMessage from "./teacherMessage/teacherMessage";
 import viewClass from './viewClass/viewClass'
 import addClass from './addClass/wizards/index'
+import addStudent from './addStudent/wizards/index'
 
 export default {
   components: {
     rjDialog,
     teacherMessage,
     viewClass,
-    addClass
+    addClass,
+    addStudent
   },
   data() {
     const item = {
