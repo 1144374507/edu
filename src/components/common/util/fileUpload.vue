@@ -21,7 +21,7 @@
 </template>
 
 <script type="text/javascript">
-	import * as tokenObj from '@common/js/tokenMng.js'
+	import * as tokenObj from '@/common/js/tokenMng.js'
 	import * as httpHandle from '@common/js/httpHandle.js';
 
 	export default {

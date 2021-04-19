@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 import rjDialogContant from "@common/dialogContant.vue";
-import * as tokenObj from "@common/js/tokenMng.js";
+import * as tokenObj from "@/common/js/tokenMng.js";
 
 export default {
   components: {

@@ -1,4 +1,4 @@
-import * as tokenObj from '@common/js/tokenMng.js'
+import * as tokenObj from '@/common/js/tokenMng.js'
 import queryString from 'query-string'
 
 var rjDownload = function () {

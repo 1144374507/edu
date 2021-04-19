@@ -1,5 +1,5 @@
 <template>
-  <div class="__p_13f_u_66" style="height: 100%; width: 100%">
+  <div class="__p_13f_u_66 my_students__wrop" style="height: 100%; width: 100%">
     <el-page-header @back="goback" content="详情页面"> </el-page-header>
     <el-row type="flex" justify="start" align="top" :gutter="0">
       <el-col :span="12" :offset="0" :push="0" :pull="0" class="__p_13f_u_87">
@@ -176,7 +176,13 @@ export default {
 }
 </style>
 
-<style>
+<style lang="scss">
+.my_students__wrop{
+  .el-table.el-table--fit.el-table--striped.el-table--scrollable-x.el-table--enable-row-hover.el-table--enable-row-transition {
+      width: 100%;
+  }
+}
+ 
 .__p_137_u_4 {
   vertical-align: bottom;
 }
@@ -1159,3 +1165,4 @@ export default {
 }
 </style>
 <style scoped>
+

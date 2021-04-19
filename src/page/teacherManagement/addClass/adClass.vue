@@ -1,8 +1,9 @@
+<template></template>
+
 <template>
   <div class="addClass__wrapp">
-    <el-page-header title="" content="添加班级"> </el-page-header>
-
-    <div class="demo-input-suffix"> 年  级 ：
+    <div class="demo-input-suffix">
+      年 级 ：
       <el-select v-model="value1" placeholder="请选择" filterable>
         <el-option
           v-for="item in options"
@@ -13,7 +14,8 @@
         </el-option>
       </el-select>
     </div>
-    <div class="demo-input-suffix"> 班 级 ：
+    <div class="demo-input-suffix">
+      班 级 ：
 
       <el-select v-model="value1" placeholder="请选择" filterable>
         <el-option
@@ -64,7 +66,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   components: {},
@@ -106,5 +107,26 @@ export default {
     width: 20vw;
     margin-top: 20px;
   }
+}
+</style>
+<style scoped>
+.__p_13t_u_33 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.__p_13t_u_34 {
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+  min-width: 0px;
+  min-height: 0px;
+  padding: 0px;
+  border: none;
+}
+
+.__p_13t_u_32 {
+  height: 100%;
 }
 </style>

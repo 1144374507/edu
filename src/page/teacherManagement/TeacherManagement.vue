@@ -50,7 +50,7 @@
 import rjDialog from "@/common/dialog";
 import teacherMessage from "./teacherMessage/teacherMessage";
 import viewClass from './viewClass/viewClass'
-import addClass from './addClass/adClass'
+import addClass from './addClass/wizards/index'
 
 export default {
   components: {

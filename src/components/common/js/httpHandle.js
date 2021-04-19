@@ -1,4 +1,4 @@
-import * as tokenObj from '@common/js/tokenMng.js'
+import * as tokenObj from '@/common/js/tokenMng.js'
 import rjMessage from '@common/js/message'
 import { tm } from '@eweb_base/i18n/core'
 
