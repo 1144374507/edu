@@ -36,7 +36,7 @@
             <viewClass></viewClass>
           </template>
 
-          <addClass v-if="isShowTemplate == '6-2'"></addClass>
+          <addClass @gotoClass='setIsShowTemplate("2-4")' v-if="isShowTemplate == '6-2'"></addClass>
           <addStudent v-if="isShowTemplate == '6-1'"></addStudent>
 
         </el-main>

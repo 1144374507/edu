@@ -132,16 +132,21 @@
                   <el-button
                     type="text"
                     style="margin-left: 0px; margin-right: 15px"
-                    @click="isShowClassMessageclick(scope.row.classmenbel,scope.row.teacherMessage)"
+                    @click="
+                      isShowClassMessageclick(
+                        scope.row.classmenbel,
+                        scope.row.teacherMessage
+                      )
+                    "
                     >查看班级详情</el-button
                   >
                   <el-button
                     type="text"
                     style="margin-left: 0px; margin-right: 15px"
-                    @click="isShowClassMessageclick(scope.row.classmenbel,scope.row.teacherMessage)"
+                    @click="deleteClass(scope.row.id, scope.row)"
                     >删除班级</el-button
                   >
-                </div>  
+                </div>
               </el-table-column>
             </el-table>
             <el-pagination
@@ -162,7 +167,7 @@
     <classMessage
       v-if="isShowClassMessage"
       :classmenbel="classmenbel"
-      @setShowClassMessage='setShowClassMessage'
+      @setShowClassMessage="setShowClassMessage"
     ></classMessage>
     <teacherMessage
       v-if="isShowClassMessage"
@@ -214,616 +219,59 @@ export default {
         },
       ],
       value: "高一/秋季",
-      data: [
-        {
-          grades: "高一",
-          classes: "1班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              sex:'男',
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-          teacherMessage: [
-            {
-              names: "张三",
-              sex: "男",
-              courseName: "语文",
-              office: "班主任",
-              tel: "16712318899",
-              id: "001",
-            },
-            {
-              names: "李四",
-              sex: "男",
-              courseName: "语文",
-              office: "班主任",
-              tel: "16712318899",
-              id: "001",
-            },
-            {
-              names: "张龙",
-              sex: "男",
-              courseName: "语文",
-              office: "文艺委员",
-              tel: "16712318899",
-              id: "001",
-            },
-            {
-              names: "赵虎",
-              sex: "男",
-              courseName: "语文",
-              office: "体育委员",
-              tel: "16712318899",
-              id: "001",
-            },
-            {
-              names: "王朝",
-              sex: "男",
-              courseName: "语文",
-              office: "生活委员",
-              tel: "16712318899",
-              id: "001",
-            },
-            {
-              names: "马汉",
-              sex: "男",
-              courseName: "语文",
-              office: "无",
-              tel: "16712318899",
-              id: "001",
-            },
-            {
-              names: "张飞",
-              sex: "男",
-              courseName: "语文",
-              office: "无",
-              tel: "16712318899",
-              id: "001",
-            },
-            {
-              names: "马超",
-              sex: "男",
-              courseName: "语文",
-              office: "无",
-              tel: "16712318899",
-              id: "001",
-            },
-          ],
-        },
-        {
-          grades: "高一",
-          classes: "2班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-        },
-        {
-          grades: "高一",
-          classes: "3班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-        },
-        {
-          grades: "高二",
-          classes: "1班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-        },
-        {
-          grades: "高二",
-          classes: "2班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-        },
-        {
-          grades: "高二",
-          classes: "3班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-        },
-        {
-          grades: "高三",
-          classes: "1班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-        },
-        {
-          grades: "高三",
-          classes: "2班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          classmenbel: [
-            {
-              names: "张三",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "班长",
-              count: "31",
-            },
-            {
-              names: "李四",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "学习委员",
-              count: "31",
-            },
-            {
-              names: "张龙",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "文艺委员",
-              count: "31",
-            },
-            {
-              names: "赵虎",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "体育委员",
-              count: "31",
-            },
-            {
-              names: "王朝",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "生活委员",
-              count: "31",
-            },
-            {
-              names: "马汉",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "张飞",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-            {
-              names: "马超",
-              classes: "1班",
-              schoolNumber: "2017021065",
-              office: "无",
-              count: "31",
-            },
-          ],
-        },
-      ],
+      data: [],
     };
   },
   computed: {},
   methods: {
-    isShowClassMessageclick(classmenbel,teacherMessage) {
+    deleteClass(id, row) {
+      console.log(row);
+      this.$confirm("确认删除吗？").then(() => {
+        const loading = this.$loading({
+          lock: true,
+          text: "处理中...",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
+        this.$axios
+          .delete(`/api/teacherManagement/deleteclass/${id}`)
+          .then((res) => {
+            console.log(res);
+            if (res.data.succeed) {
+              this.$message.success("操作成功");
+              loading.close();
+              this.getdata();
+            }
+          });
+      });
+    },
+    isShowClassMessageclick(classmenbel, teacherMessage) {
       this.classmenbel = classmenbel;
       this.teacherMessage = teacherMessage;
-      
+
       this.isShowClassMessage = true;
     },
-    setShowClassMessage(){
+    setShowClassMessage() {
       this.isShowClassMessage = false;
-
-    }
+    },
+    getdata() {
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      this.$axios.get("/api/teacherManagement").then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          this.data = res.data.list;
+          loading.close();
+        }
+      });
+    },
+  },
+  created() {
+    this.getdata();
   },
 };
 </script>

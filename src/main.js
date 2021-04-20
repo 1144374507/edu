@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import axios from 'axios'
+import vueAxios from 'vue-axios'
 
 // import {store} from '@/assets/js/extend4srt.js'
 import '../theme/index.css'
@@ -180,6 +182,8 @@ Vue.prototype.$message = Message;
 
 Vue.config.productionTip = false
 
+Vue.prototype.$axios = axios;
+Vue.use(vueAxios, axios);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -5,16 +5,14 @@
       <el-card>
         <el-steps :active="activeStep" simple class="m-simple-steps">
           <el-step title="添加班级" icon="custom-icon-1" :class="{'m-active-step': activeStep === 1}"></el-step>
-          <!-- <el-step title="创建配置模板" icon="custom-icon-2" :class="{'m-active-step': activeStep === 2}"></el-step>
-          <el-step title="绑定配置模板" icon="custom-icon-3" :class="{'m-active-step': activeStep === 3}"></el-step> -->
+          
         </el-steps>
       </el-card>
       <div class="content-wrapper">
         <div>
           <assign-manage v-if="activeStep === 1" @preStep="handlePreStep" @nextStep="handleNextStep"></assign-manage>
-          <!-- <planning-configuration v-if="activeStep === 2" @preStep="handlePreStep" @nextStep="handleNextStep"></planning-configuration>
-          <bind-configuration v-if="activeStep === 3" @preStep="handlePreStep" @nextStep="handleNextStep"></bind-configuration> -->
-          <deploy-finish  v-if="activeStep === 2" @preStep="handlePreStep" @nextStep="handleNextStep"></deploy-finish>
+          
+          <deploy-finish @gotoClass='gotoClass'  v-if="activeStep === 2" @preStep="handlePreStep" @nextStep="handleNextStep"></deploy-finish>
         </div>
       </div>
     </div>
@@ -44,6 +42,9 @@ export default {
     }
   },
   methods: {
+    gotoClass(){
+      this.$emit('gotoClass')
+    },
     handleStartBtnClick () {
       this.showOverview = false
     },
