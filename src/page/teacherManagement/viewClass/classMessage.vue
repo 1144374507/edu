@@ -78,15 +78,22 @@
                     align="left"
                     header-align="left"
                   ></el-table-column>
+                  <el-table-column
+                    label="操作"
+                    width="80"
+                    align="left"
+                    header-align="left"
+                  >
+                    <div slot-scope="scope">
+                      <el-button
+                        type="text"
+                        style="margin-left: 0px; margin-right: 15px"
+                        @click="deleteStudent(scope.row.cid)"
+                        >删除</el-button
+                      >
+                    </div>
+                  </el-table-column>
                 </el-table>
-                <el-pagination
-                  :current-page="1"
-                  :page-sizes="[50, 100, 200]"
-                  :page-size="50"
-                  :total="100"
-                  layout="total, sizes, prev, pager, next, jumper"
-                  class="__p_13f_u_128"
-                ></el-pagination>
               </div>
             </el-row>
             <el-button @click="addStudent"> 添加学生 </el-button>
@@ -97,6 +104,22 @@
       </el-col>
     </el-row>
     <rjDialog></rjDialog>
+    <el-dialog
+      :visible.sync="addStudentVisible"
+      :close-on-click-modal="false"
+      width="480px"
+      top="5vh"
+    >
+      <addStudent
+        v-if="addStudentVisible"
+        :id="id"
+        :classes="classes"
+        :payload="addStudentVisible"
+        @cancel="addStudentVisible = false"
+        @updata="updata"
+      ></addStudent>
+      <!-- @saved="onCustomTemplateSave" -->
+    </el-dialog>
   </div>
 </template>
 
@@ -106,14 +129,19 @@ import rjDialog from "@/common/dialog";
 
 export default {
   name: "classMessage",
-  components:{
-    rjDialog
+  components: {
+    rjDialog,
+    addStudent,
   },
   props: {
     classmenbel: {},
+    id: {},
+    classes: {},
   },
   data() {
     return {
+      // pid: "",
+      addStudentVisible: false,
       term: [
         {
           value: "高一/秋季",
@@ -143,17 +171,55 @@ export default {
       value: "高一/秋季",
     };
   },
+  computed: {},
+  watch: {
+    // classmenbel: {
+    //   handler(val, oldVal) {
+    //     // console.log(val.length != oldVal.length , "lenght");
+    //     console.log(oldVal, "oldVal");
+    //     if (!(oldVal == undefined)) {
+    //       // console.log(val.length != oldVal.length || 0, "lenght");
+    //       console.log(val.length, oldVal, "lenght");
+    //       if (val.length != oldVal.length) {
+    //         console.log("我要变了", "mgPortNums22222");
+    //         this.classmenbel = val;
+    //         console.log();
+    //       }
+    //     }
+    //   },
+    //   immediate: true,
+    //   deep: true,
+    // },
+  },
   methods: {
+    deleteStudent(cid) {
+      this.$confirm("确认删除吗？").then(() => {
+        const loading = this.$loading({
+          lock: true,
+          text: "处理中",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
+
+        this.$axios
+          .delete(`/api/teacherManagement/deleteClass/deleteStudent/${cid}`)
+          .then((res) => {
+            if (res.data.success) {
+              this.$message.success("删除成功");
+              this.$emit("updata");
+              loading.close();
+            }
+          });
+      });
+    },
+    updata() {
+      this.$emit("updata");
+      this.addStudentVisible = false;
+      // this.addStudentVisible = true;
+    },
     addStudent() {
-      this.rjDialog
-        .title("添加学生")
-        .width("800px")
-        .currentView(addStudent, { routeType: "static" })
-        .showClose(true)
-        .sizeTiny()
-        .closeOnClickModal(true)
-        .then((opt) => {})
-        .show();
+      // this.pid = this.classmenbel[0].pid;
+      this.addStudentVisible = true;
     },
     goback() {
       // this.isShowClassMessage = false
@@ -177,12 +243,12 @@ export default {
 </style>
 
 <style lang="scss">
-.my_students__wrop{
+.my_students__wrop {
   .el-table.el-table--fit.el-table--striped.el-table--scrollable-x.el-table--enable-row-hover.el-table--enable-row-transition {
-      width: 100%;
+    width: 100%;
   }
 }
- 
+
 .__p_137_u_4 {
   vertical-align: bottom;
 }
@@ -1165,4 +1231,3 @@ export default {
 }
 </style>
 <style scoped>
-

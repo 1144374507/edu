@@ -52,8 +52,6 @@
                     align="top"
                     :gutter="0"
                     class="__p_137_u_141"
-                    v-for="(item, index) in personMessage"
-                    :key="index"
                   >
                     <el-col
                       :span="12"
@@ -61,9 +59,7 @@
                       :push="0"
                       :pull="0"
                       class="__p_137_u_142"
-                      ><span class="__p_137_u_144">{{
-                        item.nodeName
-                      }}</span></el-col
+                      ><span class="__p_137_u_144">身 高：</span></el-col
                     >
                     <el-col
                       :span="12"
@@ -71,9 +67,217 @@
                       :push="0"
                       :pull="0"
                       class="__p_137_u_151"
-                      ><span class="__p_137_u_152">{{
-                        item.nodeValue
-                      }}</span></el-col
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].height }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">体 重：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].weight }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">电 话：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].tel }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">个人主页：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].homepage }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">个人简介：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].profile }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">Q Q：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].qq }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">邮 箱 ：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].email }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">邮 编 ：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].postcode }}</span
+                      ></el-col
+                    >
+                  </el-row>
+                  <el-row
+                    type="flex"
+                    justify="start"
+                    align="top"
+                    :gutter="0"
+                    class="__p_137_u_141"
+                  >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_142"
+                      ><span class="__p_137_u_144">家长信息 ：</span></el-col
+                    >
+                    <el-col
+                      :span="12"
+                      :offset="0"
+                      :push="0"
+                      :pull="0"
+                      class="__p_137_u_151"
+                      ><span class="__p_137_u_152">
+                        {{ personMessage[0].parents }}</span
+                      ></el-col
                     >
                   </el-row>
                   <el-button
@@ -122,167 +326,386 @@
                   <el-collapse accordion>
                     <el-collapse-item title="查看详情">
                       <el-row
-                    type="flex"
-                    justify="start"
-                    align="top"
-                    :gutter="0"
-                    class="__p_137_u_138"
-                  >
-                    <el-col
-                      :span="12"
-                      :offset="0"
-                      :push="0"
-                      :pull="0"
-                      class="__p_137_u_140"
-                    >
-                      <el-row
                         type="flex"
                         justify="start"
                         align="top"
                         :gutter="0"
-                        class="__p_137_u_360"
-                        v-for="(item, index) in studentStatusInformation"
-                        :key="index"
+                        class="__p_137_u_138"
                       >
                         <el-col
                           :span="12"
                           :offset="0"
                           :push="0"
                           :pull="0"
-                          class="__p_137_u_361"
+                          class="__p_137_u_140"
                         >
                           <el-row
                             type="flex"
                             justify="start"
                             align="top"
                             :gutter="0"
-                            class="__p_137_u_362"
+                            class="__p_137_u_360"
                           >
                             <el-col
                               :span="12"
                               :offset="0"
                               :push="0"
                               :pull="0"
-                              class="__p_137_u_363"
-                              ><span class="__p_137_u_364">{{
-                                item.nodeName
-                              }}</span></el-col
+                              class="__p_137_u_361"
                             >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    姓名
+                                  </span></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].name
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
+                          </el-row>
+
+                          <el-row
+                            type="flex"
+                            justify="start"
+                            align="top"
+                            :gutter="0"
+                            class="__p_137_u_360"
+                          >
                             <el-col
                               :span="12"
                               :offset="0"
                               :push="0"
                               :pull="0"
-                              class="__p_137_u_365"
-                              ><span class="__p_137_u_366">{{
-                                item.nodeValue
-                              }}</span></el-col
+                              class="__p_137_u_361"
                             >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    英文姓名 :</span
+                                  ></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].englishName
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
+                          </el-row>
+
+                          <el-row
+                            type="flex"
+                            justify="start"
+                            align="top"
+                            :gutter="0"
+                            class="__p_137_u_360"
+                          >
+                            <el-col
+                              :span="12"
+                              :offset="0"
+                              :push="0"
+                              :pull="0"
+                              class="__p_137_u_361"
+                            >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    身份证号码
+                                  </span></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].idCardNum
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
+                          </el-row>
+                          <el-row
+                            type="flex"
+                            justify="start"
+                            align="top"
+                            :gutter="0"
+                            class="__p_137_u_360"
+                          >
+                            <el-col
+                              :span="12"
+                              :offset="0"
+                              :push="0"
+                              :pull="0"
+                              class="__p_137_u_361"
+                            >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    学号
+                                  </span></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].schoolNumber
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
+                          </el-row>
+                          
+                          <el-row
+                            type="flex"
+                            justify="start"
+                            align="top"
+                            :gutter="0"
+                            class="__p_137_u_360"
+                          >
+                            <el-col
+                              :span="12"
+                              :offset="0"
+                              :push="0"
+                              :pull="0"
+                              class="__p_137_u_361"
+                            >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    年级
+                                  </span></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].grades
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
+                          </el-row>
+
+                          <el-row
+                            type="flex"
+                            justify="start"
+                            align="top"
+                            :gutter="0"
+                            class="__p_137_u_360"
+                          >
+                            <el-col
+                              :span="12"
+                              :offset="0"
+                              :push="0"
+                              :pull="0"
+                              class="__p_137_u_361"
+                            >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    入学日期：
+                                  </span></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].admissionDate
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
+                          </el-row>
+
+                          <el-row
+                            type="flex"
+                            justify="start"
+                            align="top"
+                            :gutter="0"
+                            class="__p_137_u_360"
+                          >
+                            <el-col
+                              :span="12"
+                              :offset="0"
+                              :push="0"
+                              :pull="0"
+                              class="__p_137_u_361"
+                            >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    入学年级
+                                  </span></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].admissionGrade
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
+                          </el-row>
+
+                          <el-row
+                            type="flex"
+                            justify="start"
+                            align="top"
+                            :gutter="0"
+                            class="__p_137_u_360"
+                          >
+                            <el-col
+                              :span="12"
+                              :offset="0"
+                              :push="0"
+                              :pull="0"
+                              class="__p_137_u_361"
+                            >
+                              <el-row
+                                type="flex"
+                                justify="start"
+                                align="top"
+                                :gutter="0"
+                                class="__p_137_u_362"
+                              >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_363"
+                                  ><span class="__p_137_u_364">
+                                    是否留学生：
+                                  </span></el-col
+                                >
+                                <el-col
+                                  :span="12"
+                                  :offset="0"
+                                  :push="0"
+                                  :pull="0"
+                                  class="__p_137_u_365"
+                                  ><span class="__p_137_u_366">{{
+                                    personMessage[0].overseas
+                                  }}</span></el-col
+                                >
+                              </el-row>
+                            </el-col>
                           </el-row>
                         </el-col>
                       </el-row>
-                    </el-col>
-                  </el-row>
-
                     </el-collapse-item>
                   </el-collapse>
+
+                  <!-- 招生信息 -->
+               
 
                   
-                  <!-- 招生信息 -->
-                  <el-row
-                    type="flex"
-                    justify="start"
-                    align="top"
-                    :gutter="0"
-                    class="__p_137_u_270"
-                  >
-                    <el-col :span="12" :offset="0" :push="0" :pull="0">
-                      <el-row
-                        type="flex"
-                        justify="start"
-                        align="top"
-                        :gutter="0"
-                        class="__p_137_u_272"
-                      >
-                        <el-col
-                          :span="12"
-                          :offset="0"
-                          :push="0"
-                          :pull="0"
-                          class="__p_137_u_273"
-                          ><span class="__p_137_u_274">招生信息</span></el-col
-                        >
-                      </el-row>
-                    </el-col>
-                  </el-row>
-
-                  <el-collapse accordion>
-                    <el-collapse-item title="查看详情">
-                      <el-row
-                    type="flex"
-                    justify="start"
-                    align="top"
-                    :gutter="0"
-                    class="__p_137_u_138"
-                  >
-                    <el-col
-                      :span="12"
-                      :offset="0"
-                      :push="0"
-                      :pull="0"
-                      class="__p_137_u_140"
-                    >
-                      <el-row
-                        type="flex"
-                        justify="start"
-                        align="top"
-                        :gutter="0"
-                        class="__p_137_u_360"
-                        v-for="(item, index) in admissionsInformation"
-                        :key="index"
-                      >
-                        <el-col
-                          :span="12"
-                          :offset="0"
-                          :push="0"
-                          :pull="0"
-                          class="__p_137_u_361"
-                        >
-                          <el-row
-                            type="flex"
-                            justify="start"
-                            align="top"
-                            :gutter="0"
-                            class="__p_137_u_362"
-                          >
-                            <el-col
-                              :span="12"
-                              :offset="0"
-                              :push="0"
-                              :pull="0"
-                              class="__p_137_u_363"
-                              ><span class="__p_137_u_364">{{
-                                item.nodeName
-                              }}</span></el-col
-                            >
-                            <el-col
-                              :span="12"
-                              :offset="0"
-                              :push="0"
-                              :pull="0"
-                              class="__p_137_u_365"
-                              ><span class="__p_137_u_366">{{
-                                item.nodeValue
-                              }}</span></el-col
-                            >
-                          </el-row>
-                        </el-col>
-                      </el-row>
-                    </el-col>
-                  </el-row>
-
-                    </el-collapse-item>
-                  </el-collapse>
                 </el-col>
               </el-row>
             </div>
@@ -314,53 +737,23 @@ export default {
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       personMessage: [
         {
-          nodeName: "身高",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "体重",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "手机",
-          nodeValue: "16712318899",
-        },
-        {
-          nodeName: "个人主页",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "个人简介",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "QQ号",
-          nodeValue: "1144374507",
-        },
-        {
-          nodeName: "电子邮件",
-          nodeValue: "1144374507@qq.com",
-        },
-
-        {
-          nodeName: "备注",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "家长信息",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "宿舍地址",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "邮编",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "宿舍电话",
-          nodeValue: "178",
+          height: "178",
+          weight: "65kg",
+          tel: "18045207896",
+          homepage: "",
+          profile: "", //简介
+          qq: "1144374507",
+          email: "1144374507@qq.com",
+          postcode: "366201", //邮编
+          parents: "", //家长信息
+          name: "江盛锋",
+          englishName: "jiangshengfeng",
+          schoolNumber: "2017021065",
+          idCardNum: "350825199803121116",
+          grades: "2017级",
+          admissionDate: "20170901", //入学日期
+          admissionGrade: "2017级", //入学年级
+          overseas: "", //留学生
         },
       ],
       studentStatusInformation: [
@@ -1491,8 +1884,8 @@ export default {
   justify-content: space-between;
   align-items: flex-start;
 }
- 
-.__p_137_u_1402{
+
+.__p_137_u_1402 {
   width: 966px;
 }
 .__p_137_u_138 {

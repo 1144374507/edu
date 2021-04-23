@@ -5,50 +5,15 @@
         <!-- 设备管理 -->
         <deviceManagement
           ref="deviceManagement"
+          :id="id"
+          :classes='classes'
           @change="change"
+          @updata = 'updata'
           v-show="active === 0"
         ></deviceManagement>
       </el-form>
-      <!-- 控制流程 -->
-      <div class="__p_YR_u_19" v-show="active !== steps">
-        <el-button @click="goOut" type="default" size="small"
-          >退出个人信息修改</el-button 
-        >
-        <div>
-          <el-button
-            @click="finish"
-            type="primary"
-            size="small"
-            class="__p_YR_u_25"
-            >完成</el-button
-          >
-        </div>
-      </div>
-      <!-- 配置等待界面 -->
-      <div class="__p_YZ_u_2" v-show="active === steps && !isSuccess">
-        <div class="__p_YZ_u_3">
-          <img
-            src="http://vve.qiniu.qjzd.net/FmYPdQrzVLJ4Ne7KUfOfHbFMEyWy"
-            class="__p_YZ_u_12"
-          />
-        </div>
-        <div class="__p_YZ_u_5">
-          <span class="__p_YZ_u_6">个人信息修改中，请稍候</span
-          ><span class="__p_YZ_u_11"
-            >请不要执行任何操作，也不要刷新或关闭本页面。</span
-          >
-        </div>
-      </div>
-      <!-- 配置完成 -->
-      <div class="__p_Z0_u_10" v-show="isSuccess">
-        <div class="__p_Z0_u_11"><i class="el-icon-check __p_Z0_u_17"></i></div>
-        <div class="__p_Z0_u_13">
-          <span class="__p_Z0_u_14">已完成个人信息修改</span>
-          <el-button type="primary" size="small" class="__p_Z0_u_16"
-            >点此重新登录</el-button
-          >
-        </div>
-      </div>
+       
+      
     </div>
   </div>
 </template>
@@ -58,12 +23,15 @@ export default {
   components: {
     deviceManagement,
   },
+  props: {
+    id: {},
+    classes:{}
+  },
   data() {
     return {
       mode: "l2",
       steps: 4,
       active: 0,
-      isSuccess: false,
       form: {
         device_info: {},
         terminals: {},
@@ -74,6 +42,9 @@ export default {
   mounted() {},
   computed: {},
   methods: {
+    updata(){
+      this.$emit('updata')
+    },
     change(val) {
       this.mode = val;
       if (val === "l2") {
@@ -107,33 +78,7 @@ export default {
       this.active++;
     },
 
-    finish() {
-      const deviceManagement = this.$refs.deviceManagement.getData();
-      //封装请求数据
-      const reqData = {
-      };
-      //如是三层，加入三层数据
-     
-      //这里发起请求
-      //获取返回数据
-      this.$axios
-        .post("/api/sw/wizard/save", reqData, { loading: true })
-        .then((res) => {
-          if (res.data.success) {
-            flog = res.data.success;
-            //处理成功返回的数据
-            this.$message.success(res.data.message);
-
-            this.goOut();
-
-            return;
-          }
-          this.$message.error(res.data.message);
-        })
-        .catch((err) => {
-          this.$message.error("接口异常");
-        });
-    },
+   
     goOut() {
       this.closeRjDialog();
     },

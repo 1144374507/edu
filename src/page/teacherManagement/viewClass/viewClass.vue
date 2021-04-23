@@ -135,7 +135,8 @@
                     @click="
                       isShowClassMessageclick(
                         scope.row.classmenbel,
-                        scope.row.teacherMessage
+                        scope.row.teacherMessage,
+                        scope.row
                       )
                     "
                     >查看班级详情</el-button
@@ -168,12 +169,15 @@
       v-if="isShowClassMessage"
       :classmenbel="classmenbel"
       @setShowClassMessage="setShowClassMessage"
+      @updata="updata"
+      :id='updataId'
+      :classes ='classes'
     ></classMessage>
     <teacherMessage
       v-if="isShowClassMessage"
       :teacherMessage="teacherMessage"
     ></teacherMessage>
-    <schedule v-if="isShowClassMessage" :classmenbel="classmenbel"></schedule>
+    <!-- <schedule v-if="isShowClassMessage" :classmenbel="classmenbel"></schedule> -->
   </div>
 </template>
 
@@ -190,6 +194,7 @@ export default {
   },
   data() {
     return {
+      updataId: "",
       classmenbel: [],
       isShowClassMessage: false,
       term: [
@@ -223,7 +228,33 @@ export default {
     };
   },
   computed: {},
+  watch: {
+    // classmenbel: {
+    //   handler(val, oldVal) {
+    //     // console.log(val.length != oldVal.length , "lenght");
+    //     console.log(oldVal, "oldVal");
+    //     // this.classmenbel = val;
+
+    //     if (!(oldVal == undefined)) {
+    //       // console.log(val.length != oldVal.length || 0, "lenght");
+    //       console.log(val.length, oldVal, "lenght");
+    //       if (val.length != oldVal.length) {
+    //         console.log("我要变了", "mgPortNums");
+    //         console.log(val);
+    //         console.log(this.classmenbel);
+    //         console.log();
+    //       }
+    //     }
+    //   },
+    //   immediate: true,
+    //   deep: true,
+    // },
+  },
   methods: {
+    updata() {
+      this.getdata();
+      // this.isShowClassMessage = false;
+    },
     deleteClass(id, row) {
       console.log(row);
       this.$confirm("确认删除吗？").then(() => {
@@ -245,8 +276,12 @@ export default {
           });
       });
     },
-    isShowClassMessageclick(classmenbel, teacherMessage) {
+    isShowClassMessageclick(classmenbel, teacherMessage, scop) {
+      console.log(scop, "scop");
+      this.updataId = scop.id;
+      this.classes = scop.classes;
       this.classmenbel = classmenbel;
+
       this.teacherMessage = teacherMessage;
 
       this.isShowClassMessage = true;
@@ -265,6 +300,15 @@ export default {
         console.log(res);
         if (res.data.success) {
           this.data = res.data.list;
+          console.log(this.data);
+
+          // 添加学生刷新数据
+          if (!(this.updataId == "")) {
+            res.data.list.map((item) => {
+              if (item.id == this.updataId) this.classmenbel = item.classmenbel;
+            });
+          }
+
           loading.close();
         }
       });

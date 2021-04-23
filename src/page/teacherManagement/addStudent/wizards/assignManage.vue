@@ -60,7 +60,7 @@
                 <i class="el-icon-question __p_12z_u_20"></i>
               </el-tooltip>
             </div> </el-form-item
-          ><el-form-item label=" 班主任 ：" >
+          ><el-form-item label=" 班主任 ：">
             <div class="asm-input-wraop">
               <el-input
                 class="asm-input"
@@ -79,58 +79,63 @@
               </el-tooltip>
             </div>
           </el-form-item>
-          <el-form-item label=" 学 生 ：" prop="vlan">
-            <div class="asm-input-wraop">
-              <el-select
-                class="asm-input"
-                size="small"
-                v-model="value1"
-                placeholder="请选择"
-                filterable
-                multiple
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+          <div style="display: flex">
+            <el-form-item label=" 学 生 ：" prop="vlan">
+              <div class="asm-input-wraop111">
+                <el-select
+                  class="asm-input"
+                  size="small"
+                  v-model="value1"
+                  placeholder="请选择"
+                  filterable
+                  multiple
                 >
-                </el-option>
-              </el-select>
-              <el-tooltip
-                content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
-                placement="right"
-              >
-                <i class="el-icon-question __p_12z_u_20"></i>
-              </el-tooltip>
-            </div>
-          </el-form-item>
-          <el-form-item label=" 老 师 ：" prop="vlan">
-            <div class="asm-input-wraop">
-              <el-select
-                class="asm-input"
-                size="small"
-                v-model="value1"
-                placeholder="请选择"
-                filterable
-                multiple
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+                <el-tooltip
+                  content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
+                  placement="right"
                 >
-                </el-option>
-              </el-select>
-              <el-tooltip
-                content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
-                placement="right"
-              >
-                <i class="el-icon-question __p_12z_u_20"></i>
-              </el-tooltip>
-            </div>
-          </el-form-item>
+                  <i class="el-icon-question __p_12z_u_20"></i>
+                </el-tooltip>
+              </div>
+            </el-form-item>
+          </div>
+
+          <div style="display: flex">
+            <el-form-item label=" 老 师 ：" prop="vlan">
+              <div class="asm-input-wraop11">
+                <el-select
+                  class="asm-input"
+                  size="small"
+                  v-model="value1"
+                  placeholder="请选择"
+                  filterable
+                  multiple
+                >
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+                <el-tooltip
+                  content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
+                  placement="right"
+                >
+                  <i class="el-icon-question __p_12z_u_20"></i>
+                </el-tooltip>
+              </div>
+            </el-form-item>
+          </div>
         </div>
       </el-form>
     </el-card>
