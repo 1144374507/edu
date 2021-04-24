@@ -142,33 +142,6 @@ export default {
     return {
       // pid: "",
       addStudentVisible: false,
-      term: [
-        {
-          value: "高一/秋季",
-          label: "高一/秋季",
-        },
-        {
-          value: "高一/春季",
-          label: "高一/春季",
-        },
-        {
-          value: "高二/秋季",
-          label: "高二/秋季",
-        },
-        {
-          value: "高二/春季",
-          label: "高二/春季",
-        },
-        {
-          value: "高三/秋季",
-          label: "高三/秋季",
-        },
-        {
-          value: "高三/春季",
-          label: "高三/春季",
-        },
-      ],
-      value: "高一/秋季",
     };
   },
   computed: {},
@@ -227,7 +200,6 @@ export default {
     },
   },
   created() {
-    console.log(this.classmenbel, "classmenbel");
   },
 };
 </script>

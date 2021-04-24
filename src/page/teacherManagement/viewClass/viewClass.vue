@@ -170,10 +170,13 @@
       :classmenbel="classmenbel"
       @setShowClassMessage="setShowClassMessage"
       @updata="updata"
-      :id='updataId'
-      :classes ='classes'
+      :id="updataId"
+      :classes="classes"
     ></classMessage>
     <teacherMessage
+      @updata="updata"
+      :classes="classes"
+      :id="updataId"
       v-if="isShowClassMessage"
       :teacherMessage="teacherMessage"
     ></teacherMessage>
@@ -196,6 +199,7 @@ export default {
     return {
       updataId: "",
       classmenbel: [],
+      teacherMessage:[],
       isShowClassMessage: false,
       term: [
         {
@@ -234,7 +238,6 @@ export default {
     //     // console.log(val.length != oldVal.length , "lenght");
     //     console.log(oldVal, "oldVal");
     //     // this.classmenbel = val;
-
     //     if (!(oldVal == undefined)) {
     //       // console.log(val.length != oldVal.length || 0, "lenght");
     //       console.log(val.length, oldVal, "lenght");
@@ -305,7 +308,10 @@ export default {
           // 添加学生刷新数据
           if (!(this.updataId == "")) {
             res.data.list.map((item) => {
-              if (item.id == this.updataId) this.classmenbel = item.classmenbel;
+              if (item.id == this.updataId) {
+                this.classmenbel = item.classmenbel;
+                this.teacherMessage = item.teacherMessage;
+              }
             });
           }
 

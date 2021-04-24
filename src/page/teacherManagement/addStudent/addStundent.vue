@@ -7,6 +7,7 @@
           ref="deviceManagement"
           :id="id"
           :classes='classes'
+          :isaddTeacher='isaddTeacher'
           @change="change"
           @updata = 'updata'
           v-show="active === 0"
@@ -25,7 +26,8 @@ export default {
   },
   props: {
     id: {},
-    classes:{}
+    classes:{},
+    isaddTeacher:{}
   },
   data() {
     return {

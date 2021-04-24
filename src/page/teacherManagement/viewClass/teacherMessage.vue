@@ -57,7 +57,8 @@
                     width="150px"
                     align="left"
                     header-align="left"
-                  ></el-table-column>
+                  ></el-table-column
+                  >classes
 
                   <el-table-column
                     label="教授课程"
@@ -80,6 +81,21 @@
                     align="left"
                     header-align="left"
                   ></el-table-column>
+                  <el-table-column
+                    label="操作"
+                    width="80"
+                    align="left"
+                    header-align="left"
+                  >
+                    <div slot-scope="scope">
+                      <el-button
+                        type="text"
+                        style="margin-left: 0px; margin-right: 15px"
+                        @click="deleteTeacher(scope.row.cid)"
+                        >删除</el-button
+                      >
+                    </div>
+                  </el-table-column>
 
                   <!-- <el-table-column
                     label="操作"
@@ -105,121 +121,88 @@
                 ></el-pagination>
               </div>
             </el-row>
+            <el-button @click="addTeacher('1')"> 添加老师 </el-button>
           </el-collapse-item>
         </el-collapse>
 
         <el-steps :active="0" align-center></el-steps>
       </el-col>
     </el-row>
+    <el-dialog
+      :visible.sync="addTeacherVisible"
+      :close-on-click-modal="false"
+      width="480px"
+      top="5vh"
+    >
+      <addTeacher
+        v-if="addTeacherVisible"
+        :id="id"
+        :classes="classes"
+        :isaddTeacher='isaddTeacher'
+        :payload="addTeacherVisible"
+        @cancel="addTeacherVisible = false"
+        @updata="updata"
+      ></addTeacher>
+      <!-- @saved="onCustomTemplateSave" -->
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import addTeacher from "../addStudent/addStundent";
+
 export default {
   name: "classMessage",
+  components: {
+    addTeacher,
+  },
   props: {
+    classes: {},
     teacherMessage: {},
+    id: {},
   },
   data() {
     return {
-      term: [
-        {
-          value: "高一/秋季",
-          label: "高一/秋季",
-        },
-        {
-          value: "高一/春季",
-          label: "高一/春季",
-        },
-        {
-          value: "高二/秋季",
-          label: "高二/秋季",
-        },
-        {
-          value: "高二/春季",
-          label: "高二/春季",
-        },
-        {
-          value: "高三/秋季",
-          label: "高三/秋季",
-        },
-        {
-          value: "高三/春季",
-          label: "高三/春季",
-        },
-      ],
-      value: "高一/秋季",
-      data: [
-        {
-          names: "张三",
-          sex: "男",
-          courseName: "语文",
-          office: "班主任",
-          tel: "16712318899",
-          id:"001"
-        },
-        {
-          names: "李四",
-          sex: "男",
-          courseName: "语文",
-          office: "班主任",
-          tel: "16712318899",
-          id:"001"
-        },
-        {
-          names: "张龙",
-          sex: "男",
-          courseName: "语文",
-          office: "文艺委员",
-          tel: "16712318899",
-          id:"001"
-        },
-        {
-          names: "赵虎",
-          sex: "男",
-          courseName: "语文",
-          office: "体育委员",
-          tel: "16712318899",
-          id:"001"
-        },
-        {
-          names: "王朝",
-          sex: "男",
-          courseName: "语文",
-          office: "生活委员",
-          tel: "16712318899",
-          id:"001"
-        },
-        {
-          names: "马汉",
-          sex: "男",
-          courseName: "语文",
-          office: "无",
-          tel: "16712318899",
-          id:"001"
-        },
-        {
-          names: "张飞",
-          sex: "男",
-          courseName: "语文",
-          office: "无",
-          tel: "16712318899",
-          id:"001"
-        },
-        {
-          names: "马超",
-          sex: "男",
-          courseName: "语文",
-          office: "无",
-          tel: "16712318899",
-          id:"001"
-        },
-      ],
+      addTeacherVisible: false,
+      isaddTeacher: "", 
     };
   },
-  methods: {},
-  created() {
+  methods: {
+    // 删除
+    deleteTeacher(cid) {
+      this.$confirm("确认删除吗？").then(() => {
+        const loading = this.$loading({
+          lock: true,
+          text: "处理中",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
+
+        this.$axios
+          .delete(`/api/teacherManagement/deleteClass/deleteTeacher/${cid}`)
+          .then((res) => {
+            if (res.data.success) {
+              this.$message.success("删除成功");
+              this.$emit("updata");
+              loading.close();
+            }
+          });
+      });
+    },
+    // 添加学生
+    addTeacher(isaddTeacher) {
+      // this.pid = this.classmenbel[0].pid;
+      this.isaddTeacher = isaddTeacher;
+      this.addTeacherVisible = true;
+    },
+    // 更新数据
+    updata() {
+      this.$emit("updata");
+      this.addTeacherVisible = false;
+      // this.addStudentVisible = true;
+    },
   },
+  created() {},
 };
 </script>
 

@@ -2,7 +2,7 @@
 <template>
   <div>
     <el-form :model="form" :rules="rules" ref="form">
-      <el-form-item label=" 学 生 ：" prop="classmenbel">
+      <el-form-item :label="labelVal" prop="classmenbel">
         <el-select
           size="small"
           v-model="form.classmenbel"
@@ -70,6 +70,7 @@ export default {
     id: {
       // default:'4'
     },
+    isaddTeacher: {},
     classes: {},
   },
   data() {
@@ -77,6 +78,7 @@ export default {
       return value == "0" || /^-?[1-9]\d*$/.test(value);
     };
     return {
+      labelVal: "学 生",
       cid: "",
       options: [],
       value1: [],
@@ -101,48 +103,74 @@ export default {
   },
   methods: {
     finish() {
-        const loading = this.$loading({
-          lock: true,
-          text: "处理中...",
-          spinner: "el-icon-loading",
-          background: "rgba(0, 0, 0, 0.7)",
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+
+      let form = this.form;
+
+      if (this.form.classmenbel.length > 0) {
+        this.studentsData.map((item, index) => {
+          this.form.classmenbel.map((item1) => {
+            if (item1 == item.schoolNumber) {
+              return this.classmenbel.push(item);
+            }
+          });
         });
 
-        let form = this.form;
-
-        if (this.form.classmenbel.length > 0) {
-          this.studentsData.map((item, index) => {
-            this.form.classmenbel.map((item1) => {
-              if (item1 == item.schoolNumber) {
-                return this.classmenbel.push(item);
-              }
-            });
-          });
-
-          this.classmenbel.forEach((n, i) => {
-            var _arr = [];
-            var x = 0;
-            for (var m in n) {
-              if (
-                Object.keys(n)[x] == "name" ||
-                Object.keys(n)[x] == "sex" ||
-                Object.keys(n)[x] == "schoolNumber"
-              ) {
-                _arr.push(n[m]);
-              }
-              x++;
+        this.classmenbel.forEach((n, i) => {
+          var _arr = [];
+          var x = 0;
+          for (var m in n) {
+            if (
+              Object.keys(n)[x] == "name" ||
+              Object.keys(n)[x] == "sex" ||
+              Object.keys(n)[x] == "schoolNumber" ||
+              Object.keys(n)[x] == "courseName" ||
+              Object.keys(n)[x] == "office" ||
+              Object.keys(n)[x] == "tel"
+            ) {
+              _arr.push(n[m]);
             }
-            // if(_arr.length>1){
-            this.cid = nanoid();
-            console.log(this.cid);
-            _arr.push(this.pid, this.form.classes, this.cid);
+            x++;
+          }
+          // if(_arr.length>1){
+          this.cid = nanoid();
+          console.log(this.cid);
+          _arr.push(this.pid, this.form.classes, this.cid);
 
-            this.values.push(_arr);
+          this.values.push(_arr);
 
-            // }
-          });
-          form.classmenbel = this.values;
+          // }
+        });
+        if (this.isaddTeacher == "1") {
+          form.teacherMessage = this.values;
+        } else {
+          form.classmenbel = this.values; 
+
         }
+      }
+      console.log(this.isaddTeacher);
+      if (this.isaddTeacher == "1") {
+        //添加老师
+        this.$axios.post("/api/addClass/addTeachers", form).then((res) => {
+          console.log(res);
+          if (res.data.success) {
+            this.$message.success("添加成功");
+            this.$emit("updata");
+            loading.close();
+          } else {
+            this.$message.error();
+            ("添加失败");
+            loading.close();
+          }
+        });
+      } else {
+        //添加学生
+
         this.$axios.post("/api/addClass/addStudents", form).then((res) => {
           console.log(res);
           if (res.data.success) {
@@ -155,6 +183,7 @@ export default {
             loading.close();
           }
         });
+      }
     },
     getStudents() {
       this.$axios.get("/api/addClass/getStudents").then((res) => {
@@ -164,9 +193,23 @@ export default {
         });
       });
     },
+    getTeachers() {
+      this.$axios.get("/api/addClass/getTeachers").then((res) => {
+        // 和学生数据公用一个数组 实际是 getTeachers
+        this.studentsData = res.data.list;
+        this.studentsData.map((item, index) => {
+          this.options.push({ value: item.schoolNumber, label: item.name });
+        });
+      });
+    },
   },
   created() {
-    this.getStudents();
+    if (this.isaddTeacher == "1") {
+      this.labelVal = "老 师";
+      this.getTeachers();
+    } else {
+      this.getStudents();
+    }
   },
   mounted() {
     this.pid = this.id;

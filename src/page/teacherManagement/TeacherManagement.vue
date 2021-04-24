@@ -14,7 +14,8 @@
             <template slot="title"
               ><i class="el-icon-message"></i>教务管理</template
             >
-            <el-menu-item index="6-1" @click.native="setIsShowTemplate('6-1')" >添加学生</el-menu-item>
+            <el-menu-item index="6-1" @click.native="setIsShowTemplate('6-1')" >创建学生</el-menu-item>
+            <el-menu-item index="6-3" @click.native="setIsShowTemplate('6-3')" >创建老师</el-menu-item>
             <el-menu-item index="6-2" @click.native="setIsShowTemplate('6-2')"  >创建班级</el-menu-item>
             <el-menu-item index="6-4" @click.native="setIsShowTemplate('2-4')" 
               >查看班级</el-menu-item
@@ -37,7 +38,8 @@
           </template>
 
           <addClass @gotoClass='setIsShowTemplate("2-4")' v-if="isShowTemplate == '6-2'"></addClass>
-          <addStudent v-if="isShowTemplate == '6-1'"></addStudent>
+          <addStudent key="6-1" v-if="isShowTemplate == '6-1' "></addStudent>
+          <addStudent v-if="isShowTemplate == '6-3'"></addStudent>
 
         </el-main>
 
@@ -70,181 +72,8 @@ export default {
     };
     return {
       isShowTemplate: "1-1",
-      tableData: Array(20).fill(item),
-      fits: ["fill"],
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-     
-      
-      admissionsInformation: [
-        {
-          nodeName: "身高",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "体重",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "手机",
-          nodeValue: "16712318899",
-        },
-        {
-          nodeName: "个人主页",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "个人简介",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "QQ号",
-          nodeValue: "1144374507",
-        },
-        {
-          nodeName: "电子邮件",
-          nodeValue: "1144374507@qq.com",
-        },
-
-        {
-          nodeName: "备注",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "家长信息",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "宿舍地址",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "邮编",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "宿舍电话",
-          nodeValue: "178",
-        },
-      ],
-
-      graduationInformation: [
-        {
-          nodeName: "身高",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "体重",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "手机",
-          nodeValue: "16712318899",
-        },
-        {
-          nodeName: "个人主页",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "个人简介",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "QQ号",
-          nodeValue: "1144374507",
-        },
-        {
-          nodeName: "电子邮件",
-          nodeValue: "1144374507@qq.com",
-        },
-
-        {
-          nodeName: "备注",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "家长信息",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "宿舍地址",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "邮编",
-          nodeValue: "178",
-        },
-        {
-          nodeName: "宿舍电话",
-          nodeValue: "178",
-        },
-      ],
-      defaultOpeneds: ["2"],
-      tatolData: [
-        {
-          grades: "高三",
-          classes: "班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-        },
-        {
-          grades: "高三",
-          classes: "0021",
-          courseName: "数学",
-          monitor: "张三",
-          count: "31",
-          noPassReason: "我过了",
-        },
-        {
-          grades: "高三",
-          classes: "0031",
-          courseName: "英语",
-          monitor: "张三",
-          count: "31",
-          noPassReason: "我过了",
-        },
-        {
-          grades: "高三",
-          classes: "0041",
-          courseName: "物理",
-          monitor: "张三",
-          count: "31",
-          noPassReason: "我过了",
-        },
-        {
-          grades: "高三",
-          classes: "0051",
-          courseName: "化学",
-          monitor: "张三",
-          count: "31",
-          noPassReason: "我过了",
-        },
-        {
-          grades: "高三",
-          classes: "0061",
-          courseName: "生物",
-          monitor: "张三",
-          count: "31",
-          noPassReason: "我过了",
-        },
-        {
-          grades: "高三",
-          classes: "0071",
-          courseName: "历史",
-          monitor: "张三",
-          count: "31",
-          noPassReason: "我过了",
-        },
-        {
-          grades: "高三",
-          classes: "班",
-          courseName: "语文",
-          monitor: "张三",
-          count: "31",
-          noPassReason: "我过了",
-        },
-      ],
     };
   },
   methods: {

@@ -34,7 +34,7 @@
                             class="__p_12e_u_66"
                         />
                         <div class="__p_12e_u_67">
-                            <span class="__p_12e_u_68">② 个人简介</span>
+                            <span class="__p_12e_u_68">② 联系方式</span>
                         </div>
                     </div>
                 </el-col>
@@ -50,7 +50,7 @@
                             class="__p_12e_u_70"
                         />
                         <div class="__p_12e_u_71">
-                            <span class="__p_12e_u_72">③ 绑定配置模板</span>
+                            <span class="__p_12e_u_72">③个人简介 </span>
                         </div>
                     </div>
                 </el-col>

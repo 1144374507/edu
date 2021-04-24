@@ -280,6 +280,8 @@ export default {
                 }
               });
             });
+
+            
             // ch处理老师的数据
             this.teacherMessage.forEach((n, i) => {
               let _arr = [];
