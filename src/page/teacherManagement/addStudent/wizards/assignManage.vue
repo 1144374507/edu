@@ -9,97 +9,48 @@
         :rules="rules"
       >
         <div>
-          <div class="__p_12z_u_7">缺省管理VLAN和网段</div>
-          <el-form-item label=" 年 级 ：" prop="vlan">
-            <div class="asm-input-wraop">
-              <el-select
-                class="asm-input"
-                size="small"
-                v-model="value1"
-                placeholder="请选择"
-                filterable
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
-              <el-tooltip
-                class="asm-input-tips"
-                content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
-                placement="right"
-              >
-                <i class="el-icon-question __p_12z_u_20"></i>
-              </el-tooltip>
-            </div>
-          </el-form-item>
-          <el-form-item label=" 班 级 ：" prop="vlan">
-            <div class="asm-input-wraop">
-              <el-select
-                class="asm-input"
-                size="small"
-                v-model="value1"
-                placeholder="请选择"
-                filterable
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
-              <el-tooltip
-                content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
-                placement="right"
-              >
-                <i class="el-icon-question __p_12z_u_20"></i>
-              </el-tooltip>
-            </div> </el-form-item
-          ><el-form-item label=" 班主任 ：">
+          <el-form-item label=" 姓 名 ：" prop="name">
             <div class="asm-input-wraop">
               <el-input
-                class="asm-input"
-                v-model.trim="form.vlan"
-                placeholder="请输入内容"
-                type="text"
                 size="small"
-                disabled
+                placeholder="请输入"
+                v-model="form.name"
+                class="asm-input"
               ></el-input>
-
               <el-tooltip
-                content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
+                class="asm-input-tips"
+                content="  填写学生姓名。"
                 placement="right"
               >
                 <i class="el-icon-question __p_12z_u_20"></i>
               </el-tooltip>
             </div>
           </el-form-item>
+          <el-form-item label=" 英文名字 ：" prop="englishName">
+            <div class="asm-input-wraop">
+              <el-input
+                size="small"
+                placeholder="请输入"
+                v-model="form.englishName"
+                class="asm-input"
+              ></el-input>
+              <el-tooltip content=" 输入英文姓名" placement="right">
+                <i class="el-icon-question __p_12z_u_20"></i>
+              </el-tooltip>
+            </div>
+          </el-form-item>
+
           <div style="display: flex">
-            <el-form-item label=" 学 生 ：" prop="vlan">
+            <el-form-item label=" 学 号：" prop="schoolNumber">
               <div class="asm-input-wraop111">
-                <el-select
-                  class="asm-input"
+                <el-input
                   size="small"
-                  v-model="value1"
-                  placeholder="请选择"
-                  filterable
-                  multiple
-                >
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
-                  </el-option>
-                </el-select>
+                  v-model.number="form.schoolNumber"
+                  class="asm-input"
+                  placeholder="请输入"
+                ></el-input>
                 <el-tooltip
-                  content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
+                  content=" 请输入学号，请确保他是惟一的"
                   placement="right"
                 >
                   <i class="el-icon-question __p_12z_u_20"></i>
@@ -107,30 +58,65 @@
               </div>
             </el-form-item>
           </div>
-
           <div style="display: flex">
-            <el-form-item label=" 老 师 ：" prop="vlan">
-              <div class="asm-input-wraop11">
-                <el-select
-                  class="asm-input"
+            <el-form-item label=" 身份证：" prop="idCardNum">
+              <div class="asm-input-wraop111">
+                <el-input
                   size="small"
-                  v-model="value1"
-                  placeholder="请选择"
-                  filterable
-                  multiple
-                >
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
-                  </el-option>
-                </el-select>
+                  v-model="form.idCardNum"
+                  class="asm-input"
+                  placeholder="请输入"
+                ></el-input>
                 <el-tooltip
-                  content="设备出厂缺省使用管理VLAN 1(但缺省报文本身不携带VLAN Tag)，可以被汇聚下连口的缺省VLAN覆盖。"
+                  content=" 请输入身份证，请确保他是惟一的"
                   placement="right"
                 >
+                  <i class="el-icon-question __p_12z_u_20"></i>
+                </el-tooltip>
+              </div>
+            </el-form-item>
+          </div>
+          <el-form-item label=" 性 别 ：">
+            <div class="asm-input-wraop">
+              <el-select
+                class="asm-input"
+                v-model="form.sex"
+                size="small"
+                placeholder="请选择"
+              >
+                <el-option label="男" value="男"> </el-option
+                ><el-option label="女" value="女"> </el-option>
+              </el-select>
+              <el-tooltip content="请输入性别" placement="right">
+                <i class="el-icon-question __p_12z_u_20"></i>
+              </el-tooltip>
+            </div>
+          </el-form-item>
+          <div style="display: flex">
+            <el-form-item label=" 身 高 ：" prop="height">
+              <div class="asm-input-wraop111">
+                <el-input
+                  size="small"
+                  v-model="form.height"
+                  class="asm-input"
+                  placeholder="请输入"
+                ></el-input>
+                <el-tooltip content=" 请输入身高" placement="right">
+                  <i class="el-icon-question __p_12z_u_20"></i>
+                </el-tooltip>
+              </div>
+            </el-form-item>
+          </div>
+          <div style="display: flex">
+            <el-form-item label=" 体 重：" prop="height">
+              <div class="asm-input-wraop111">
+                <el-input
+                  size="small"
+                  v-model="form.weight"
+                  class="asm-input"
+                  placeholder="请输入"
+                ></el-input>
+                <el-tooltip content=" 请输入体重" placement="right">
                   <i class="el-icon-question __p_12z_u_20"></i>
                 </el-tooltip>
               </div>
@@ -152,227 +138,49 @@
   </div>
 </template>
 <script>
-import {
-  isValidVlanId,
-  isValidIp,
-  isValidIpOrRange,
-  isValidIpSegment,
-  isIpWithin,
-} from "../utils/validate";
+import {} from "../utils/validate";
 
 export default {
   data() {
+    let valitorIdCard = (rule, value, callback) => {
+      let reg = /^[0-9]{17}[0-9xX]{1}$/;
+      if (!reg.test(value)) {
+        callback(new Error("必需是18的数字或第8位位x"));
+      }
+      callback();
+    };
     return {
-      options: [
-        {
-          value: "2017021065",
-          label: "江盛锋",
-        },
-        {
-          value: "2017021066",
-          label: "双皮奶",
-        },
-        {
-          value: "2017021067",
-          label: "蚵仔煎",
-        },
-        {
-          value: "2017021068",
-          label: "龙须面",
-        },
-        {
-          value: "2017021069",
-          label: "北京烤鸭",
-        },
-      ],
-      value1: [],
-      input4: "",
       showCustomVlan: false,
       disabledDeleteCustomVlan: false,
       form: {
-        id: "",
-        vlan: "1",
-        router: "",
-        address: "",
-        ipExcluded: "",
-        id1: "",
-        vlan1: "",
-        router1: "",
-        address1: "",
-        ipExcluded1: "",
+        name: "江盛锋",
+        englishName: "jiangshengfeng",
+        sex: "男",
+        height: "178",
+        weight: "130",
+        schoolNumber: "2017021065",
+        idCardNum: "350825199803121114",
       },
       rules: {
-        vlan: [
+        name: [{ required: true, message: "请输入" }],
+        sex: [{ required: true, message: "请输入" }],
+        schoolNumber: [{ required: true, message: "请输入" }],
+        idCardNum: [
           { required: true, message: "请输入" },
-          { validator: this.validateVlan },
-        ],
-        router: [
-          { required: true, message: "请输入" },
-          { validator: this.validateRouter },
-        ],
-        address: [
-          { required: true, message: "请输入" },
-          { validator: this.validateAddress },
-        ],
-        ipExcluded: [
-          { required: false, message: "请输入" },
-          { validator: this.validateIpExcluded },
-        ],
-        vlan1: [
-          { required: true, message: "请输入" },
-          { validator: this.validateVlan },
-        ],
-        router1: [
-          { required: true, message: "请输入" },
-          { validator: this.validateRouter },
-          { validator: this.validateRouter1 },
-        ],
-        address1: [
-          { required: true, message: "请输入" },
-          { validator: this.validateAddress1 },
-        ],
-        ipExcluded1: [
-          { required: false, message: "请输入" },
-          { validator: this.validateIpExcluded },
+          { validator: valitorIdCard },
         ],
       },
     };
   },
-  mounted() {
-    // this.getManageVlanConfig();
-    this.form.router = "1.1.1.1";
-    this.form.address = "1.1.1.0/24";
-    this.form.ipExcluded = "1.1.1.1";
-  },
+  mounted() {},
   methods: {
-    validateVlan(rule, value, callback) {
-      if (value) {
-        if (!isValidVlanId(value)) {
-          return callback(new Error("请输入正常的管理VLAN"));
-        }
-      }
-      callback();
-    },
-    validateRouter(rule, value, callback) {
-      if (value) {
-        if (!isValidIp(value)) {
-          return callback(new Error("请输入正常的管理网关"));
-        }
-      }
-      callback();
-    },
-    validateAddress(rule, value, callback) {
-      if (value) {
-        if (!isValidIpSegment(value)) {
-          return callback(new Error("请输入正常的管理网段/掩码"));
-        }
-        if (!isIpWithin(value, this.form.router)) {
-          return callback(new Error("管理网段/掩码与网关不匹配"));
-        }
-      }
-      callback();
-    },
-    validateAddress1(rule, value, callback) {
-      if (value) {
-        if (!isValidIpSegment(value)) {
-          return callback(new Error("请输入正常的管理网段/掩码"));
-        }
-        if (!isIpWithin(value, this.form.router1)) {
-          return callback(new Error("管理网段/掩码与网关不匹配"));
-        }
-        if (value === this.form.address) {
-          callback(new Error("自定义管理网段/掩码不能与默认管理网段/掩码相同"));
-        }
-      }
-      callback();
-    },
-    validateIpExcluded(rule, value, callback) {
-      if (value) {
-        let arr = value.split(",").filter((item) => item);
-        const flag = arr.reduce((value, item) => {
-          return value && isValidIpOrRange(item);
-        }, true);
-        if (!flag) {
-          return callback(new Error("IP地址格式不正确，请认真检查"));
-        }
-      }
-      callback();
-    },
-    validateRouter1(rule, value, callback) {
-      if (value) {
-        if (value === this.form.router) {
-          callback(new Error("自定义管理网关不能与默认管理网关相同"));
-        }
-      }
-      callback();
-    },
     handleCheckClick() {
       if (this.showCustomVlan) {
         this.showCustomVlan = false;
         return;
       }
-      this.$confirm(
-        "需确保自定义管理VLAN、自定义网关在接入设备到核心之间的联通性。开启后只对新上线的设备生效，已上线的设备不做处理。",
-        "开启提示",
-        {
-          confirmButtonText: "继续开启",
-          cancelButtonText: "取消",
-          type: "info",
-        }
-      )
-        .then(() => {
-          this.showCustomVlan = true;
-        })
-        .catch(() => {});
     },
-    // async getManageVlanConfig() {
-    //   const { data } = await this.$axios.get(
-    //     "/api/vlan/managevlanconfig/getManageVlanConfig"
-    //   );
-    //   if (!data.success) {
-    //     return this.$message({
-    //       type: "error",
-    //       message: data.message || "获取配置失败",
-    //     });
-    //   }
-    //   const result = data.result.list;
-    //   if (result[0]) {
-    //     this.form.id = result[0].id;
-    //     this.form.vlan = result[0].vlan;
-    //     this.form.router = result[0].router;
-    //     this.form.address = result[0].address;
-    //     this.form.ipExcluded = result[0].ipExcluded;
-    //   }
-    //   if (result[1]) {
-    //     this.form.id1 = result[1].id;
-    //     this.form.vlan1 = result[1].vlan;
-    //     this.form.router1 = result[1].router;
-    //     this.form.address1 = result[1].address;
-    //     this.form.ipExcluded1 = result[1].ipExcluded;
-    //     this.showCustomVlan = true;
-    //     this.disabledDeleteCustomVlan = true;
-    //   }
-    // },
-    getSaveData() {
-      const list = [];
-      list.push({
-        id: this.form.id,
-        vlan: this.form.vlan,
-        router: this.form.router,
-        address: this.form.address,
-        ipExcluded: this.form.ipExcluded,
-      });
-      if (this.showCustomVlan) {
-        list.push({
-          id: this.form.id1,
-          vlan: this.form.vlan1,
-          router: this.form.router1,
-          address: this.form.address1,
-          ipExcluded: this.form.ipExcluded1,
-        });
-      }
-      return list;
-    },
+
     handleNextBtnClick() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -382,37 +190,22 @@ export default {
             spinner: "el-icon-loading",
             background: "rgba(0, 0, 0, 0.7)",
           });
-          // this.$axios.post("/api/vlan/managevlanconfig/save", {
-          //   list: this.getSaveData()
-          // }).then((res) => {
-          //   if (res.data.success) {
-          //     this.$message({
-          //       type: 'success',
-          //       message: '保存成功!'
-          //     });
-          //     this.$emit('nextStep')
-          //   } else {
-          //     this.$message({
-          //       type: 'error',
-          //       message: res.data.message || '保存失败'
-          //     });
-          //   }
-          // }).catch((err) => {
-          //   this.$message({
-          //     type: 'error',
-          //     message: err.message || '保存失败'
-          //   });
-          // }).finally(() => {
-          //   loading.close();
-          // });
-          setTimeout(() => {
-            this.$message({
-              type: "success",
-              message: "保存成功!",
-            });
-            this.$emit("nextStep");
-            loading.close();
-          }, 1000);
+
+          this.$axios.post("/api/createStudent/base", this.form).then((res) => {
+            console.log(res);
+            console.log(!res.data.success);
+            if (!res.data.success) {
+              this.$message.error(`${res.data.msg}`);
+              loading.close();
+              return;
+            } else {
+              this.$message.success(`${res.data.msg}`);
+              console.log(this.form.schoolNumber,'this.form.schoolNumber');
+              let data = this.form.schoolNumber
+              this.$emit("nextStep",data);
+              loading.close();
+            }
+          });
         }
       });
     },

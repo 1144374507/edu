@@ -34,7 +34,7 @@
                             class="__p_12e_u_66"
                         />
                         <div class="__p_12e_u_67">
-                            <span class="__p_12e_u_68">② 联系方式</span>
+                            <span class="__p_12e_u_68">② 联系方式及其他</span>
                         </div>
                     </div>
                 </el-col>
