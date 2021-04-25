@@ -2,9 +2,9 @@
   <div>
     <el-card class="__p_12P_u_2"><img src="./images/FkuvSJBRb_OiFUPMjW63kYWn-rN9.png" class="__p_12P_u_3" />
       <div class="__p_12P_u_4"><span class="__p_12P_u_5">添加完成</span>
-        <p class="__p_12P_u_6">请在 查看班级 查看班级</p>
+        <!-- <p class="__p_12P_u_6">请在 查看班级 查看班级</p> -->
       </div>
-      <el-button type="default" size="small" class="__p_12P_u_8" @click="gotoDeployRst">前往 查看班级</el-button>
+      <!-- <el-button type="default" size="small" class="__p_12P_u_8" @click="gotoDeployRst">前往 查看班级</el-button> -->
     </el-card>
   </div>
 </template>

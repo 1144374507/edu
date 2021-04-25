@@ -2,14 +2,14 @@
   <div class="__eid__el-main__">
     <el-container style="height: 94vh; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['5','6']" default-active="5-1">
-          <el-submenu index="5">
+        <el-menu :default-openeds="['6']" default-active="2-4">
+          <!-- <el-submenu index="5">
             <template slot="title"
               ><i class="el-icon-message"></i>个人管理</template
             >
             <el-menu-item index="5-1" @click.native="setIsShowTemplate('1-1')">个人信息</el-menu-item>
             <el-menu-item index="5-2">我的班级</el-menu-item>
-          </el-submenu>
+          </el-submenu> -->
           <el-submenu index="6">
             <template slot="title"
               ><i class="el-icon-message"></i>教务管理</template
@@ -28,9 +28,9 @@
        
 
         <el-main>
-          <template v-if="isShowTemplate == '1-1'">
+          <!-- <template v-if="isShowTemplate == '1-1'">
             <teacherMessage></teacherMessage>
-          </template>
+          </template> -->
 
           <!-- 查看班级 -->
           <template v-if="isShowTemplate == '2-4'">
@@ -71,7 +71,7 @@ export default {
       address: "上海市普陀区金沙江路 1518 弄",
     };
     return {
-      isShowTemplate: "1-1",
+      isShowTemplate: "2-4",
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
     };

@@ -153,13 +153,13 @@
             ></span
           >
         </div>
-        <div class="__p_124_u_143">
+        <!-- <div class="__p_124_u_143">
           <span class="__p_124_u_140"
             ><router-link tag="a" to="/courseElectives"
               >课程选修</router-link
             ></span
           >
-        </div>
+        </div> -->
         <div class="__p_124_u_145">
           <span class="__p_124_u_140"
             ><router-link tag="a" to="/achievement">成绩管理</router-link></span

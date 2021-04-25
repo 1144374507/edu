@@ -1,76 +1,82 @@
 <template>
   <div class="planning-configuration-wrapper">
-    <el-card>
-      <div style="padding: 12px">
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          "
+    <div>
+      <el-card class="__p_12z_u_2">
+        <el-form
+          label-position="left"
+          label-width="110px"
+          ref="form"
+          :model="form"
+          :rules="rules"
         >
-          <el-button
-            type="primary"
-            @click="dialogToAdd"
-            id="qa-test-deploy-add-template"
-            >新增模板</el-button
-          >
           <div>
-            <el-input
-              placeholder="请输入模板名称"
-              type="text"
-              size="small"
-              class="__p_12p_u_129"
-              v-model.trim="keyword"
-              @keyup.native.enter="getList"
-              @input="debounceGetList"
-            >
-              <template v-slot:suffix>
-                <i class="el-icon-search __search-icon" @click="getList"></i>
-              </template>
-            </el-input>
+            <el-form-item label=" 入学日期 ：" prop="admissionData">
+              <div class="asm-input-wraop">
+                <el-input
+                  size="small"
+                  placeholder="请输入"
+                  v-model="form.admissionData"
+                  class="asm-input"
+                ></el-input>
+                <el-tooltip
+                  class="asm-input-tips"
+                  content="  填写入学日期。"
+                  placement="right"
+                >
+                  <i class="el-icon-question __p_12z_u_20"></i>
+                </el-tooltip>
+              </div>
+            </el-form-item>
+            <el-form-item label=" 入学年级 ：" prop="admissionGrade">
+              <div class="asm-input-wraop">
+                <el-input
+                  size="small"
+                  placeholder="请输入"
+                  v-model="form.admissionGrade"
+                  class="asm-input"
+                ></el-input>
+                <el-tooltip content=" 输入入学年级" placement="right">
+                  <i class="el-icon-question __p_12z_u_20"></i>
+                </el-tooltip>
+              </div>
+            </el-form-item>
+
+            <div style="display: flex">
+              <el-form-item label=" 年级：" prop="grades">
+                <div class="asm-input-wraop111">
+                  <el-input
+                    size="small"
+                    v-model="form.grades"
+                    class="asm-input"
+                    placeholder="请输入"
+                  ></el-input>
+                  <el-tooltip content=" 请输入点前年级" placement="right">
+                    <i class="el-icon-question __p_12z_u_20"></i>
+                  </el-tooltip>
+                </div>
+              </el-form-item>
+            </div>
+            <el-form-item label=" 是否留学生 ：" prop="overseas">
+              <div class="asm-input-wraop">
+                <el-select
+                  class="asm-input"
+                  v-model="form.overseas"
+                  size="small"
+                  placeholder="请选择"
+                  filterable
+                >
+                  <el-option label="是" value="是"> </el-option
+                  ><el-option label="否" value="否"> </el-option>
+                </el-select>
+                <el-tooltip content="是否为留学生" placement="right">
+                  <i class="el-icon-question __p_12z_u_20"></i>
+                </el-tooltip>
+              </div>
+            </el-form-item>
           </div>
-        </div>
-        <div>
-          <el-table :data="list">
-            <el-table-column label="模板名称" prop="name"></el-table-column>
-            <el-table-column
-              label="适用端口数"
-              prop="portNum"
-            ></el-table-column>
-            <el-table-column label="关联设备数" prop="deviceNum">
-              <template slot-scope="scope">
-                <el-button
-                  v-if="scope.row.deviceNum"
-                  type="text"
-                  @click="() => showDeviceList(scope.row.id, scope.row.name)"
-                  >{{ scope.row.deviceNum }}</el-button
-                >
-                <span v-else>{{ scope.row.deviceNum }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="scope">
-                <el-button
-                  type="text"
-                  icon="el-icon-edit"
-                  @click="() => dialogToEdit(scope.row, scope)"
-                  :id="'qa-test-deploy-edit-template-' + scope.row.name"
-                  >编辑</el-button
-                >
-                <el-button
-                  type="text"
-                  icon="el-icon-delete"
-                  @click="() => remove(scope.row)"
-                  :id="'qa-test-deploy-del-template-' + scope.row.name"
-                  >删除</el-button
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-      </div>
-    </el-card>
+        </el-form>
+      </el-card>
+    </div>
 
     <div style="text-align: center; margin-top: 24px">
       <el-button
@@ -87,115 +93,79 @@
         >下一步</el-button
       >
     </div>
-    <el-dialog
-      :visible.sync="editorDialogVisible"
-      width="1080px"
-      top="5vh"
-      :close-on-click-modal="false"
-    >
-      <template-editor
-        v-if="editorDialogVisible"
-        :payload="editorPayload"
-        @cancel="editorDialogVisible = false"
-        @saved="onTemplateSave"
-      ></template-editor>
-    </el-dialog>
-
-    <el-dialog
-      :visible.sync="deviceListDialogVisible"
-      title="关联设备"
-      width="1080px"
-    >
-      <templateDeviceList
-        v-bind="deviceListDialogProps"
-        v-if="deviceListDialogVisible"
-      ></templateDeviceList>
-    </el-dialog>
   </div>
 </template>
 <script>
-import templateEditor from "./components/templateEditor";
-import templateDeviceList from "./components/templateDeviceList";
-
 export default {
-  components: {
-    templateEditor,
-    templateDeviceList,
+  components: {},
+  props: {
+    schoolNumber: {},
   },
   data() {
     return {
-      list: [],
-      keyword: "",
-      editorPayload: null,
-      editorDialogVisible: false,
-      deviceListDialogVisible: false,
-      deviceListDialogProps: {},
+      form: {
+        admissionData: "",
+        admissionGrade: "",
+        grades: "",
+        overseas: "",
+        schoolNumber: "",
+      },
+      rules: {
+        name: [{ required: true, message: "请输入" }],
+        sex: [{ required: true, message: "请输入" }],
+        schoolNumber: [{ required: true, message: "请输入" }],
+      },
     };
   },
   methods: {
-    showDeviceList(tmplId, tmplName) {
-      this.deviceListDialogVisible = true;
-      this.deviceListDialogProps.tmplId = tmplId;
-      this.deviceListDialogProps.tmplName = tmplName;
-    },
-    remove(data) {
-      this.$confirm("确认删除吗？").then(() => {
-        // this.$axios
-        //   .delete(`/api/vlan/customConfigTemplate/${data.id}`)
-        //   .then(({ data: { success, message } }) => {
-        //     if (success) {
-        this.$message.success("操作成功");
-        this.getList();
-        //     } else {
-        //       this.$message.error(message || "操作失败");
-        //     }
-        //   });
-      });
-    },
-    dialogToAdd() {
-      this.editorPayload = null;
-      this.editorDialogVisible = true;
-    },
-    dialogToEdit(target) {
-      this.editorPayload = target;
-      this.editorDialogVisible = true;
-    },
-    onTemplateSave() {
-      this.editorDialogVisible = false;
-      this.getList();
-    },
-    debounceGetList() {
-      // to be implemented in mounted hook
-    },
-    getList() {
-      const loading = this.$loading({
-        lock: true,
-        text: "处理中...",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
-      // this.$axios
-      //     .get("/api/vlan/customConfigTemplate/listAllConfigTemplate")
-      //     .then(({ data: { success, result, message } }) => {
-      //         if (success) {
-      //             this.list = result.filter(
-      //                 (e) => !!~e.name.indexOf(this.keyword)
-      //             );
-      //         }
-      //     })
-      //     .finally(() => {
-      loading.close();
-      // });
-    },
+    // 上一辈
     handlePreBtnClick() {
       this.$emit("preStep");
     },
+    // 下一步
     handleNextBtnClick() {
-      this.$emit("nextStep");
+      this.$refs["form"].validate((valid) => {
+        if (valid) {
+          const loading = this.$loading({
+            lock: true,
+            text: "处理中...",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.7)",
+          });
+
+          this.$axios.post("/api/createStudent/chat", this.form).then((res) => {
+            console.log(res);
+            console.log(!res.data.success);
+            if (!res.data.success) {
+              this.$message.error(`${res.data.msg}`);
+              return;
+            } else {
+              this.$message.success(`${res.data.msg}`);
+              loading.close();
+              this.$emit("nextStep");
+            }
+          });
+        }
+      });
+    },
+    // 获取数据库缓存学号
+    getBufferSchoolNumber() {
+      this.$axios.get('/api/createStudent/getBufferSchoolNumber').then(res => {
+        this.form.schoolNumber = res.data.list[0].schoolNumber
+        console.log(this.form.schoolNumber,'getBufferSchoolNumber');
+      })
     },
   },
   mounted() {
-    this.getList();
+    if(this.schoolNumber==''){
+      this.getBufferSchoolNumber()
+    }else if(this.schoolNumber==undefined){
+      this.getBufferSchoolNumber()
+    } else {
+      this.form.schoolNumber = this.schoolNumber;
+      console.log(this.schoolNumber, "schoolNumber 2222");
+
+    }
   },
 };
 </script>
@@ -203,5 +173,70 @@ export default {
 .__search-icon {
   line-height: 32px;
   padding: 0 7px;
+}
+</style>
+<style scoped>
+.__p_12z_u_7 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #212527;
+  margin-bottom: 20px;
+}
+
+.__p_12z_u_19 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.__p_12z_u_2 {
+  padding: 12px;
+}
+
+.__p_12z_u_20 {
+  margin-left: 5px;
+}
+
+.__p_12z_u_18 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 48px;
+}
+
+.__p_12z_u_30 {
+  width: 116px;
+}
+
+.__p_12z_u_29 {
+  text-align: center;
+  margin-top: 24px;
+}
+</style>
+<style lang="scss" scoped>
+.asm-input-wraop {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.asm-input {
+  width: 200px;
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+}
+
+.asm-input-tips {
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+}
+</style>
+
+<style scoped lang="scss">
+.theme-18edd0 {
+  .__p_12z_u_7 {
+    color: #fff;
+  }
 }
 </style>
