@@ -2,7 +2,7 @@
   <!-- 课表 -->
   <div class="__addschedule__wrap__">
     <el-table
-      :data="data"
+      :data="data1"
       border
       :span-method="objectSpanMethod"
       stripe
@@ -90,140 +90,192 @@
         </div>
       </el-table-column>
     </el-table>
-    <el-button class="btn" @click="save">保存</el-button>
+    <!-- 组件复用 -->
+    <el-button v-if="this.data != undefined" class="btn" @click="save"
+      >保存</el-button
+    >
   </div>
 </template>
 
 <script>
 export default {
-  props:{
-    data:[]
+  props: {
+    data: {},
+    pid: {},
   },
   data() {
     return {
+
+      values: [],
       data1: [
         {
+          pid: "",
+          id: 1,
+          sectiontime: "",
           sections: "早读",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
-          sun: "sun",
+          time: "07:10-7:40",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
         },
         {
+          pid: "",
+          id: 2,
           sectiontime: "上午",
           sections: "第一节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
-          sun: "sun",
+          time: "07:50-8:35",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
         },
         {
+          pid: "",
+          id: 3,
+          sectiontime: "",
           sections: "第二节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
-          sun: "sun",
+          time: "08;45-9:30",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
         },
         {
+          pid: "",
+          id: 4,
+          sectiontime: "",
           sections: "第三节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
-          sun: "sun",
+          time: "10:00-10:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
         },
         {
+          pid: "",
+          id: 5,
+          sectiontime: "",
           sections: "第四节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
-          sun: "sun",
+          time: "10:55-11:40",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
         },
         {
+          pid: "",
+          id: 6,
           sectiontime: "下午",
           sections: "第一节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
+          time: "14:10-14:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
           sun: "",
         },
         {
+          pid: "",
+          id: 7,
+          sectiontime: "",
           sections: "第二节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
+          time: "14.55-15:40",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
           sun: "",
         },
         {
+          pid: "",
+          id: 8,
+          sectiontime: "",
           sections: "第三节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
+          time: "15:50-16:35",
+          mom: "",
+          pid: "",
+          id: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
           sun: "",
         },
         {
+          pid: "",
+          id: 9,
+          sectiontime: "",
+          sections: "第四节",
+          time: "16.40-17:25",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: "",
+          id: 10,
           sectiontime: "晚上",
           sections: "第一节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
+          time: "19:00-19:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
           sun: "",
         },
         {
+          sectiontime: "",
           sections: "第二节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
+          time: "20:00-20:45",
+          mom: "",
+          pid: "",
+          id: 11,
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
           sun: "",
         },
         {
+          pid: "",
+          id: 12,
+          sectiontime: "",
           sections: "第三节",
-          time: "07:10 - 7:40",
-          mom: "语文",
-          tue: "数学",
-          wed: "数学",
-          thurs: "数学",
-          friday: "数学",
-          sat: "物理",
+          time: "21:00-21:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
           sun: "",
         },
       ],
@@ -244,10 +296,10 @@ export default {
           };
         } else if (rowIndex === 5) {
           return {
-            rowspan: 3,
+            rowspan: 4,
             colspan: 1,
           };
-        } else if (rowIndex === 8) {
+        } else if (rowIndex === 9) {
           return {
             rowspan: 3,
             colspan: 1,
@@ -260,14 +312,41 @@ export default {
         }
       }
     },
-
-    save(){
-      console.log(this.data);
+    save() {
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      this.$axios
+        .post(`/api/teacherManagement/updataSchedule`, this.data1)
+        .then((res) => {
+          if (res.data.success) {
+            this.$message.success("修改成功");
+            loading.close();
+            this.$emit("closeAddSchedule", true);
+          } else {
+            this.$message.error();
+            ("修改失败");
+            loading.close();
+            this.$emit("closeAddSchedule", false);
+          }
+        });
+    },
+  },
+  mounted() {
+    if (this.data != undefined) {
+      this.data1 = this.data;
+    } else {
+      let arr = []
+      this.data1.map(item => {
+        item.pid = this.pid
+        arr.push(item)
+      })
+      this.data1 = arr
     }
   },
-  mounted(){
-    this.data1 = this.data
-  }
 };
 </script>
 
@@ -278,7 +357,7 @@ export default {
     border: none;
     outline: none;
   }
-  .btn{
+  .btn {
     margin-top: 15px;
   }
 }

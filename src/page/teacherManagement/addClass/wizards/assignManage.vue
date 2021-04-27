@@ -137,12 +137,184 @@ import { nanoid } from "nanoid";
 export default {
   data() {
     return {
-      cid:"",
+      cid: "",
       values: [],
       teachervalues: [],
       pid: [],
       studentsData: [],
       teacherData: [],
+      data2: [
+        {
+          pid: this.pid,
+          id: 1,
+          sectiontime: "",
+          sections: "早读",
+          time: "07:10-7:40",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 2,
+          sectiontime: "上午",
+          sections: "第一节",
+          time: "07:50-8:35",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 3,
+          sectiontime: "",
+          sections: "第二节",
+          time: "08;45-9:30",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 4,
+          sectiontime: "",
+          sections: "第三节",
+          time: "10:00-10:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 5,
+          sectiontime: "",
+          sections: "第四节",
+          time: "10:55-11:40",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 6,
+          sectiontime: "下午",
+          sections: "第一节",
+          time: "14:10-14:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 7,
+          sectiontime: "",
+          sections: "第二节",
+          time: "14.55-15:40",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 8,
+          sectiontime: "",
+          sections: "第三节",
+          time: "15:50-16:35",
+          mom: "",
+          pid: this.pid,
+          id: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 9,
+          sectiontime: "",
+          sections: "第四节",
+          time: "16.40-17:25",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 10,
+          sectiontime: "晚上",
+          sections: "第一节",
+          time: "19:00-19:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          sectiontime: "",
+          sections: "第二节",
+          time: "20:00-20:45",
+          mom: "",
+          pid: this.pid,
+          id: 11,
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+        {
+          pid: this.pid,
+          id: 12,
+          sectiontime: "",
+          sections: "第三节",
+          time: "21:00-21:45",
+          mom: "",
+          tue: "",
+          wed: "",
+          thurs: "",
+          friday: "",
+          sat: "",
+          sun: "",
+        },
+      ],
       options: [
         {
           value: "高一",
@@ -197,7 +369,6 @@ export default {
     this.getTeachers();
   },
   methods: {
-    
     getTeachers() {
       this.$axios.get("/api/addClass/getTeachers").then((res) => {
         this.teacherData = res.data.list;
@@ -206,7 +377,7 @@ export default {
         });
       });
     },
-    
+
     getStudents() {
       this.$axios.get("/api/addClass/getStudents").then((res) => {
         this.studentsData = res.data.list;
@@ -276,7 +447,6 @@ export default {
               });
             });
 
-            
             // ch处理老师的数据
             this.teacherMessage.forEach((n, i) => {
               let _arr = [];
@@ -310,18 +480,34 @@ export default {
           this.$axios
             .post("/api/addClass", form)
             .then((res) => {
+              let arr = [];
+              this.data2.map((item) => {
+                item.pid = this.pid;
+                arr.push(item);
+              });
+              this.data2 = arr;
+              console.log(this.data2, "this.data2");
+
               if (res.data.success) {
-                this.$message({
-                  type: "success",
-                  message: "保存成功!",
-                });
-                this.$emit("nextStep");
-                loading.close();
+                this.$axios
+                  .post(`/api/addClass/createSchedule`, this.data2)
+                  .then((res) => {
+                    if (res.data.success) {
+                      this.$message.success("保存成功");
+                      loading.close();
+                      this.$emit("nextStep", this.pid);
+                    } else {
+                      this.$message.error();
+                      ("保存失败");
+                      loading.close();
+                    }
+                  });
               } else {
                 this.$message({
                   type: "error",
                   message: res.data.message || "保存失败",
                 });
+                loading.close();
               }
             })
             .catch((err) => {

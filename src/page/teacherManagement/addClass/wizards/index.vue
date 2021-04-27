@@ -11,8 +11,8 @@
       <div class="content-wrapper">
         <div>
           <assign-manage v-if="activeStep === 1" @preStep="handlePreStep" @nextStep="handleNextStep"></assign-manage>
-          
-          <deploy-finish @gotoClass='gotoClass'  v-if="activeStep === 2" @preStep="handlePreStep" @nextStep="handleNextStep"></deploy-finish>
+          <schedule :pid='pid' v-if="activeStep === 2" @preStep="handlePreStep" @nextStep="handleNextStep" ></schedule>
+          <deploy-finish @gotoClass='gotoClass'  v-if="activeStep === 3" @preStep="handlePreStep" @nextStep="handleNextStep"></deploy-finish>
         </div>
       </div>
     </div>
@@ -22,12 +22,14 @@
 import AssignManage from './assignManage.vue'
 import Overview from './overview.vue'
 import DeployFinish from './deployFinish.vue'
+import schedule from './schedule'
 
 export default {
   components: {
     Overview,
     AssignManage,
-    DeployFinish
+    DeployFinish,
+    schedule
   },
   data () {
     return {
@@ -45,7 +47,9 @@ export default {
     handlePreStep () {
       this.activeStep --
     },
-    handleNextStep () {
+    handleNextStep (pid) {
+      console.log(pid,'pid');
+      this.pid = pid
       this.activeStep ++
     },
     handleGoStep (step) {

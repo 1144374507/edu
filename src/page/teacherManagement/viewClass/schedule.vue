@@ -120,21 +120,7 @@
                     header-align="left"
                   > 
                   </el-table-column>
-                  <el-table-column
-                    label="操作"
-                    width="80"
-                    align="left"
-                    header-align="left"
-                  >
-                    <div slot-scope="scope">
-                      <el-button
-                        type="text"
-                        style="margin-left: 0px; margin-right: 15px"
-                        @click="deleteStudent(scope.row.cid)"
-                        >删除</el-button
-                      >
-                    </div>
-                  </el-table-column>
+                   
                 </el-table>
               </div>
             </el-row>
@@ -152,7 +138,7 @@
       width="1042px"
       top="5vh"
     >
-      <addSchedile :data = 'data' v-if="addSchedileVisible"></addSchedile>
+      <addSchedile @closeAddSchedule = 'closeAddSchedule'  :data = 'data' v-if="addSchedileVisible"></addSchedile>
     </el-dialog>
   </div>
 </template>
@@ -202,6 +188,13 @@ export default {
     };
   },
   methods: {
+    // 修改成功 关闭弹窗并且获取新数据
+    closeAddSchedule(flog){
+      this.addSchedileVisible = false;
+      if(flog){
+        this.getSchedule()
+      }
+    },
     addSchedile() {
       this.addSchedileVisible = true;
 
@@ -220,10 +213,10 @@ export default {
           };
         } else if (rowIndex === 5) {
           return {
-            rowspan: 3,
+            rowspan: 4,
             colspan: 1,
           };
-        } else if (rowIndex === 8) {
+        } else if (rowIndex === 9) {
           return {
             rowspan: 3,
             colspan: 1,

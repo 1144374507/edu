@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </el-col>
-                <!-- <el-col :span="8">
+                <el-col :span="8">
                     <div
                         class="__p_12e_u_65"
                         id="qa-test-create-config-template"
@@ -34,10 +34,10 @@
                             class="__p_12e_u_66"
                         />
                         <div class="__p_12e_u_67">
-                            <span class="__p_12e_u_68">② 创建配置模板</span>
+                            <span class="__p_12e_u_68">② 添加课表</span>
                         </div>
                     </div>
-                </el-col> -->
+                </el-col>
                 <!-- <el-col :span="8">
                     <div
                         class="__p_12e_u_69"
