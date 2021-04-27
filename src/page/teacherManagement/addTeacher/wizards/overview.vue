@@ -2,8 +2,7 @@
     <div>
         <div>
             <div class="__p_12e_u_57">
-                <span v-if="isCrearteTeacher" class="__p_12e_u_58">创建老师</span>
-                <span v-else class="__p_12e_u_58">创建学生</span>
+                <span class="__p_12e_u_58">创建老师</span>
             </div>
             <el-row :gutter="16">
                 <el-col :span="8">
@@ -23,22 +22,7 @@
                         </div>
                     </div>
                 </el-col>
-                <el-col :span="8">
-                    <div
-                        class="__p_12e_u_65"
-                        id="qa-test-create-config-template"
-                        :class="{ 'm-cursor': allowEditItem }"
-                        @click="handleStep2Click"
-                    >
-                        <img
-                            src="./images/index2.png"
-                            class="__p_12e_u_66"
-                        />
-                        <div class="__p_12e_u_67">
-                            <span class="__p_12e_u_68">② 联系方式及其他</span>
-                        </div>
-                    </div>
-                </el-col>
+                
                 <el-col :span="8">
                     <div
                         class="__p_12e_u_69"
@@ -51,7 +35,7 @@
                             class="__p_12e_u_70"
                         />
                         <div class="__p_12e_u_71">
-                            <span class="__p_12e_u_72">③个人简介 </span>
+                            <span class="__p_12e_u_72">②个人简介 </span>
                         </div>
                     </div>
                 </el-col>
@@ -72,7 +56,6 @@
 <script>
 export default {
   props:{
-    isCrearteTeacher:{}
   },
     data() {
         return {
@@ -80,18 +63,8 @@ export default {
         };
     },
     mounted() {
-        // this.getManageVlanConfig();
     },
     methods: {
-        // async getManageVlanConfig() {
-        //     const { data } = await this.$axios.get(
-        //         "/api/vlan/managevlanconfig/getManageVlanConfig"
-        //     );
-        //     if (data.success) {
-        //         const result = data.result.list;
-        //         this.allowEditItem = result && result.length;
-        //     }
-        // },
         handleStartBtnClick() {
             this.$emit("startBtnClick");
         },

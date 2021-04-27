@@ -20,19 +20,13 @@
 </template>
 <script>
 import AssignManage from './assignManage.vue'
-import BindConfiguration from './bindConfiguration.vue'
 import Overview from './overview.vue'
-import PlanningConfiguration from './planningConfiguration.vue'
-import deployFinish from './deployFinish'
 import DeployFinish from './deployFinish.vue'
 
 export default {
   components: {
     Overview,
-    BindConfiguration,
     AssignManage,
-    PlanningConfiguration,
-    deployFinish,
     DeployFinish
   },
   data () {

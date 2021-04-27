@@ -197,14 +197,7 @@ export default {
     this.getTeachers();
   },
   methods: {
-    // validateRouter1(rule, value, callback) {
-    //   if (value) {
-    //     if (value === this.form.router) {
-    //       callback(new Error("自定义管理网关不能与默认管理网关相同"));
-    //     }
-    //   }
-    //   callback();
-    // },
+    
     getTeachers() {
       this.$axios.get("/api/addClass/getTeachers").then((res) => {
         this.teacherData = res.data.list;
@@ -213,6 +206,7 @@ export default {
         });
       });
     },
+    
     getStudents() {
       this.$axios.get("/api/addClass/getStudents").then((res) => {
         this.studentsData = res.data.list;
@@ -221,6 +215,7 @@ export default {
         });
       });
     },
+
     handleNextBtnClick() {
       this.form.id = nanoid();
       this.pid = this.form.id;

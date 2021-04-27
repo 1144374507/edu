@@ -118,7 +118,6 @@
         @cancel="addStudentVisible = false"
         @updata="updata"
       ></addStudent>
-      <!-- @saved="onCustomTemplateSave" -->
     </el-dialog>
   </div>
 </template>
@@ -199,8 +198,7 @@ export default {
       this.$emit("setShowClassMessage");
     },
   },
-  created() {
-  },
+  created() {},
 };
 </script>
 

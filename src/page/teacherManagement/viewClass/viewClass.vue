@@ -180,7 +180,7 @@
       v-if="isShowClassMessage"
       :teacherMessage="teacherMessage"
     ></teacherMessage>
-    <!-- <schedule v-if="isShowClassMessage" :classmenbel="classmenbel"></schedule> -->
+    <schedule :id="updataId" v-if="isShowClassMessage" :classmenbel="classmenbel"></schedule>
   </div>
 </template>
 
@@ -197,6 +197,8 @@ export default {
   },
   data() {
     return {
+      // let aerr =[ 1,1,1,1] 
+      // arr.push(a)
       updataId: "",
       classmenbel: [],
       teacherMessage:[],

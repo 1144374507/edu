@@ -38,8 +38,8 @@
           </template>
 
           <addClass @gotoClass='setIsShowTemplate("2-4")' v-if="isShowTemplate == '6-2'"></addClass>
-          <addStudent key="6-1" v-if="isShowTemplate == '6-1' "></addStudent>
-          <addStudent v-if="isShowTemplate == '6-3'"></addStudent>
+          <addTeacher key="6-3" v-if="isShowTemplate == '6-3' "></addTeacher>
+          <addStudent v-if="isShowTemplate == '6-1'"></addStudent>
 
         </el-main>
 
@@ -55,6 +55,7 @@ import teacherMessage from "./teacherMessage/teacherMessage";
 import viewClass from './viewClass/viewClass'
 import addClass from './addClass/wizards/index'
 import addStudent from './addStudent/wizards/index'
+import addTeacher from './addTeacher/wizards/index'
 
 export default {
   components: {
@@ -62,15 +63,18 @@ export default {
     teacherMessage,
     viewClass,
     addClass,
-    addStudent
+    addStudent,
+    addTeacher
   },
   data() {
     const item = {
+
       date: "2016-05-02",
       name: "王小虎",
       address: "上海市普陀区金沙江路 1518 弄",
     };
     return {
+      isCrearteTeacher:true,
       isShowTemplate: "2-4",
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",

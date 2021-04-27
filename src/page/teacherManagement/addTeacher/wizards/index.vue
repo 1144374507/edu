@@ -1,7 +1,6 @@
 <template>
   <div>
     <Overview
-      :isCrearteTeacher="isCrearteTeacher"
       v-if="showOverview"
       @startBtnClick="handleStartBtnClick"
       @goStep="handleGoStep"
@@ -14,15 +13,11 @@
             icon="custom-icon-1"
             :class="{ 'm-active-step': activeStep === 1 }"
           ></el-step>
-          <el-step
-            title="入学信息"
-            icon="custom-icon-2"
-            :class="{ 'm-active-step': activeStep === 2 }"
-          ></el-step>
+
           <el-step
             title="联系方式及其他"
             icon="custom-icon-3"
-            :class="{ 'm-active-step': activeStep === 3 }"
+            :class="{ 'm-active-step': activeStep === 2 }"
           ></el-step>
         </el-steps>
       </el-card>
@@ -33,20 +28,15 @@
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
           ></assign-manage>
-          <planning-configuration
-            v-if="activeStep === 2"
-            @preStep="handlePreStep"
-            @nextStep="handleNextStep"
-            :schoolNumber="schoolNumber"
-          ></planning-configuration>
+
           <bind-configuration
-            v-if="activeStep === 3"
+            v-if="activeStep === 2"
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
             :schoolNumber="schoolNumber"
           ></bind-configuration>
           <deploy-finish
-            v-if="activeStep === 4"
+            v-if="activeStep === 3"
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
           ></deploy-finish>
@@ -59,7 +49,6 @@
 import AssignManage from "./assignManage.vue";
 import BindConfiguration from "./bindConfiguration.vue";
 import Overview from "./overview.vue";
-import PlanningConfiguration from "./planningConfiguration.vue";
 import deployFinish from "./deployFinish";
 import DeployFinish from "./deployFinish.vue";
 
@@ -68,13 +57,10 @@ export default {
     Overview,
     BindConfiguration,
     AssignManage,
-    PlanningConfiguration,
     deployFinish,
     DeployFinish,
   },
-  props: {
-    isCrearteTeacher: {},
-  },
+  props: {},
   data() {
     return {
       showOverview: true,
@@ -92,14 +78,7 @@ export default {
     handleNextStep(schoolNumber) {
       console.log(schoolNumber, "index---schoolNumber");
       this.schoolNumber = schoolNumber;
-      console.log(this.isCrearteTeacher);
-      if (this.isCrearteTeacher) {
-        this.activeStep = this.activeStep + 2;
-        return;
-      }else{
-
-        this.activeStep++;
-      }
+      this.activeStep++;
     },
     handleGoStep(step) {
       this.showOverview = false;

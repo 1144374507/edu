@@ -72,73 +72,105 @@
                   ></el-table-column>
                   <el-table-column
                     label="星期一"
-                    prop="courseday1"
+                    prop="mom"
                     width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期二"
-                    prop="courseday2"
+                    prop="tue"
                     width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期三"
-                    prop="sections"
+                    prop="wed"
                     width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期四"
-                    prop="sections"
+                    prop="thurs"
                     width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期五"
-                    prop="sections"
+                    prop="friday"
                     width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期六"
-                    prop="sections"
+                    prop="sat"
                     width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期日"
-                    prop="sections"
                     width="100px"
+                    prop="sun"
                     align="left"
                     header-align="left"
-                  ></el-table-column>
+                  > 
+                  </el-table-column>
+                  <el-table-column
+                    label="操作"
+                    width="80"
+                    align="left"
+                    header-align="left"
+                  >
+                    <div slot-scope="scope">
+                      <el-button
+                        type="text"
+                        style="margin-left: 0px; margin-right: 15px"
+                        @click="deleteStudent(scope.row.cid)"
+                        >删除</el-button
+                      >
+                    </div>
+                  </el-table-column>
                 </el-table>
               </div>
             </el-row>
+            <el-button class="addSchedile" @click="addSchedile">
+              编辑课表
+            </el-button>
           </el-collapse-item>
         </el-collapse>
-
         <el-steps :active="0" align-center></el-steps>
       </el-col>
     </el-row>
+    <el-dialog
+      :visible.sync="addSchedileVisible"
+      :close-on-click-modal="false"
+      width="1042px"
+      top="5vh"
+    >
+      <addSchedile :data = 'data' v-if="addSchedileVisible"></addSchedile>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import addSchedile from "../addSchedile/addSchedile";
 export default {
   name: "classMessage",
+  components: {
+    addSchedile,
+  },
   props: {
     classmenbel: {},
+    id:{}
   },
   data() {
     return {
+      addSchedileVisible: false,
       term: [
         {
           value: "高一/秋季",
@@ -166,81 +198,15 @@ export default {
         },
       ],
       value: "高一/秋季",
-      data: [
-        {
-          sections: "早读",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sectiontime: "上午",
-          sections: "第一节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第二节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第三节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第四节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sectiontime: "下午",
-          sections: "第一节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第二节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第三节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sectiontime: "晚上",
-          sections: "第一节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第二节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第三节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-      ],
+      data: [],
     };
   },
   methods: {
-     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+    addSchedile() {
+      this.addSchedileVisible = true;
+
+    },
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
       if (columnIndex === 0) {
         if (rowIndex === 0) {
           return {
@@ -270,8 +236,15 @@ export default {
         }
       }
     },
+    getSchedule() {
+      this.$axios.get(`/api/teacherManagement/getSchedule/${this.id}`).then((res) => {
+        this.data = res.data.list;
+      });
+    },
   },
   created() {
+    console.log(this.id,'this.id');
+    this.getSchedule();
   },
 };
 </script>
@@ -280,6 +253,10 @@ export default {
 </style>
 
 <style>
+.addSchedile {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 .__p_137_u_4 {
   vertical-align: bottom;
 }

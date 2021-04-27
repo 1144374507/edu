@@ -231,8 +231,8 @@ export default {
       value: "高一/秋季",
       data: [
         {
-          courseID: "001",
-          courseIdex: "0011",
+          courseID: "001",//课程号
+          courseIdex: "0011",//课序号
           courseName: "语文",
           courseType: "必修",
           examType: "考试",
