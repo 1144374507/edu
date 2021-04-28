@@ -574,11 +574,7 @@ export default {
   // top: 0;
 }
 
-.asm-input-tips {
-  // position: absolute;
-  // left: 0;
-  // top: 0;
-}
+ 
 </style>
 
 <style scoped lang="scss">
@@ -588,16 +584,4 @@ export default {
   }
 }
 </style>
-<style lang="scss">
-.my__wrappppp___ {
-  .el-input--suffix {
-    //
-  }
-  .el-select__tags {
-    // max-height: 60px;
-    // // padding-top: 3px;
-    // margin-top: 2px;
-    // overflow: auto;
-  }
-}
-</style>
+ 

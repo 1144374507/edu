@@ -896,9 +896,7 @@ export default {
   padding-left: 8px;
 }
 
-.__p_137_u_138 {
-  /* height: 824px; */
-}
+ 
 
 .__p_137_u_137 {
   height: 842px;
@@ -1049,9 +1047,7 @@ export default {
 .__p_137_u_1402 {
   width: 966px;
 }
-.__p_137_u_138 {
-  /* height: 824px; */
-}
+ 
 </style>
 
 <style lang="less">

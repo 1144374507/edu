@@ -205,55 +205,25 @@ export default {
       isShowClassMessage: false,
       term: [
         {
-          value: "高一/秋季",
-          label: "高一/秋季",
+          value: "高一",
+          label: "高一",
         },
         {
-          value: "高一/春季",
-          label: "高一/春季",
+          value: "高二",
+          label: "高二",
         },
         {
-          value: "高二/秋季",
-          label: "高二/秋季",
+          value: "高三",
+          label: "高三",
         },
-        {
-          value: "高二/春季",
-          label: "高二/春季",
-        },
-        {
-          value: "高三/秋季",
-          label: "高三/秋季",
-        },
-        {
-          value: "高三/春季",
-          label: "高三/春季",
-        },
+       
       ],
-      value: "高一/秋季",
+      value: "高一",
       data: [],
     };
   },
   computed: {},
   watch: {
-    // classmenbel: {
-    //   handler(val, oldVal) {
-    //     // console.log(val.length != oldVal.length , "lenght");
-    //     console.log(oldVal, "oldVal");
-    //     // this.classmenbel = val;
-    //     if (!(oldVal == undefined)) {
-    //       // console.log(val.length != oldVal.length || 0, "lenght");
-    //       console.log(val.length, oldVal, "lenght");
-    //       if (val.length != oldVal.length) {
-    //         console.log("我要变了", "mgPortNums");
-    //         console.log(val);
-    //         console.log(this.classmenbel);
-    //         console.log();
-    //       }
-    //     }
-    //   },
-    //   immediate: true,
-    //   deep: true,
-    // },
   },
   methods: {
     updata() {
@@ -1136,9 +1106,7 @@ export default {
   padding-left: 8px;
 }
 
-.__p_137_u_138 {
-  /* height: 824px; */
-}
+ 
 
 .__p_137_u_137 {
   height: 842px;
@@ -1289,9 +1257,7 @@ export default {
 .__p_137_u_1402 {
   width: 966px;
 }
-.__p_137_u_138 {
-  /* height: 824px; */
-}
+ 
 </style>
 
 <style lang="less">
