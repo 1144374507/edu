@@ -1,110 +1,281 @@
 <template>
-  <div class="__eid__el-main__">
-    <el-container style="height: 94vh; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['6']" default-active="2-4">
-          <!-- <el-submenu index="5">
-            <template slot="title"
-              ><i class="el-icon-message"></i>个人管理</template
+  <div class="__p_13f_u_66" style="height: 100%; width: 100%">
+    <div class="__p_13f_u_100">
+      <!-- 标题  老师列表-->
+      <el-row
+        type="flex"
+        justify="start"
+        align="top"
+        :gutter="0"
+        class="__p_137_u_270"
+      >
+        <el-col :span="12" :offset="0" :push="0" :pull="0">
+          <el-row
+            type="flex"
+            justify="start"
+            align="top"
+            :gutter="0"
+            class="__p_137_u_272"
+          >
+            <el-col
+              :span="12"
+              :offset="0"
+              :push="0"
+              :pull="0"
+              class="__p_137_u_273"
+              ><span class="__p_137_u_274">学生列表</span></el-col
             >
-            <el-menu-item index="5-1" @click.native="setIsShowTemplate('1-1')">个人信息</el-menu-item>
-            <el-menu-item index="5-2">我的班级</el-menu-item>
-          </el-submenu> -->
-          <el-submenu index="6">
-            <template slot="title"
-              ><i class="el-icon-message"></i>教务管理</template
+          </el-row>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="__p_13f_u_100 ____p_13f_u_103__wrap__">
+      <!-- 搜索框 -->
+      <el-row
+        type="flex"
+        justify="start"
+        align="top"
+        :gutter="0"
+        class="__p_13f_u_103"
+      >
+        <div style="margin-top: 15px">
+          <el-input
+            placeholder="请输入内容"
+            v-model="form.value"
+            class="input-with-select"
+          >
+            <el-select
+              v-model="form.key"
+              slot="prepend"
+              width="100px"
+              placeholder="请选择"
             >
-            <el-menu-item index="6-1" @click.native="setIsShowTemplate('6-1')"
-              >创建学生</el-menu-item
-            >
-            <el-menu-item index="6-3" @click.native="setIsShowTemplate('6-3')"
-              >创建老师</el-menu-item
-            >
-            <el-menu-item index="6-2" @click.native="setIsShowTemplate('6-2')"
-              >创建班级</el-menu-item
-            >
-            <el-menu-item index="6-4" @click.native="setIsShowTemplate('2-4')"
-              >查看班级</el-menu-item
-            >
-            <el-menu-item index="6-5" @click.native="setIsShowTemplate('6-5')"
-              >查看老师</el-menu-item
-            >
-            <el-menu-item index="6-6" @click.native="setIsShowTemplate('6-6')"
-              >查看学生</el-menu-item
-            >
-          </el-submenu>
-        </el-menu>
-      </el-aside>
+              <el-option label="年级" value="grades"></el-option>
+              <el-option label="名字" value="name"></el-option>
+              <el-option label="学号" value="schoolNumber"></el-option>
+            </el-select>
+            <el-button
+              @click="goSearch"
+              slot="append"
+              icon="el-icon-search"
+            ></el-button>
+          </el-input>
+        </div>
+      </el-row>
 
-      <el-container>
-        <el-main>
-          <!-- <template v-if="isShowTemplate == '1-1'">
-            <teacherMessage></teacherMessage>
-          </template> -->
+      <!-- 标题 已删除占位 -->
+      <el-row
+        type="flex"
+        justify="start"
+        align="top"
+        :gutter="0"
+        class="__p_13f_u_104"
+      >
+        <el-col
+          :span="12"
+          :offset="0"
+          :push="0"
+          :pull="0"
+          class="__p_13f_u_110"
+        >
+        </el-col>
+      </el-row>
+    </div>
 
-          <!-- 查看班级 -->
-          <template v-if="isShowTemplate == '2-4'">
-            <viewClass></viewClass>
-          </template>
-          <viewTeacher v-if="isShowTemplate == '6-5'"></viewTeacher>
-          <viewClasses v-if="isShowTemplate == '6-6'">查看学生</viewClasses>
-          <addClass
-            @gotoClass="setIsShowTemplate('2-4')"
-            v-if="isShowTemplate == '6-2'"
-          ></addClass>
-          <addTeacher key="6-3" v-if="isShowTemplate == '6-3'"></addTeacher>
-          <addStudent v-if="isShowTemplate == '6-1'"></addStudent>
-        </el-main>
-      </el-container>
-    </el-container>
-    <rjDialog></rjDialog>
+    <!-- 学生列表 -->
+    <div>
+      <div>
+        <el-table
+          class="__studebt__list__wrap__"
+          :data="classmenbel"
+          stripe
+          highlight-current-row
+          height="670"
+        >
+          <el-table-column fixed type="index" width="50"> </el-table-column>
+          <el-table-column
+            label="姓名"
+            prop="name"
+            width="150"
+            align="left"
+            header-align="left"
+          ></el-table-column
+          ><el-table-column
+            label="英文姓名"
+            prop="englishName"
+            width="150"
+            align="left"
+            header-align="left"
+          ></el-table-column>
+          <el-table-column
+            label="性别"
+            prop="sex"
+            width="150"
+            align="left"
+            header-align="left"
+          ></el-table-column>
+          <el-table-column
+            label="年级"
+            prop="grades"
+            width="150px"
+            align="left"
+            header-align="left"
+          ></el-table-column>
+          <el-table-column
+            label="学号"
+            prop="schoolNumber"
+            width="150px"
+            align="left"
+            header-align="left"
+          ></el-table-column>
+          <el-table-column
+            label="联系方式"
+            prop="tel"
+            width="150px"
+            align="left"
+            header-align="left"
+          ></el-table-column>
+          <el-table-column
+            label="操作"
+            width="80"
+            align="left"
+            header-align="left"
+          >
+            <div slot-scope="scope">
+              <el-button
+                type="text"
+                style="margin-left: 0px; margin-right: 15px"
+                @click="deleteStudent(scope.row.cid)"
+                >删除</el-button
+              >
+            </div>
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>
+
+    <!-- <el-dialog
+      :visible.sync="addTeacherVisible"
+      :close-on-click-modal="false"
+      width="480px"
+      top="5vh"
+    >
+      <addTeacher
+        v-if="addTeacherVisible"
+        :id="id"
+        :classes="classes"
+        :isaddTeacher="isaddTeacher"
+        :payload="addTeacherVisible"
+        @cancel="addTeacherVisible = false"
+        @updata="updata"
+      ></addTeacher>
+    </el-dialog> -->
   </div>
 </template>
 
 <script>
-import rjDialog from "@/common/dialog";
-import teacherMessage from "./teacherMessage/teacherMessage";
-import viewClass from "./viewClass/viewClass";
-import addClass from "./addClass/index";
-import addStudent from "./addStudent/wizards/index";
-import addTeacher from "./addTeacher/index";
-import viewTeacher from './viewTeacher'
-import viewClasses from './viewClasses'
-
+// import addTeacher from "../addStudent/addStundent";
+import scroll from "@/common/scroll";
+import qs from "qs";
 export default {
+  name: "classMessage",
   components: {
-    rjDialog,
-    teacherMessage,
-    viewClass,
-    addClass,
-    addStudent,
-    addTeacher,
-    viewTeacher,
-    viewClasses
+    // addTeacher,
+    scroll,
+  },
+  props: {
+    classes: {},
+    teacherMessage: {},
+    id: {},
   },
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄",
-    };
     return {
-      isCrearteTeacher: true,
-      isShowTemplate: "2-4",
-      url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      classmenbel: [],
+      addTeacherVisible: false,
+      isaddTeacher: "",
+      value: "高一  ",
+      input3: "123",
+      select: "年级",
+      form: {
+        key: "grades",
+        value: "",
+      },
     };
   },
   methods: {
-    setIsShowTemplate(flog) {
-      this.isShowTemplate = flog;
+    // 删除
+    deleteTeacher(cid) {
+      this.$confirm("确认删除吗？").then(() => {
+        const loading = this.$loading({
+          lock: true,
+          text: "处理中",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
+
+        this.$axios
+          .delete(`/api/teacherManagement/deleteClass/deleteTeacher/${cid}`)
+          .then((res) => {
+            if (res.data.success) {
+              this.$message.success("删除成功");
+              this.$emit("updata");
+              loading.close();
+            }
+          });
+      });
     },
+
+    getData() {
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      this.$axios.get("/api/addClass/getStudents").then((res) => {
+        if (res.data.success) {
+          this.studentsData = res.data.list;
+          this.classmenbel = res.data.list;
+          this.$message.success("查询成功");
+          loading.close();
+        } else {
+          loading.close();
+          this.$message.success("查询失败，请重试");
+        }
+      });
+    },
+
+    goSearch() {
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      this.$axios
+        .get(`/api/addClass/getStudents2?${this.form.key}=${this.form.value}`)
+        .then((res) => {
+          if (res.data.success) {
+            this.studentsData = res.data.list;
+            this.classmenbel = res.data.list;
+            this.$message.success("查询成功");
+            loading.close();
+          }else {
+          loading.close();
+          this.$message.success("查询失败，请重试");
+        }
+        });
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>
 
 <style>
 </style>
+
 <style>
 .__p_137_u_4 {
   vertical-align: bottom;
@@ -910,6 +1081,10 @@ export default {
   padding-left: 8px;
 }
 
+.__p_137_u_138 {
+  /* height: 824px; */
+}
+
 .__p_137_u_137 {
   height: 842px;
 }
@@ -1059,9 +1234,15 @@ export default {
 .__p_137_u_1402 {
   width: 966px;
 }
+.__p_137_u_138 {
+  /* height: 824px; */
+}
 </style>
 
 <style lang="less">
+.__p_13f_u_87 {
+  width: 80vw;
+}
 .__eid__el-main__ {
   .el-main {
     overflow: visible;
@@ -1077,158 +1258,22 @@ export default {
   }
 }
 </style>
-<style scoped>
-.__p_13f_u_89 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  border-bottom: 1px solid #bbbbbb;
-}
+ 
 
-.__p_13f_u_91 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  border-bottom: 1px solid #bbbbbb;
+ <style lang="scss">
+.____p_13f_u_103__wrap__ {
+  .__p_13f_u_103 {
+    margin-top: 20px;
+  }
+  .el-select .el-input {
+    width: auto;
+    min-width: 100px;
+    max-width: 120px;
+  }
 }
-
-.__p_13f_u_93 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  border-bottom: 1px solid #bbbbbb;
-}
-
-.__p_13f_u_95 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  border-bottom: 1px solid #bbbbbb;
-}
-
-.__p_13f_u_88 {
-  height: 70vh;
-  border-right: 1px solid #bbbbbb;
-}
-
-.__p_13f_u_86 {
-  width: 15vw;
-  height: 70vh;
-}
-
-.__p_13f_u_107 {
-  float: left;
-  clear: both;
-  margin-top: 6px;
-  margin-right: 6px;
-}
-
-.__p_13f_u_108 {
-  border-radius: 0;
-  width: 70%;
-  float: left;
-  clear: right;
-}
-
-.__p_13f_u_109 {
-  float: right;
-}
-
-.__p_13f_u_105 {
-  width: 30%;
-  margin-right: 20px;
-  float: left;
-  display: block;
-}
-
-.__p_13f_u_199 {
-  float: left;
-  clear: both;
-  margin-top: 6px;
-}
-
-.__p_13f_u_201 {
-  float: right;
-}
-
-.__p_13f_u_202 {
-  width: 70%;
-}
-
-.__p_13f_u_198 {
-  width: 438px;
-  float: right;
-  display: block;
-}
-
-.__p_13f_u_103 {
-  border-top: 1px solid #bbbbbb;
-  border-bottom: 1px solid #bbbbbb;
-  border-right: 1px solid #bbbbbb;
-  width: 80vw;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-}
-
-.__p_13f_u_110 {
-  clear: both;
-}
-
-.__p_13f_u_104 {
-  margin-top: 20px;
-}
-
-.__p_13f_u_100 {
-  margin-top: 20px;
-}
-
-.__p_13f_u_128 {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  margin-right: 30px;
-  text-align: right;
-}
-
-.__p_13f_u_140 {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  margin-right: 30px;
-  text-align: right;
-}
-
-.__p_13f_u_87 {
-  width: 80vw;
-}
-
-.__p_13f_u_66 {
-  height: 80vh;
+.__studebt__list__wrap__ {
+  max-height: 667px;
+  overflow: auto;
 }
 </style>
+

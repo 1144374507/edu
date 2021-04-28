@@ -37,37 +37,16 @@
                     :label="item.label"
                   ></el-option>
                 </el-select>
-                <el-button type="primary" size="small" class="__p_13f_u_109"
+                <el-button
+                  @click="getSearchGrade"
+                  type="primary"
+                  size="small"
+                  class="__p_13f_u_109"
                   >搜索</el-button
                 >
               </el-col>
 
               <!-- 搜索班级 -->
-              <el-col
-                :span="12"
-                :offset="0"
-                :push="0"
-                :pull="0"
-                class="__p_13f_u_198"
-                ><span class="__p_13f_u_199">班级</span>
-
-                <el-select
-                  placeholder="请输入内容"
-                  size="small"
-                  class="__p_13f_u_108"
-                  v-model="value"
-                >
-                  <el-option
-                    v-for="(item, index) in term"
-                    :key="index"
-                    :value="item.value"
-                    :label="item.label"
-                  ></el-option>
-                </el-select>
-                <el-button type="primary" size="small" class="__p_13f_u_201"
-                  >搜索</el-button
-                >
-              </el-col>
             </el-row>
 
             <!-- 标题 已删除占位 -->
@@ -180,7 +159,11 @@
       v-if="isShowClassMessage"
       :teacherMessage="teacherMessage"
     ></teacherMessage>
-    <schedule :id="updataId" v-if="isShowClassMessage" :classmenbel="classmenbel"></schedule>
+    <schedule
+      :id="updataId"
+      v-if="isShowClassMessage"
+      :classmenbel="classmenbel"
+    ></schedule>
   </div>
 </template>
 
@@ -197,11 +180,11 @@ export default {
   },
   data() {
     return {
-      // let aerr =[ 1,1,1,1] 
+      // let aerr =[ 1,1,1,1]
       // arr.push(a)
       updataId: "",
       classmenbel: [],
-      teacherMessage:[],
+      teacherMessage: [],
       isShowClassMessage: false,
       term: [
         {
@@ -216,15 +199,17 @@ export default {
           value: "高三",
           label: "高三",
         },
-       
+        {
+          value: "全部",
+          label: "全部",
+        },
       ],
-      value: "高一",
+      value: "高一  ",
       data: [],
     };
   },
   computed: {},
-  watch: {
-  },
+  watch: {},
   methods: {
     updata() {
       this.getdata();
@@ -272,10 +257,8 @@ export default {
         background: "rgba(0, 0, 0, 0.7)",
       });
       this.$axios.get("/api/teacherManagement").then((res) => {
-        console.log(res);
         if (res.data.success) {
           this.data = res.data.list;
-          console.log(this.data);
 
           // 添加学生刷新数据
           if (!(this.updataId == "")) {
@@ -290,6 +273,28 @@ export default {
           loading.close();
         }
       });
+    },
+    getSearchGrade() {
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      if (this.value != "全部") {
+        this.$axios.get(`/api/teacherManagement/${this.value}`).then((res) => {
+          if (res.data.success) {
+            this.data = res.data.list;
+            this.$message.success("搜索成功");
+            loading.close();
+          } else {
+            this.$message.error("搜索失败，请重试");
+            loading.close();
+          }
+        });
+      }else{
+        this.getdata()
+      }
     },
   },
   created() {
@@ -1106,8 +1111,6 @@ export default {
   padding-left: 8px;
 }
 
- 
-
 .__p_137_u_137 {
   height: 842px;
 }
@@ -1257,7 +1260,6 @@ export default {
 .__p_137_u_1402 {
   width: 966px;
 }
- 
 </style>
 
 <style lang="less">

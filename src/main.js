@@ -179,7 +179,12 @@ Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
-
+Vue.prototype.$getViewportSize = ( ) => {
+  return {
+    width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,//兼容性获取屏幕宽度
+    height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight//兼容性获取屏幕高度
+  };
+};
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios;
