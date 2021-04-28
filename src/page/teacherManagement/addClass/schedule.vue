@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import addSchedile from "../../addSchedile/addSchedile";
+import addSchedile from "../addSchedile/addSchedile";
 export default {
   components: {
     addSchedile,

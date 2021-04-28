@@ -153,7 +153,6 @@
   </div>
 </template>
 <script>
-import {} from "../utils/validate";
 
 export default {
   data() {
