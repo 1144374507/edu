@@ -252,6 +252,7 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
       });
+      
       this.$axios
         .get(`/api/addClass/getStudents2?${this.form.key}=${this.form.value}`)
         .then((res) => {
