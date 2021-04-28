@@ -273,18 +273,9 @@ export default {
   left: 0;
   top: 0;
 }
-.asm-input {
-  width: 200px;
-  // position: absolute;
-  // left: 0;
-  // top: 0;
-}
+ 
 
-.asm-input-tips {
-  // position: absolute;
-  // left: 0;
-  // top: 0;
-}
+ 
 </style>
 
 <style scoped lang="scss">
