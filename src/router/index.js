@@ -6,6 +6,7 @@ import UserManagement from '@/page/userManagement/UserManagement'
 import CourseElectives from '@/page/courseElectives/CourseElectives'
 import Achievement from '@/page/achievement/Achievement'
 import TeacherManagement from '@/page/teacherManagement/TeacherManagement'
+import changeTheme from '../components/theme/themeIndex'
 
 // const Home= ()=> import('@/components/home/header')
 
@@ -54,6 +55,12 @@ const routes = [
     path: '/teacherManagement',
     name: 'TeacherManagement',
     component: TeacherManagement
+  },
+  {
+    // 主题管理
+    path: '/changeTheme',
+    name: 'ChangeTheme',
+    component: changeTheme
   },
  
 ]

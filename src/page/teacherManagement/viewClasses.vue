@@ -145,7 +145,7 @@
               <el-button
                 type="text"
                 style="margin-left: 0px; margin-right: 15px"
-                @click="deleteStudent(scope.row.cid)"
+                @click="deleteStudent(scope.row.schoolNumber)"
                 >删除</el-button
               >
             </div>
@@ -203,8 +203,7 @@ export default {
     };
   },
   methods: {
-    // 删除
-    deleteTeacher(cid) {
+    deleteStudent(schoolNumber) {
       this.$confirm("确认删除吗？").then(() => {
         const loading = this.$loading({
           lock: true,
@@ -214,11 +213,15 @@ export default {
         });
 
         this.$axios
-          .delete(`/api/teacherManagement/deleteClass/deleteTeacher/${cid}`)
+          .delete(`/api/teacherManagement/deleteClass/deleteStudent2/${schoolNumber}`)
           .then((res) => {
             if (res.data.success) {
               this.$message.success("删除成功");
               this.$emit("updata");
+              loading.close();
+              this.getData()
+            }else{
+              this.$message.erro("删除失败");
               loading.close();
             }
           });
@@ -252,7 +255,7 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
       });
-      
+
       this.$axios
         .get(`/api/addClass/getStudents2?${this.form.key}=${this.form.value}`)
         .then((res) => {
@@ -261,10 +264,10 @@ export default {
             this.classmenbel = res.data.list;
             this.$message.success("查询成功");
             loading.close();
-          }else {
-          loading.close();
-          this.$message.success("查询失败，请重试");
-        }
+          } else {
+            loading.close();
+            this.$message.success("查询失败，请重试");
+          }
         });
     },
   },

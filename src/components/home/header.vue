@@ -13,7 +13,25 @@
           src="data:image/png;base64,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"
           class="__p_124_u_138"
         /> -->
-        <div class="user __p_124_u_138">
+        <div class="user __p_124_u_138 __change__theme__wrap__">
+          <div class="__p_124_u_139">
+            <span class="__p_124_u_140">
+              <el-popover 
+                style="height:120;"
+                placement="bottom"
+                title="主题"
+                width="200"
+                trigger="manual"
+                content="选择一个主题。"
+                v-model="visible2"
+              >
+                <el-button slot="reference" @click="visible2 = !visible2"
+                  >主题</el-button
+                >
+                <themeIndex></themeIndex>
+              </el-popover>
+            </span>
+          </div>
           <el-popover
             placement="bottom"
             width="300"
@@ -182,7 +200,11 @@
   </div>
 </template>
 <script>
+import themeIndex from "../theme/themeIndex";
 export default {
+  components: {
+    themeIndex,
+  },
   data() {
     //验证确认密码
     var validateConfirmPwd = (rule, value, callback) => {
@@ -193,6 +215,7 @@ export default {
       }
     };
     return {
+      visible2: false,
       showModifyOpiton: false,
       modifyForm: {
         userName: "admin",
@@ -401,5 +424,11 @@ export default {
 }
 .el-popover {
   background: #03091f !important;
+}
+.__change__theme__wrap__{
+
+.el-popover{
+  height: 120px !important;
+}
 }
 </style>

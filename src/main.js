@@ -9,7 +9,9 @@ import axios from 'axios'
 import vueAxios from 'vue-axios'
 
 // import {store} from '@/assets/js/extend4srt.js'
-import '../theme/index.css'
+import './theme/index.css'
+import './theme/theme-000/index.css'
+import '@/assets/js/extend4theme.js' 
 
 import {
   Pagination,

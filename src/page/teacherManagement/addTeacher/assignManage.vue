@@ -10,7 +10,7 @@
       >
         <div>
           <el-form-item label=" 姓 名 " prop="name">
-            <div class="asm-input-wraop">
+            <div class="asm-input-wraop111">
               <el-input
                 size="small"
                 placeholder="请输入"
@@ -27,7 +27,7 @@
             </div>
           </el-form-item>
           <el-form-item label=" 英文名字 " prop="englishName">
-            <div class="asm-input-wraop">
+            <div class="asm-input-wraop111">
               <el-input
                 size="small"
                 placeholder="请输入"
@@ -153,7 +153,6 @@
   </div>
 </template>
 <script>
-
 export default {
   data() {
     let valitorIdCard = (rule, value, callback) => {
@@ -267,15 +266,25 @@ export default {
   margin-top: 24px;
 }
 </style>
-<style lang="scss" scoped>
-.asm-input-wraop {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
- 
+<style lang="scss" >
+.__p_12z_u_2 {
+  .asm-input-wraop {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .asm-input-wraop111 {
+    display: flex !important;
+    width: 217px;
+    position: relative;
+  }
 
- 
+  .el-tooltip {
+    position: absolute;
+    right: -20px;
+    top: 12px;
+  }
+}
 </style>
 
 <style scoped lang="scss">
