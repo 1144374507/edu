@@ -83,9 +83,10 @@
     </div>
 
     <!-- 学生列表 -->
-    <div>
-      <div>
+    <div style="width: 100%">
+      <div style="width: 100%">
         <el-table
+          width="100%"
           class="__studebt__list__wrap__"
           :data="classmenbel"
           stripe
@@ -96,57 +97,56 @@
           <el-table-column
             label="姓名"
             prop="name"
-            width="150"
             align="left"
             header-align="left"
           ></el-table-column
           ><el-table-column
             label="英文姓名"
             prop="englishName"
-            width="150"
             align="left"
             header-align="left"
           ></el-table-column>
           <el-table-column
             label="性别"
             prop="sex"
-            width="150"
             align="left"
             header-align="left"
           ></el-table-column>
           <el-table-column
             label="年级"
             prop="grades"
-            width="150px"
             align="left"
             header-align="left"
           ></el-table-column>
           <el-table-column
             label="学号"
             prop="schoolNumber"
-            width="150px"
             align="left"
             header-align="left"
           ></el-table-column>
           <el-table-column
             label="联系方式"
             prop="tel"
-            width="150px"
             align="left"
             header-align="left"
           ></el-table-column>
           <el-table-column
             label="操作"
-            width="80"
             align="left"
             header-align="left"
           >
-            <div slot-scope="scope">
+            <div style="display:flex;" slot-scope="scope">
               <el-button
                 type="text"
                 style="margin-left: 0px; margin-right: 15px"
                 @click="deleteStudent(scope.row.schoolNumber)"
                 >删除</el-button
+              >
+              <el-button
+                type="text"
+                style="margin-left: 0px; margin-right: 15px"
+                @click="ediStudent(scope.row)"
+                >编辑</el-button
               >
             </div>
           </el-table-column>
@@ -154,34 +154,34 @@
       </div>
     </div>
 
-    <!-- <el-dialog
-      :visible.sync="addTeacherVisible"
+    <el-dialog
+      :visible.sync="edit"
       :close-on-click-modal="false"
-      width="480px"
       top="5vh"
+      min-height='50vh'
     >
-      <addTeacher
-        v-if="addTeacherVisible"
-        :id="id"
-        :classes="classes"
-        :isaddTeacher="isaddTeacher"
-        :payload="addTeacherVisible"
-        @cancel="addTeacherVisible = false"
-        @updata="updata"
-      ></addTeacher>
-    </el-dialog> -->
+      <editStudents
+        v-if="edit"
+        :studentData='studentData'
+        @colseDielog='edit = false'
+        :edit='edit'
+        @cancel="edit = false"
+      ></editStudents>
+      <div> -</div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 // import addTeacher from "../addStudent/addStundent";
+import editStudents from './addStudent/wizards/index'
 import scroll from "@/common/scroll";
 import qs from "qs";
 export default {
   name: "classMessage",
   components: {
     // addTeacher,
-    scroll,
+    scroll,editStudents
   },
   props: {
     classes: {},
@@ -190,8 +190,9 @@ export default {
   },
   data() {
     return {
+      studentData:{},
       classmenbel: [],
-      addTeacherVisible: false,
+      edit: false,
       isaddTeacher: "",
       value: "高一  ",
       input3: "123",
@@ -203,6 +204,14 @@ export default {
     };
   },
   methods: {
+    colseDielog(){
+      this.edit = false
+    },
+    ediStudent(data){
+      this.edit = true
+      console.log(data);
+      this.studentData = data
+    },
     deleteStudent(schoolNumber) {
       this.$confirm("确认删除吗？").then(() => {
         const loading = this.$loading({
@@ -213,14 +222,16 @@ export default {
         });
 
         this.$axios
-          .delete(`/api/teacherManagement/deleteClass/deleteStudent2/${schoolNumber}`)
+          .delete(
+            `/api/teacherManagement/deleteClass/deleteStudent2/${schoolNumber}`
+          )
           .then((res) => {
             if (res.data.success) {
               this.$message.success("删除成功");
               this.$emit("updata");
               loading.close();
-              this.getData()
-            }else{
+              this.getData();
+            } else {
               this.$message.erro("删除失败");
               loading.close();
             }
@@ -1266,6 +1277,8 @@ export default {
 
  <style lang="scss">
 .____p_13f_u_103__wrap__ {
+    margin-bottom: 20px;
+
   .__p_13f_u_103 {
     margin-top: 20px;
   }
@@ -1276,6 +1289,7 @@ export default {
   }
 }
 .__studebt__list__wrap__ {
+  width: 100% !important;
   max-height: 667px;
   overflow: auto;
 }

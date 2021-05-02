@@ -204,7 +204,7 @@ export default {
 }
 
 .__muid_549 {
-  background: #03091f;
+  /* background: #03091f; */
   padding-left: 30px;
   padding-right: 30px;
   overflow: hidden;

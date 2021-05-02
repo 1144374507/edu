@@ -48,6 +48,7 @@
                   v-model.number="form.schoolNumber"
                   class="asm-input"
                   placeholder="请输入"
+                  :disabled="Boolean(studentData)"
                 ></el-input>
                 <el-tooltip
                   content=" 请输入学号，请确保他是惟一的"
@@ -141,6 +142,10 @@
 import {} from "../utils/validate";
 
 export default {
+  props: {
+    studentData: {},
+    edit: {},
+  },
   data() {
     let valitorIdCard = (rule, value, callback) => {
       let reg = /^[0-9]{17}[0-9xX]{1}$/;
@@ -172,7 +177,12 @@ export default {
       },
     };
   },
-  mounted() {},
+  mounted() {
+    if (this.studentData) {
+      this.form = this.studentData;
+    }
+    console.log("form", this.form);
+  },
   methods: {
     handleCheckClick() {
       if (this.showCustomVlan) {
@@ -191,21 +201,41 @@ export default {
             background: "rgba(0, 0, 0, 0.7)",
           });
 
-          this.$axios.post("/api/createStudent/base", this.form).then((res) => {
-            console.log(res);
-            console.log(!res.data.success);
-            if (!res.data.success) {
-              this.$message.error(`${res.data.msg}`);
-              loading.close();
-              return;
-            } else {
-              this.$message.success(`${res.data.msg}`);
-              console.log(this.form.schoolNumber,'this.form.schoolNumber');
-              let data = this.form.schoolNumber
-              this.$emit("nextStep",data);
-              loading.close();
-            }
-          });
+          if (this.studentData) {
+            console.log('formmm',this.form);
+            this.$axios
+              .post("/api/createStudent/base/updata", this.form)
+              .then((res) => {
+                if (!res.data.success) {
+                  this.$message.error(`${res.data.msg}`);
+                  loading.close();
+                  return;
+                } else {
+                  this.$message.success(`${res.data.msg}`);
+                  let data = this.form.schoolNumber;
+                  this.$emit("nextStep", data);
+                  loading.close();
+                }
+              });
+          } else {
+            this.$axios
+              .post("/api/createStudent/base", this.form)
+              .then((res) => {
+                console.log(res);
+                console.log(!res.data.success);
+                if (!res.data.success) {
+                  this.$message.error(`${res.data.msg}`);
+                  loading.close();
+                  return;
+                } else {
+                  this.$message.success(`${res.data.msg}`);
+                  console.log(this.form.schoolNumber, "this.form.schoolNumber");
+                  let data = this.form.schoolNumber;
+                  this.$emit("nextStep", data);
+                  loading.close();
+                }
+              });
+          }
         }
       });
     },

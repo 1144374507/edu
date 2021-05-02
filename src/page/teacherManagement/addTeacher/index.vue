@@ -25,12 +25,15 @@
         <div>
           <assign-manage
             v-if="activeStep === 1"
+            :teacherData="teacherData"
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
           ></assign-manage>
 
           <bind-configuration
             v-if="activeStep === 2"
+            :teacherData="teacherData"
+            @colseDielog="colseDielog"
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
             :schoolNumber="schoolNumber"
@@ -60,7 +63,9 @@ export default {
     deployFinish,
     DeployFinish,
   },
-  props: {},
+  props: {
+    teacherData: {},
+  },
   data() {
     return {
       showOverview: true,
@@ -69,6 +74,9 @@ export default {
     };
   },
   methods: {
+    colseDielog(){
+      this.$emit('colseDielog')
+    },
     handleStartBtnClick() {
       this.showOverview = false;
     },

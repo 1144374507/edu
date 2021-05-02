@@ -4,6 +4,6 @@ import rjTheme from 'rj-theme'
 
 Vue.use(elementUI)
 Vue.use(rjTheme, {
-  defaultTheme: "theme-00aeff",
+  defaultTheme: "theme-jsfjsf",
   cacheType: 3
 })

@@ -100,6 +100,7 @@ export default {
   components: {},
   props: {
     schoolNumber: {},
+    studentData:{}
   },
   data() {
     return {
@@ -150,21 +151,26 @@ export default {
     },
     // 获取数据库缓存学号
     getBufferSchoolNumber() {
-      this.$axios.get('/api/createStudent/getBufferSchoolNumber').then(res => {
-        this.form.schoolNumber = res.data.list[0].schoolNumber
-        console.log(this.form.schoolNumber,'getBufferSchoolNumber');
-      })
+      this.$axios
+        .get("/api/createStudent/getBufferSchoolNumber")
+        .then((res) => {
+          this.form.schoolNumber = res.data.list[0].schoolNumber;
+          console.log(this.form.schoolNumber, "getBufferSchoolNumber");
+        });
     },
   },
   mounted() {
-    if(this.schoolNumber==''){
-      this.getBufferSchoolNumber()
-    }else if(this.schoolNumber==undefined){
-      this.getBufferSchoolNumber()
+    if (this.studentData) {
+      this.form = this.studentData;
+    }
+    console.log("form", this.form);
+    if (this.schoolNumber == "") {
+      this.getBufferSchoolNumber();
+    } else if (this.schoolNumber == undefined) {
+      this.getBufferSchoolNumber();
     } else {
       this.form.schoolNumber = this.schoolNumber;
       console.log(this.schoolNumber, "schoolNumber 2222");
-
     }
   },
 };

@@ -2,7 +2,7 @@
   <div class="__eid__el-main__">
     <el-container style="height: 94vh; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['6']" default-active="2-4">
+        <el-menu :default-openeds="['6']" default-active="6-4">
           <!-- <el-submenu index="5">
             <template slot="title"
               ><i class="el-icon-message"></i>个人管理</template

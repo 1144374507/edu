@@ -9886,7 +9886,7 @@
 }
 
 .theme-jsfjsf .el-table__body-wrapper {
-  overflow: hidden;
+  overflow: auto;
   position: relative
 }
 
@@ -30252,6 +30252,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  
 }
 
 .theme-jsfjsf .fade-in-linear-enter-active, .fade-in-linear-leave-active {

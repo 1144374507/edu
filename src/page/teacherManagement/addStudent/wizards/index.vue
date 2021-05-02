@@ -3,6 +3,7 @@
     <Overview
       :isCrearteTeacher="isCrearteTeacher"
       v-if="showOverview"
+      :edit='edit'
       @startBtnClick="handleStartBtnClick"
       @goStep="handleGoStep"
     ></Overview>
@@ -30,19 +31,23 @@
         <div>
           <assign-manage
             v-if="activeStep === 1"
+            :studentData='studentData'
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
           ></assign-manage>
           <planning-configuration
             v-if="activeStep === 2"
+            :studentData='studentData'
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
             :schoolNumber="schoolNumber"
           ></planning-configuration>
           <bind-configuration
             v-if="activeStep === 3"
+            :studentData='studentData'
             @preStep="handlePreStep"
             @nextStep="handleNextStep"
+            @colseDielog='colseDielog'
             :schoolNumber="schoolNumber"
           ></bind-configuration>
           <deploy-finish
@@ -64,6 +69,7 @@ import deployFinish from "./deployFinish";
 import DeployFinish from "./deployFinish.vue";
 
 export default {
+
   components: {
     Overview,
     BindConfiguration,
@@ -73,7 +79,7 @@ export default {
     DeployFinish,
   },
   props: {
-    isCrearteTeacher: {},
+    isCrearteTeacher: {},edit:{},studentData:{}
   },
   data() {
     return {
@@ -83,6 +89,9 @@ export default {
     };
   },
   methods: {
+    colseDielog(){
+      this.$emit('colseDielog')
+    },
     handleStartBtnClick() {
       this.showOverview = false;
     },

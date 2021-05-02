@@ -41,20 +41,18 @@
               class="__p_137_u_138"
             >
               <!-- 老师表 -->
-              <div>
+              <div style="width: 100%">
                 <el-table :data="teacherMessage" stripe highlight-current-row>
                   <el-table-column type="index" width="50"> </el-table-column>
                   <el-table-column
                     label="姓名"
                     prop="names"
-                    width="150px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="性别"
                     prop="sex"
-                    width="150px"
                     align="left"
                     header-align="left"
                   ></el-table-column
@@ -63,21 +61,18 @@
                   <el-table-column
                     label="教授课程"
                     prop="courseName"
-                    width="150px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="职务"
                     prop="office"
-                    width="150px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="联系方式"
                     prop="tel"
-                    width="150px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
@@ -138,7 +133,7 @@
         v-if="addTeacherVisible"
         :id="id"
         :classes="classes"
-        :isaddTeacher='isaddTeacher'
+        :isaddTeacher="isaddTeacher"
         :payload="addTeacherVisible"
         @cancel="addTeacherVisible = false"
         @updata="updata"
@@ -164,7 +159,7 @@ export default {
   data() {
     return {
       addTeacherVisible: false,
-      isaddTeacher: "", 
+      isaddTeacher: "",
     };
   },
   methods: {

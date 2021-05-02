@@ -41,7 +41,7 @@
               class="__p_137_u_138"
             >
               <!-- 课表 -->
-              <div>
+              <div style="width: 100%">
                 <el-table
                   :data="data"
                   border
@@ -52,69 +52,59 @@
                   <el-table-column
                     label=""
                     prop="sectiontime"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column
                   ><el-table-column
                     label="节次"
                     prop="sections"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="时间"
                     prop="time"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期一"
                     prop="mom"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期二"
                     prop="tue"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期三"
                     prop="wed"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期四"
                     prop="thurs"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期五"
                     prop="friday"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期六"
                     prop="sat"
-                    width="100px"
                     align="left"
                     header-align="left"
                   ></el-table-column>
                   <el-table-column
                     label="星期日"
-                    width="100px"
                     prop="sun"
                     align="left"
                     header-align="left"

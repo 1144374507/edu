@@ -97,6 +97,7 @@ export default {
   components: {},
   props: {
     schoolNumber: {},
+    teacherData: {},
   },
   data() {
     return {
@@ -122,7 +123,7 @@ export default {
     handlePreBtnClick() {
       this.$emit("preStep");
     },
-   
+
     // 下一步
     handleNextBtnClick() {
       this.deployFinishDialogVisible = true;
@@ -135,18 +136,25 @@ export default {
             background: "rgba(0, 0, 0, 0.7)",
           });
 
-          this.$axios.post("/api/createTeacher/other", this.form).then((res) => {
-            console.log(res);
-            console.log(!res.data.success);
-            if (!res.data.success) {
-              this.$message.error(`${res.data.msg}`);
-              return;
-            } else {
-              this.$message.success(`${res.data.msg}`);
-              loading.close();
-              this.$emit("nextStep");
-            }
-          });
+          this.$axios
+            .post("/api/createTeacher/other", this.form)
+            .then((res) => {
+              console.log(res);
+              console.log(!res.data.success);
+              if (!res.data.success) {
+                this.$message.error(`${res.data.msg}`);
+                return;
+              } else {
+                this.$message.success(`${res.data.msg}`);
+                loading.close();
+
+                if (this.teacherData) {
+                  this.$emit("colseDielog");
+                } else {
+                  this.$emit("nextStep");
+                }
+              }
+            });
         }
       });
     },
@@ -161,6 +169,9 @@ export default {
     },
   },
   mounted() {
+    if (this.teacherData) {
+      this.form = this.teacherData;
+    }
     if (this.schoolNumber == "") {
       this.getBufferSchoolNumber();
     } else if (this.schoolNumber == undefined) {

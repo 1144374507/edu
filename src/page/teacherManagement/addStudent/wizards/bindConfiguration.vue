@@ -97,6 +97,7 @@ export default {
   components: {},
   props: {
     schoolNumber: {},
+    studentData: {},
   },
   data() {
     return {
@@ -123,8 +124,6 @@ export default {
       this.$emit("preStep");
     },
     // 下一步
-    handleNextBtnClick() {},
-    // 下一步
     handleNextBtnClick() {
       this.deployFinishDialogVisible = true;
       this.$refs["form"].validate((valid) => {
@@ -136,18 +135,24 @@ export default {
             background: "rgba(0, 0, 0, 0.7)",
           });
 
-          this.$axios.post("/api/createStudent/other", this.form).then((res) => {
-            console.log(res);
-            console.log(!res.data.success);
-            if (!res.data.success) {
-              this.$message.error(`${res.data.msg}`);
-              return;
-            } else {
-              this.$message.success(`${res.data.msg}`);
-              loading.close();
-              this.$emit("nextStep");
-            }
-          });
+          this.$axios
+            .post("/api/createStudent/other", this.form)
+            .then((res) => {
+              console.log(res);
+              console.log(!res.data.success);
+              if (!res.data.success) {
+                this.$message.error(`${res.data.msg}`);
+                return;
+              } else {
+                this.$message.success(`${res.data.msg}`);
+                loading.close();
+                if (this.studentData) {
+                  this.$emit("colseDielog");
+                } else {
+                  this.$emit("nextStep");
+                }
+              }
+            });
         }
       });
     },
@@ -162,6 +167,9 @@ export default {
     },
   },
   mounted() {
+    if (this.studentData) {
+      this.form = this.studentData;
+    }
     if (this.schoolNumber == "") {
       this.getBufferSchoolNumber();
     } else if (this.schoolNumber == undefined) {

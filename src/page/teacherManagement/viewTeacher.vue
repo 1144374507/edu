@@ -65,20 +65,24 @@
         <div style="margin-top: 15px">
           <el-input
             placeholder="请输入内容"
-            v-model="input3"
+            v-model="form.value"
             class="input-with-select"
           >
             <el-select
-              v-model="select"
+              v-model="form.key"
               slot="prepend"
               width="100px"
               placeholder="请选择"
             >
-              <el-option label="餐厅名" value="1"></el-option>
-              <el-option label="订单号" value="2"></el-option>
-              <el-option label="用户电话" value="3"></el-option>
+              <el-option label="姓名" value="name"></el-option>
+              <el-option label="教授科目" value="grades"></el-option>
+              <el-option label="工号" value="schoolNumber"></el-option>
             </el-select>
-            <el-button slot="append" icon="el-icon-search"></el-button>
+            <el-button
+              @click="goSearch"
+              slot="append"
+              icon="el-icon-search"
+            ></el-button>
           </el-input>
         </div>
         <!-- </el-col> -->
@@ -106,57 +110,62 @@
     </div>
     <!-- 老师表 -->
     <div>
-      <el-table :data="teacherMessage" stripe highlight-current-row>
+      <el-table
+        :data="teacherMessage"
+        class="__teacher__list__wrap__"
+        stripe
+        highlight-current-row
+      >
         <el-table-column type="index" width="50"> </el-table-column>
         <el-table-column
           label="姓名"
-          prop="names"
-          width="150px"
+          prop="name"
           align="left"
           header-align="left"
         ></el-table-column>
         <el-table-column
           label="性别"
           prop="sex"
-          width="150px"
           align="left"
           header-align="left"
-        ></el-table-column
-        >classes
+        ></el-table-column>
 
         <el-table-column
           label="教授课程"
           prop="courseName"
-          width="150px"
+          align="left"
+          header-align="left"
+        ></el-table-column>
+        <el-table-column
+          label="工号"
+          prop="schoolNumber"
           align="left"
           header-align="left"
         ></el-table-column>
         <el-table-column
           label="职务"
           prop="office"
-          width="150px"
           align="left"
           header-align="left"
         ></el-table-column>
         <el-table-column
           label="联系方式"
           prop="tel"
-          width="150px"
           align="left"
           header-align="left"
         ></el-table-column>
-        <el-table-column
-          label="操作"
-          width="80"
-          align="left"
-          header-align="left"
-        >
-          <div slot-scope="scope">
+        <el-table-column label="操作" align="left" header-align="left">
+          <div style="display: flex" slot-scope="scope">
             <el-button
               type="text"
               style="margin-left: 0px; margin-right: 15px"
-              @click="deleteTeacher(scope.row.cid)"
+              @click="deleteTeacher(scope.row.schoolNumber)"
               >删除</el-button
+            ><el-button
+              type="text"
+              style="margin-left: 0px; margin-right: 15px"
+              @click="editTeacher(scope.row)"
+              >编辑</el-button
             >
           </div>
         </el-table-column>
@@ -185,50 +194,92 @@
       ></el-pagination>
     </div>
 
-    <!-- <el-dialog
-      :visible.sync="addTeacherVisible"
-      :close-on-click-modal="false"
-      width="480px"
-      top="5vh"
-    >
+    <el-dialog :visible.sync="edit" :close-on-click-modal="false" top="5vh">
       <addTeacher
-        v-if="addTeacherVisible"
-        :id="id"
-        :classes="classes"
-        :isaddTeacher="isaddTeacher"
-        :payload="addTeacherVisible"
-        @cancel="addTeacherVisible = false"
+        v-if="edit"
+        :teacherData="teacherData"
+        @colseDielog="edit = false"
+        @cancel="edit = false"
         @updata="updata"
       ></addTeacher>
-    </el-dialog> -->
+      <div>-</div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-// import addTeacher from "../addStudent/addStundent";
+import addTeacher from "./addTeacher/index";
 
 export default {
   name: "classMessage",
   components: {
-    // addTeacher,
+    addTeacher,
   },
-  props: {
-    classes: {},
-    teacherMessage: {},
-    id: {},
-  },
+  props: {},
   data() {
     return {
-      addTeacherVisible: false,
+      form: {
+        key: "grades",
+        value: "",
+      },
+      teacherData: {},
+      teacherMessage: [],
+      edit: false,
       isaddTeacher: "",
       value: "高一  ",
       input3: "123",
-      select: "餐厅名",
+      select: "姓名",
     };
   },
   methods: {
+    goSearch() {
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+
+      this.$axios
+        .get(`/api/addClass/getTeachers2?${this.form.key}=${this.form.value}`)
+        .then((res) => {
+          if (res.data.success) {
+            this.teacherMessage = res.data.list;
+            this.$message.success("查询成功");
+            loading.close();
+          } else {
+            loading.close();
+            this.$message.error("查询失败，请重试");
+          }
+        });
+    },
+    colseDielog() {
+      this.edit = false;
+    },
+    editTeacher(data) {
+      this.edit = true;
+      this.teacherData = data;
+    },
+    getData() {
+      const loading = this.$loading({
+        lock: true,
+        text: "处理中",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      this.$axios.get("/api/addClass/getTeachers").then((res) => {
+        if (res.data.success) {
+          this.teacherMessage = res.data.list;
+          // this.$message.success("查询成功");
+          loading.close();
+        } else {
+          loading.close();
+          this.$message.success("查询失败，请重试");
+        }
+      });
+    },
     // 删除
-    deleteTeacher(cid) {
+    deleteTeacher(schoolNumber) {
       this.$confirm("确认删除吗？").then(() => {
         const loading = this.$loading({
           lock: true,
@@ -238,12 +289,14 @@ export default {
         });
 
         this.$axios
-          .delete(`/api/teacherManagement/deleteClass/deleteTeacher/${cid}`)
+          .delete(
+            `/api/teacherManagement/deleteClass/deleteTeacher2/${schoolNumber}`
+          )
           .then((res) => {
             if (res.data.success) {
               this.$message.success("删除成功");
-              this.$emit("updata");
               loading.close();
+              this.getData();
             }
           });
       });
@@ -252,16 +305,18 @@ export default {
     addTeacher(isaddTeacher) {
       // this.pid = this.classmenbel[0].pid;
       this.isaddTeacher = isaddTeacher;
-      this.addTeacherVisible = true;
+      this.edit = true;
     },
     // 更新数据
     updata() {
       this.$emit("updata");
-      this.addTeacherVisible = false;
+      this.edit = false;
       // this.addStudentVisible = true;
     },
   },
-  created() {},
+  created() {
+    this.getData();
+  },
 };
 </script>
 
@@ -1262,6 +1317,11 @@ export default {
     min-width: 100px;
     max-width: 120px;
   }
+}
+.__teacher__list__wrap__ {
+  width: 100% !important;
+  max-height: 640px;
+  overflow: auto !important;
 }
 </style>
 

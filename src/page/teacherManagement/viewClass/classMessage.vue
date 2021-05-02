@@ -42,7 +42,7 @@
               class="__p_137_u_138"
             >
               <!-- 学生列表 -->
-              <div>
+              <div style="width: 100%">
                 <el-table :data="classmenbel" stripe highlight-current-row>
                   <el-table-column type="index" width="50"> </el-table-column>
                   <el-table-column
@@ -1023,8 +1023,6 @@ export default {
   padding-left: 8px;
 }
 
- 
-
 .__p_137_u_137 {
   height: 842px;
 }
@@ -1174,7 +1172,6 @@ export default {
 .__p_137_u_1402 {
   width: 966px;
 }
- 
 </style>
 
 <style lang="less">

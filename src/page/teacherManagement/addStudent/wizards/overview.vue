@@ -3,6 +3,7 @@
         <div>
             <div class="__p_12e_u_57">
                 <span v-if="isCrearteTeacher" class="__p_12e_u_58">创建老师</span>
+                <span v-else-if='edit' class="__p_12e_u_58">编辑学生</span>
                 <span v-else class="__p_12e_u_58">创建学生</span>
             </div>
             <el-row :gutter="16">
@@ -72,7 +73,8 @@
 <script>
 export default {
   props:{
-    isCrearteTeacher:{}
+    isCrearteTeacher:{},
+    edit:{}
   },
     data() {
         return {
