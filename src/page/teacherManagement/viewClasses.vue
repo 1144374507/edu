@@ -130,24 +130,43 @@
             align="left"
             header-align="left"
           ></el-table-column>
-          <el-table-column
-            label="操作"
-            align="left"
-            header-align="left"
-          >
-            <div style="display:flex;" slot-scope="scope">
-              <el-button
-                type="text"
-                style="margin-left: 0px; margin-right: 15px"
-                @click="deleteStudent(scope.row.schoolNumber)"
-                >删除</el-button
-              >
-              <el-button
-                type="text"
-                style="margin-left: 0px; margin-right: 15px"
-                @click="ediStudent(scope.row)"
-                >编辑</el-button
-              >
+          <el-table-column label="操作" align="left" header-align="left">
+            <div style="display: flex" slot-scope="scope">
+              <el-popover placement="bottom-start" trigger="hover">
+                <a slot="reference" style="color: #338ed2">更多操作</a>
+                <div>
+                  <el-button
+                    type="text"
+                    style="margin-left: 0px; margin-right: 15px"
+                    @click="deleteStudent(scope.row.schoolNumber)"
+                    >删除</el-button
+                  >
+                </div>
+                <div>
+                  <el-button
+                    type="text"
+                    style="margin-left: 0px; margin-right: 15px"
+                    @click="ediStudent(scope.row)"
+                    >编辑</el-button
+                  >
+                </div>
+                <div>
+                  <el-button
+                    type="text"
+                    style="margin-left: 0px; margin-right: 15px"
+                    @click="studentDetail(scope.row)"
+                    >查看详情</el-button
+                  >
+                </div>
+                <div>
+                  <el-button
+                    type="text"
+                    style="margin-left: 0px; margin-right: 15px"
+                    @click="studentMark(scope.row,scope)"
+                    >成绩管理</el-button
+                  >
+                </div>
+              </el-popover>
             </div>
           </el-table-column>
         </el-table>
@@ -158,30 +177,60 @@
       :visible.sync="edit"
       :close-on-click-modal="false"
       top="5vh"
-      min-height='50vh'
+      min-height="50vh"
     >
       <editStudents
         v-if="edit"
-        :studentData='studentData'
-        @colseDielog='edit = false'
-        :edit='edit'
+        :studentData="studentData"
+        @colseDielog="edit = false"
+        :edit="edit"
         @cancel="edit = false"
       ></editStudents>
-      <div> -</div>
+      <div>-</div>
     </el-dialog>
+    <el-dialog
+      :visible.sync="detail"
+      :close-on-click-modal="false"
+      top="5vh"
+      width="95vw"
+    >
+      <studentDetail
+        v-if="detail"
+        :studentData="studentData"
+        @editStudent="editStudent"
+        @cancel="detail = false"
+      ></studentDetail>
+      <div>-</div>
+    </el-dialog>
+    <el-dialog
+      :visible.sync="mark"
+      :close-on-click-modal="false"
+      top="5vh"
+      width="95vw"
+    >
+      <studentMark
+        v-if="mark"
+        :studentData="studentData"
+        @cancel="mark = false"
+      ></studentMark>
+      <div>-</div> </el-dialog
+    >
   </div>
 </template>
 
 <script>
-// import addTeacher from "../addStudent/addStundent";
-import editStudents from './addStudent/wizards/index'
+import editStudents from "./addStudent/wizards/index";
+import studentDetail from "../userManagement/UserManagement";
 import scroll from "@/common/scroll";
-import qs from "qs";
+import studentMark from "../achievement";
 export default {
   name: "classMessage",
   components: {
     // addTeacher,
-    scroll,editStudents
+    scroll,
+    editStudents,
+    studentDetail,
+    studentMark,
   },
   props: {
     classes: {},
@@ -190,7 +239,9 @@ export default {
   },
   data() {
     return {
-      studentData:{},
+      mark: false,
+      detail: false,
+      studentData: {},
       classmenbel: [],
       edit: false,
       isaddTeacher: "",
@@ -204,13 +255,26 @@ export default {
     };
   },
   methods: {
-    colseDielog(){
-      this.edit = false
+    studentMark(data,a) {
+      console.log('a',a);
+      this.mark = true;
+      this.studentData = data;
+
     },
-    ediStudent(data){
-      this.edit = true
+    editStudent(data) {
+      this.ediStudent(data);
+    },
+    colseDielog() {
+      this.edit = false;
+    },
+    studentDetail(data) {
+      this.detail = true;
+      this.studentData = data;
+    },
+    ediStudent(data) {
+      this.edit = true;
       console.log(data);
-      this.studentData = data
+      this.studentData = data;
     },
     deleteStudent(schoolNumber) {
       this.$confirm("确认删除吗？").then(() => {
@@ -296,7 +360,6 @@ export default {
   vertical-align: bottom;
 }
 .el-header {
-  background-color: #b3c0d1;
   color: #333;
   line-height: 60px;
 }
@@ -1247,7 +1310,8 @@ export default {
 }
 
 .__p_137_u_1402 {
-  width: 966px;
+  /* width: 966px; */
+  overflow: auto;
 }
 .__p_137_u_138 {
   /* height: 824px; */
@@ -1277,7 +1341,7 @@ export default {
 
  <style lang="scss">
 .____p_13f_u_103__wrap__ {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 
   .__p_13f_u_103 {
     margin-top: 20px;

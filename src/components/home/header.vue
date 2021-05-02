@@ -270,6 +270,26 @@ export default {
       });
     },
   },
+  created(){
+    // 初始化菜单
+    if(this.$route.name == 'UserManagement'){
+      this.activeIndex = '1'
+      return
+    }
+    if(this.$route.name == 'ScheduleManagement'){
+      this.activeIndex = '2'
+      return
+    }
+    if(this.$route.name == 'Achievement'){
+      this.activeIndex = '3'
+      return
+    }
+    if(this.$route.name == 'TeacherManagement'){
+      this.activeIndex = '4'
+      return
+    }
+
+  }
 };
 </script>
 

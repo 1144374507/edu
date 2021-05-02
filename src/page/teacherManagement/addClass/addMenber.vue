@@ -9,63 +9,8 @@
         :rules="rules"
       >
         <div>
-          <div class="__p_12z_u_7">创建一个新班级</div>
-          <el-form-item label=" 年 级 ：" prop="grades">
-            <div class="asm-input-wraop">
-              <el-select
-                class="asm-input"
-                size="small"
-                v-model="form.grades"
-                placeholder="请选择"
-                filterable
-              >
-                <el-option
-                  v-for="(item, index) in options"
-                  :key="index + 'grades'"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
-              <el-tooltip
-                class="asm-input-tips"
-                content="选择年级。"
-                placement="right"
-              >
-                <i class="el-icon-question __p_12z_u_20"></i>
-              </el-tooltip>
-            </div>
-          </el-form-item>
-          <el-form-item label=" 班 级 ：" prop="classes">
-            <div class="asm-input-wraop">
-              <el-input class="asm-input" size="small" v-model="form.classes">
-              </el-input>
-              <el-tooltip content="输入班级。" placement="right">
-                <i class="el-icon-question __p_12z_u_20"></i>
-              </el-tooltip>
-            </div> </el-form-item
-          ><el-form-item label=" 班主任 ：" prop="monitor">
-            <div class="asm-input-wraop">
-              <el-select
-                class="asm-input"
-                size="small"
-                v-model="form.monitor"
-                placeholder="请选择"
-                filterable
-              >
-                <el-option
-                  v-for="(item, index) in options3"
-                  :key="index + 'options3'"
-                  :label="item.label"
-                  :value="item.label"
-                >
-                </el-option>
-              </el-select>
-              <el-tooltip content="添加一个班主任。" placement="right">
-                <i class="el-icon-question __p_12z_u_20"></i>
-              </el-tooltip>
-            </div>
-          </el-form-item>
+          <div class="__p_12z_u_7">为班级添加学生</div>
+
           <div style="display: flex">
             <el-form-item label=" 学 生 ：" prop="classmenbel">
               <div class="asm-input-wraop111">
@@ -120,14 +65,18 @@
         </div>
       </el-form>
     </el-card>
-    <div class="__p_12z_u_29">
+    <div style="text-align: center; margin-top: 24px">
       <el-button
-        id="qa-test-btnNext"
+        type="info"
+        @click="handlePreBtnClick"
+        id="  qa-test-deploy-lastStep"
+        >上一步</el-button
+      >
+      <el-button
         type="primary"
-        round
-        class="__p_12z_u_30"
         @click="handleNextBtnClick"
-        >保存，下一步</el-button
+        id="qa-test-deploy-fin"
+        >下一步</el-button
       >
     </div>
   </div>
@@ -135,12 +84,19 @@
 <script>
 import { nanoid } from "nanoid";
 export default {
+  props: {
+    pid: {},
+  },
   data() {
     return {
+      form: {
+        pid: "",
+        classes: "",
+        classmenbel: [],
+      },
       cid: "",
       values: [],
       teachervalues: [],
-      pid: [],
       studentsData: [],
       teacherData: [],
       data2: [
@@ -369,6 +325,9 @@ export default {
     this.getTeachers();
   },
   methods: {
+    handlePreBtnClick() {
+      this.$emit("preStep");
+    },
     getTeachers() {
       this.$axios.get("/api/addClass/getTeachers").then((res) => {
         this.teacherData = res.data.list;
@@ -466,10 +425,8 @@ export default {
                 }
                 x++;
               }
-
-              this.cid = nanoid();
               // if(_arr.length>1){
-              _arr.push(this.pid,this.form.classes,this.cid);
+              _arr.push(this.pid);
 
               this.teachervalues.push(_arr);
 
@@ -479,45 +436,33 @@ export default {
 
             form.teacherMessage = this.teachervalues;
           }
-          this.$axios
-            .post("/api/addClass", form)
-            .then((res) => {
-              let arr = [];
-              this.data2.map((item) => {
-                item.pid = this.pid;
-                arr.push(item);
-              });
-              this.data2 = arr;
-              console.log(this.data2, "this.data2");
-
-              if (res.data.success) {
-                this.$axios
-                  .post(`/api/addClass/createSchedule`, this.data2)
-                  .then((res) => {
-                    if (res.data.success) {
-                      this.$message.success("保存成功");
-                      loading.close();
-                      this.$emit("nextStep", this.pid);
-                    } else {
-                      this.$message.error();
-                      ("保存失败");
-                      loading.close();
-                    }
-                  });
-              } else {
-                this.$message({
-                  type: "error",
-                  message: res.data.message || "保存失败",
+          this.$axios.post("/api/addClass/addStudents", form).then((res) => {
+            console.log(res);
+            if (res.data.success) {
+              this.$message.success("添加学生成功");
+              // this.$emit("updata");
+              // loading.close();
+              //添加老师
+              this.$axios
+                .post("/api/addClass/addTeachers", form)
+                .then((res) => {
+                  console.log(res);
+                  if (res.data.success) {
+                    this.$message.success("添加老师成功");
+                    this.$emit("updata");
+                    loading.close();
+                  } else {
+                    this.$message.error();
+                    ("添加失败");
+                    loading.close();
+                  }
                 });
-                loading.close();
-              }
-            })
-            .catch((err) => {
-              this.$message({
-                type: "error",
-                message: err.message || "保存失败",
-              });
-            });
+            } else {
+              this.$message.error();
+              ("添加失败");
+              loading.close();
+            }
+          });
         }
       });
     },
@@ -575,8 +520,6 @@ export default {
   // left: 0;
   // top: 0;
 }
-
- 
 </style>
 
 <style scoped lang="scss">

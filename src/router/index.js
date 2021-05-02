@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
-import ScheduleManagement from '@/page/scheduleManagement/ScheduleManagement'
-import UserManagement from '@/page/userManagement/UserManagement'
-import CourseElectives from '@/page/courseElectives/CourseElectives'
-import Achievement from '@/page/achievement/Achievement'
-import TeacherManagement from '@/page/teacherManagement/TeacherManagement'
+import ScheduleManagement from '@/page/scheduleManagement/scheduleManagement'
+import UserManagement from '@/page/userManagement/index'
+import CourseElectives from '@/page/courseElectives/courseElectives'
+import Achievement from '@/page/achievement'
+import TeacherManagement from '@/page/teacherManagement/teacherManagement'
 import changeTheme from '../components/theme/themeIndex'
 
 // const Home= ()=> import('@/components/home/header')

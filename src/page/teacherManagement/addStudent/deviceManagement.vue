@@ -19,40 +19,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="年级：" label-width="150px" prop="mask">
-        <el-input
-          placeholder="请输入"
-          type="text"
-          size="small"
-          v-model="form.mask"
-          class="showTips __p_YR_u_11"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="班级：" label-width="150px" prop="gateway">
-        <el-input
-          placeholder="请输入"
-          type="text"
-          size="small"
-          v-model="form.gateway"
-          class="showTips __p_YR_u_23"
-        ></el-input>
-      </el-form-item> -->
-
-      <!-- <el-form-item label="职 务：" prop="office">
-        <el-select
-          v-model="form.character"
-          placeholder="请选择"
-          filterable
-          size="small"
-        >
-          <el-option value="班长" label="班长"></el-option>
-          <el-option value="文艺委员" label="文艺委员"> </el-option>
-          <el-option value="体育委员" label="体育委员"> </el-option>
-          <el-option value="生活委员" label="生活委员"> </el-option>
-          <el-option value="学习委员" label="学习委员"> </el-option>
-          <el-option value="无" label="无"> </el-option>
-        </el-select>
-      </el-form-item> -->
+      
     </el-form>
     <div>
       <el-button @click="finish" type="primary" size="small" class="__p_YR_u_25"

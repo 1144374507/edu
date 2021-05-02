@@ -20,9 +20,9 @@
                   <el-menu-item index="1-1" @click.native="setShow"
                     ><span slot="title">本学期课表</span></el-menu-item
                   >
-                  <el-menu-item index="1-2" @click.native="setNoShow"
+                  <!-- <el-menu-item index="1-2" @click.native="setNoShow"
                     ><span slot="title">历年课表</span></el-menu-item
-                  >
+                  > -->
                 </el-submenu>
               </el-menu>
             </div>

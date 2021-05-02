@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="__student__wrapp__" >
     <Overview
       :isCrearteTeacher="isCrearteTeacher"
       v-if="showOverview"
@@ -189,5 +189,10 @@ export default {
       }
     }
   }
+}
+</style>
+<style lang="scss">
+.__student__wrapp__{
+  
 }
 </style>

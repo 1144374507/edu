@@ -11,7 +11,7 @@ import vueAxios from 'vue-axios'
 // import {store} from '@/assets/js/extend4srt.js'
 import './theme/index.css'
 import './theme/theme-000/index.css'
-import '@/assets/js/extend4theme.js' 
+import '@/assets/js/extend4theme.js'
 
 import {
   Pagination,
@@ -93,7 +93,20 @@ import {
   Notification
 } from 'element-ui';
 
-Vue.use(ElementUI);
+
+import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
+
+// 手动引入 ECharts 各模块来减小打包体积
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/tooltip'
+
+// 如果需要配合 ECharts 扩展使用，只需要直接引入扩展包即可
+// 以 ECharts-GL 为例：
+// 需要安装依赖：npm install --save echarts-gl，并添加如下引用
+import 'echarts-gl'
+
+// 注册组件后即可使用
+Vue.component('v-chart', ECharts)
 
 Vue.use(Pagination);
 Vue.use(Dialog);
@@ -181,7 +194,7 @@ Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
-Vue.prototype.$getViewportSize = ( ) => {
+Vue.prototype.$getViewportSize = () => {
   return {
     width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,//兼容性获取屏幕宽度
     height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight//兼容性获取屏幕高度

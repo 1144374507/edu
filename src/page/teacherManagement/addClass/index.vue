@@ -5,7 +5,7 @@
       <el-card>
         <el-steps :active="activeStep" simple class="m-simple-steps">
           <el-step title="添加班级" icon="custom-icon-1" :class="{'m-active-step': activeStep === 1}"></el-step>
-          
+          <el-step title="添加班级" icon="custom-icon-2" :class="{'m-active-step': activeStep === 2}"></el-step>
         </el-steps>
       </el-card>
       <div class="content-wrapper">
