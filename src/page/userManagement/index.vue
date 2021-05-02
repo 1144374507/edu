@@ -1,321 +1,77 @@
 <template>
-  <div class="__p_13f_u_66" style="height: 100%; width: 100%">
-    <div class="__p_13f_u_100">
-      <!-- 标题  老师列表-->
-      <el-row
-        type="flex"
-        justify="start"
-        align="top"
-        :gutter="0"
-        class="__p_137_u_270"
-      >
-        <el-col :span="12" :offset="0" :push="0" :pull="0">
-          <el-row
-            type="flex"
-            justify="start"
-            align="top"
-            :gutter="0"
-            class="__p_137_u_272"
-          >
-            <el-col
-              :span="12"
-              :offset="0"
-              :push="0"
-              :pull="0"
-              class="__p_137_u_273"
-              ><span class="__p_137_u_274">学生列表</span></el-col
+  <div class="__eid__el-main__">
+    <el-container style="">
+      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+        <el-menu :default-openeds="['1']" default-active="1-1">
+          <el-submenu index="1">
+            <template slot="title"
+              ><i class="el-icon-message"></i>个人管理</template
             >
-          </el-row>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="__p_13f_u_100 ____p_13f_u_103__wrap__">
-      <!-- 搜索框 -->
-      <el-row
-        type="flex"
-        justify="start"
-        align="top"
-        :gutter="0"
-        class="__p_13f_u_103"
-      >
-        <div style="margin-top: 15px">
-          <el-input
-            placeholder="请输入内容"
-            v-model="form.value"
-            class="input-with-select"
-          >
-            <el-select
-              v-model="form.key"
-              slot="prepend"
-              width="100px"
-              placeholder="请选择"
-            >
-              <el-option label="年级" value="grades"></el-option>
-              <el-option label="名字" value="name"></el-option>
-              <el-option label="学号" value="schoolNumber"></el-option>
-            </el-select>
-            <el-button
-              @click="goSearch"
-              slot="append"
-              icon="el-icon-search"
-            ></el-button>
-          </el-input>
-        </div>
-      </el-row>
-
-      <!-- 标题 已删除占位 -->
-      <el-row
-        type="flex"
-        justify="start"
-        align="top"
-        :gutter="0"
-        class="__p_13f_u_104"
-      >
-        <el-col
-          :span="12"
-          :offset="0"
-          :push="0"
-          :pull="0"
-          class="__p_13f_u_110"
-        >
-        </el-col>
-      </el-row>
-    </div>
-
-    <!-- 学生列表 -->
-    <div style="width: 100%">
-      <div style="width: 100%">
-        <el-table
-          width="100%"
-          class="__studebt__list__wrap__"
-          :data="classmenbel"
-          stripe
-          highlight-current-row
-          height="670"
-        >
-          <el-table-column fixed type="index" width="50"> </el-table-column>
-          <el-table-column
-            label="姓名"
-            prop="name"
-            align="left"
-            header-align="left"
-          ></el-table-column
-          ><el-table-column
-            label="英文姓名"
-            prop="englishName"
-            align="left"
-            header-align="left"
-          ></el-table-column>
-          <el-table-column
-            label="性别"
-            prop="sex"
-            align="left"
-            header-align="left"
-          ></el-table-column>
-          <el-table-column
-            label="年级"
-            prop="grades"
-            align="left"
-            header-align="left"
-          ></el-table-column>
-          <el-table-column
-            label="学号"
-            prop="schoolNumber"
-            align="left"
-            header-align="left"
-          ></el-table-column>
-          <el-table-column
-            label="联系方式"
-            prop="tel"
-            align="left"
-            header-align="left"
-          ></el-table-column>
-          <el-table-column label="操作" align="left" header-align="left">
-            <div style="display: flex" slot-scope="scope">
-              <el-button
-                type="text"
-                style="margin-left: 0px; margin-right: 15px"
-                @click="deleteStudent(scope.row.schoolNumber)"
-                >删除</el-button
-              >
-              <el-button
-                type="text"
-                style="margin-left: 0px; margin-right: 15px"
-                @click="ediStudent(scope.row)"
-                >编辑</el-button
-              >
-              <el-button
-                type="text"
-                style="margin-left: 0px; margin-right: 15px"
-                @click="studentDetail(scope.row)"
-                >查看详情</el-button
-              >
-            </div>
-          </el-table-column>
-        </el-table>
-      </div>
-    </div>
-
-    <el-dialog
-      :visible.sync="edit"
-      :close-on-click-modal="false"
-      top="5vh"
-      min-height="50vh"
-    >
-      <editStudents
-        v-if="edit"
-        :studentData="studentData"
-        @colseDielog="edit = false"
-        :edit="edit"
-        @cancel="edit = false"
-      ></editStudents>
-      <div>-</div>
-    </el-dialog>
-    <el-dialog
-      :visible.sync="detail"
-      :close-on-click-modal="false"
-      top="5vh"
-      width="95vw"
-    >
-      <studentDetail
-        v-if="detail"
-        :studentData="studentData"
-        @editStudent='editStudent'
-        @cancel="detail = false"
-      ></studentDetail>
-      <div>-</div>
-    </el-dialog>
+            <el-menu-item index="1-1">学生学籍信息</el-menu-item>
+            <!-- <el-menu-item index="1-2">个人信息修改</el-menu-item> -->
+            <el-menu-item index="1-3">奖惩信息</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+      <UserManagement @editStudent='editStudent'></UserManagement>
+    </el-container>
+    <rjDialog></rjDialog>
   </div>
 </template>
 
 <script>
-import editStudents from "./addStudent/wizards/index";
-import studentDetail from '../userManagement/UserManagement'
-import scroll from "@/common/scroll";
+import personMessage from "./personMessage/personMessage";
+import UserManagement from "./UserManagement";
+import rjDialog from "@/common/dialog";
 export default {
-  name: "classMessage",
   components: {
-    // addTeacher,
-    scroll,
-    editStudents,studentDetail
-  },
-  props: {
-    classes: {},
-    teacherMessage: {},
-    id: {},
+    rjDialog,
+    UserManagement,
   },
   data() {
+    const item = {
+      date: "2016-05-02",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1518 弄",
+    };
     return {
-      detail:false,
-      studentData: {},
-      classmenbel: [],
-      edit: false,
-      isaddTeacher: "",
-      value: "高一  ",
-      input3: "123",
-      select: "年级",
-      form: {
-        key: "grades",
-        value: "",
-      },
+      tableData: Array(20).fill(item),
+      fits: ["fill"],
+      url:
+        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      personMessage: [
+        {
+          height: "178",
+          weight: "65kg",
+          tel: "18045207896",
+          homepage: "",
+          profile: "", //简介
+          qq: "1144374507",
+          email: "1144374507@qq.com",
+          postcode: "366201", //邮编
+          parents: "", //家长信息
+          name: "江盛锋",
+          englishName: "jiangshengfeng",
+          schoolNumber: "2017021065",
+          idCardNum: "350825199803121116",
+          grades: "2017级",
+          admissionDate: "20170901", //入学日期
+          admissionGrade: "2017级", //入学年级
+          overseas: "", //留学生
+        },
+      ],
     };
   },
   methods: {
     editStudent(data){
-
-      this.ediStudent(data)
-    },
-    colseDielog() {
-      this.edit = false;
-    },
-    studentDetail(data) {
-      this.detail = true;
-      this.studentData = data;
-    },
-    ediStudent(data) {
-      this.edit = true;
-      console.log(data);
-      this.studentData = data;
-    },
-    deleteStudent(schoolNumber) {
-      this.$confirm("确认删除吗？").then(() => {
-        const loading = this.$loading({
-          lock: true,
-          text: "处理中",
-          spinner: "el-icon-loading",
-          background: "rgba(0, 0, 0, 0.7)",
-        });
-
-        this.$axios
-          .delete(
-            `/api/teacherManagement/deleteClass/deleteStudent2/${schoolNumber}`
-          )
-          .then((res) => {
-            if (res.data.success) {
-              this.$message.success("删除成功");
-              this.$emit("updata");
-              loading.close();
-              this.getData();
-            } else {
-              this.$message.erro("删除失败");
-              loading.close();
-            }
-          });
-      });
-    },
-
-    getData() {
-      const loading = this.$loading({
-        lock: true,
-        text: "处理中",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
-      this.$axios.get("/api/addClass/getStudents").then((res) => {
-        if (res.data.success) {
-          this.studentsData = res.data.list;
-          this.classmenbel = res.data.list;
-          this.$message.success("查询成功");
-          loading.close();
-        } else {
-          loading.close();
-          this.$message.success("查询失败，请重试");
-        }
-      });
-    },
-
-    goSearch() {
-      const loading = this.$loading({
-        lock: true,
-        text: "处理中",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
-
-      this.$axios
-        .get(`/api/addClass/getStudents2?${this.form.key}=${this.form.value}`)
-        .then((res) => {
-          if (res.data.success) {
-            this.studentsData = res.data.list;
-            this.classmenbel = res.data.list;
-            this.$message.success("查询成功");
-            loading.close();
-          } else {
-            loading.close();
-            this.$message.success("查询失败，请重试");
-          }
-        });
-    },
-  },
-  created() {
-    this.getData();
+      this.$emit('editStudent',data)
+    }
   },
 };
 </script>
 
 <style>
 </style>
-
 <style>
 .__p_137_u_4 {
   vertical-align: bottom;
@@ -340,7 +96,7 @@ export default {
 .__p_137_u_142 {
   width: 157px;
   text-align: left;
-  background: #9ce9eb;
+  /* background: #9ce9eb; */
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -359,7 +115,7 @@ export default {
 }
 
 .__p_137_u_151 {
-  width: 350px;
+  /* width: 350px;
   text-align: left;
   background: #abf4f4;
   display: flex;
@@ -369,7 +125,7 @@ export default {
   align-items: center;
   height: 44px;
   border-radius: 5px;
-  padding-left: 5px;
+  padding-left: 5px; */
 }
 
 .__p_137_u_141 {
@@ -1110,22 +866,16 @@ export default {
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #bbbbbb;
-  width: 1000px;
+  width: 60vw;
 }
 
 .__p_137_u_140 {
-  /* height: 807px; */
-  width: 824px;
   padding-top: 8px;
   padding-left: 8px;
 }
 
-.__p_137_u_138 {
-  /* height: 824px; */
-}
-
 .__p_137_u_137 {
-  height: 842px;
+  /* height: 842px; */
 }
 .__p_137_u_223 {
   text-align: left;
@@ -1201,7 +951,6 @@ export default {
 .__p_137_u_363 {
   width: 157px;
   text-align: left;
-  background: #9ce9eb;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -1222,7 +971,7 @@ export default {
 }
 
 .__p_137_u_365 {
-  width: 350px;
+  /* width: 350px;
   text-align: left;
   background: #abf4f4;
   display: flex;
@@ -1233,7 +982,7 @@ export default {
   height: 44px;
   border-radius: 5px;
   padding-left: 5px;
-  margin-right: 20px;
+  margin-right: 20px; */
 }
 
 .__p_137_u_362 {
@@ -1250,17 +999,16 @@ export default {
   align-items: center;
 }
 
-.__p_137_u_361 {
-  width: 491px;
-}
-
 .__p_137_u_360 {
-  width: 456px;
+  min-width: 350px;
+  max-width: 400px;
 }
 
 .__p_137_u_140 {
   height: auto;
-  width: 966px;
+  /*   width: 100%; */
+  width: 100%;
+
   padding-top: 8px;
   padding-left: 8px;
   display: flex;
@@ -1271,18 +1019,15 @@ export default {
 }
 
 .__p_137_u_1402 {
-  /* width: 966px; */
-  overflow: auto;
+  width: 100%;
 }
 .__p_137_u_138 {
   /* height: 824px; */
+  max-width: 800px !important;
 }
 </style>
 
 <style lang="less">
-.__p_13f_u_87 {
-  width: 80vw;
-}
 .__eid__el-main__ {
   .el-main {
     overflow: visible;
@@ -1296,27 +1041,17 @@ export default {
   .__p_137_u_140 {
     margin-bottom: 18px;
   }
-}
-</style>
- 
-
- <style lang="scss">
-.____p_13f_u_103__wrap__ {
-  margin-bottom: 20px;
-
-  .__p_13f_u_103 {
-    margin-top: 20px;
+  .el-collapse-item__wrap {
+    width: 100%;
   }
-  .el-select .el-input {
-    width: auto;
-    min-width: 100px;
-    max-width: 120px;
+  .el-collapse-item {
+    width: 100%;
+  }
+  .el-collapse {
+    width: 100%;
+  }
+  .__p_137_u_1402 {
+    width: 100%;
   }
 }
-.__studebt__list__wrap__ {
-  width: 100% !important;
-  max-height: 667px;
-  overflow: auto;
-}
 </style>
-
