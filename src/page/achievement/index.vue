@@ -312,7 +312,7 @@ export default {
       this.isAdd = true;
       let obj = {
         schoolNumber: this.schoolNumber,
-        courseName: "",
+        courseName: undefined,
         courseType: "",
         examType: "",
         mark: "",
@@ -332,23 +332,33 @@ export default {
       });
     },
     save() {
-      this.$axios.post("/api/getMark/updataMark", this.data).then((res) => {
-        const loading = this.$loading({
-          lock: true,
-          text: "处理中",
-          spinner: "el-icon-loading",
-          background: "rgba(0, 0, 0, 0.7)",
-        });
-        if (res.data.success) {
-          this.edit = false;
-          this.getmark();
-          this.$message.success("编辑成功");
-          loading.close();
-        } else {
-          loading.close();
-          this.$message.error("编辑失败，请重试");
+      let flog = true;
+      this.data.map((item) => {
+
+        if (!item.courseName) {
+          this.$message.error("课程名不能为空");
+          flog = false;
         }
       });
+      if (flog) {
+        this.$axios.post("/api/getMark/updataMark", this.data).then((res) => {
+          const loading = this.$loading({
+            lock: true,
+            text: "处理中",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.7)",
+          });
+          if (res.data.success) {
+            this.edit = false;
+            this.getmark();
+            this.$message.success("编辑成功");
+            loading.close();
+          } else {
+            loading.close();
+            this.$message.error("编辑失败，请重试");
+          }
+        });
+      }
     },
     goSearch() {
       console.log("11111");
