@@ -155,6 +155,7 @@ export default {
       callback();
     };
     return {
+      loading:"",
       showCustomVlan: false,
       disabledDeleteCustomVlan: false,
       form: {
@@ -194,7 +195,7 @@ export default {
     handleNextBtnClick() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
-          const loading = this.$loading({
+          this.loading = this.$loading({
             lock: true,
             text: "处理中...",
             spinner: "el-icon-loading",
@@ -202,19 +203,19 @@ export default {
           });
 
           if (this.studentData) {
-            console.log('formmm',this.form);
+            console.log("formmm", this.form);
             this.$axios
               .post("/api/createStudent/base/updata", this.form)
               .then((res) => {
                 if (!res.data.success) {
                   this.$message.error(`${res.data.msg}`);
-                  loading.close();
+                this.loading.close();
                   return;
                 } else {
                   this.$message.success(`${res.data.msg}`);
                   let data = this.form.schoolNumber;
                   this.$emit("nextStep", data);
-                  loading.close();
+                this.loading.close();
                 }
               });
           } else {
@@ -225,14 +226,14 @@ export default {
                 console.log(!res.data.success);
                 if (!res.data.success) {
                   this.$message.error(`${res.data.msg}`);
-                  loading.close();
+                this.loading.close();
                   return;
                 } else {
                   this.$message.success(`${res.data.msg}`);
                   console.log(this.form.schoolNumber, "this.form.schoolNumber");
                   let data = this.form.schoolNumber;
                   this.$emit("nextStep", data);
-                  loading.close();
+                this.loading.close();
                 }
               });
           }
@@ -240,6 +241,9 @@ export default {
       });
     },
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

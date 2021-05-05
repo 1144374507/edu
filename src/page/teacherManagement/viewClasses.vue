@@ -162,7 +162,7 @@
                   <el-button
                     type="text"
                     style="margin-left: 0px; margin-right: 15px"
-                    @click="studentMark(scope.row,scope)"
+                    @click="studentMark(scope.row, scope)"
                     >成绩管理</el-button
                   >
                 </div>
@@ -213,8 +213,8 @@
         :studentData="studentData"
         @cancel="mark = false"
       ></studentMark>
-      <div>-</div> </el-dialog
-    >
+      <div>-</div>
+    </el-dialog>
   </div>
 </template>
 
@@ -239,6 +239,7 @@ export default {
   },
   data() {
     return {
+      loading: "",
       mark: false,
       detail: false,
       studentData: {},
@@ -255,11 +256,10 @@ export default {
     };
   },
   methods: {
-    studentMark(data,a) {
-      console.log('a',a);
+    studentMark(data, a) {
+      console.log("a", a);
       this.mark = true;
       this.studentData = data;
-
     },
     editStudent(data) {
       this.ediStudent(data);
@@ -278,7 +278,7 @@ export default {
     },
     deleteStudent(schoolNumber) {
       this.$confirm("确认删除吗？").then(() => {
-        const loading = this.$loading({
+        this.loading = this.$loading({
           lock: true,
           text: "处理中",
           spinner: "el-icon-loading",
@@ -293,18 +293,18 @@ export default {
             if (res.data.success) {
               this.$message.success("删除成功");
               this.$emit("updata");
-              loading.close();
+              this.loading.close();
               this.getData();
             } else {
               this.$message.erro("删除失败");
-              loading.close();
+              this.loading.close();
             }
           });
       });
     },
 
     getData() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中",
         spinner: "el-icon-loading",
@@ -315,16 +315,16 @@ export default {
           this.studentsData = res.data.list;
           this.classmenbel = res.data.list;
           this.$message.success("查询成功");
-          loading.close();
+          this.loading.close();
         } else {
-          loading.close();
+          this.loading.close();
           this.$message.success("查询失败，请重试");
         }
       });
     },
 
     goSearch() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中",
         spinner: "el-icon-loading",
@@ -338,9 +338,9 @@ export default {
             this.studentsData = res.data.list;
             this.classmenbel = res.data.list;
             this.$message.success("查询成功");
-            loading.close();
+            this.loading.close();
           } else {
-            loading.close();
+            this.loading.close();
             this.$message.success("查询失败，请重试");
           }
         });
@@ -349,6 +349,9 @@ export default {
   created() {
     this.getData();
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

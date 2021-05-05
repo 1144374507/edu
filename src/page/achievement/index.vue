@@ -215,6 +215,7 @@ export default {
   },
   data() {
     return {
+      loading:"",
       length: "",
       isAdd: false,
       edit: false,
@@ -264,20 +265,26 @@ export default {
       if (res <= 1) {
         if (date.getMonth() > 9) {
           this.grade = "高一/秋季";
+          this.grade2 = "高一/秋季";
         } else {
           this.grade = "高一/春季";
+          this.grade2 = "高一/春季";
         }
       } else if (res <= 2) {
         if (date.getMonth() > 9) {
           this.grade = "高二/秋季";
+          this.grade2 = "高二/秋季";
         } else {
           this.grade = "高二/春季";
+          this.grade2 = "高二/春季";
         }
       } else {
         if (date.getMonth() > 9) {
           this.grade = "高三/秋季";
+          this.grade2 = "高三/秋季";
         } else {
           this.grade = "高三/春季";
+          this.grade2 = "高三/春季";
         }
       }
     }
@@ -286,7 +293,7 @@ export default {
   methods: {
     del(data) {
       this.$confirm("确认删除吗，点击确认将永久删除？").then(() => {
-        const loading = this.$loading({
+        this.loading = this.$loading({
           lock: true,
           text: "处理中",
           spinner: "el-icon-loading",
@@ -300,9 +307,9 @@ export default {
             if (res.data.success) {
               this.getmark();
               this.$message.success("删除成功");
-              loading.close();
+            this.loading.close();
             } else {
-              loading.close();
+            this.loading.close();
               this.$message.error("删除失败，请重试");
             }
           });
@@ -334,7 +341,6 @@ export default {
     save() {
       let flog = true;
       this.data.map((item) => {
-
         if (!item.courseName) {
           this.$message.error("课程名不能为空");
           flog = false;
@@ -342,7 +348,7 @@ export default {
       });
       if (flog) {
         this.$axios.post("/api/getMark/updataMark", this.data).then((res) => {
-          const loading = this.$loading({
+          this.loading = this.$loading({
             lock: true,
             text: "处理中",
             spinner: "el-icon-loading",
@@ -352,9 +358,9 @@ export default {
             this.edit = false;
             this.getmark();
             this.$message.success("编辑成功");
-            loading.close();
+          this.loading.close();
           } else {
-            loading.close();
+          this.loading.close();
             this.$message.error("编辑失败，请重试");
           }
         });
@@ -367,7 +373,7 @@ export default {
       this.getmark();
     },
     getmark() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中",
         spinner: "el-icon-loading",
@@ -382,7 +388,7 @@ export default {
             this.data = res.data.list;
             this.length = this.data.length;
             this.tatolData = res.data.list;
-            loading.close();
+          this.loading.close();
 
             // 不及格成绩
             if (this.failedGrade) {
@@ -415,7 +421,7 @@ export default {
               });
             }
           } else {
-            loading.close();
+          this.loading.close();
             this.$message.success("查询失败，请重试");
           }
         });
@@ -427,9 +433,9 @@ export default {
     },
     setNoShow() {
       this.isShow = true;
-      this.getmark();
       this.failedGrade = false;
-      this.grade = "高一/秋季";
+      this.grade = this.grade2;
+      this.getmark();
     },
     failedGradeClick() {
       this.isShow = false;
@@ -465,6 +471,9 @@ export default {
       // });
     },
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

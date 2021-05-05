@@ -811,9 +811,13 @@ export default {
     },
   },
   created() {
+    console.log("studentData", this.studentData);
     if (this.studentData) {
+      console.log("aaaaaa");
       this.personMessage = this.studentData;
     }
+    console.log("personMessage", this.personMessage);
+
   },
 };
 </script>

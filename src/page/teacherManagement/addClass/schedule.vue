@@ -30,6 +30,7 @@ export default {
   },
   data() {
     return {
+      loading:"",
       deployFinishDialogVisible: false,
        deployFinishStatus: 0
     };
@@ -44,7 +45,7 @@ export default {
     // 下一步
     handleNextBtnClick() {
       this.deployFinishDialogVisible = true;
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中...",
         spinner: "el-icon-loading",
@@ -56,17 +57,20 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$message.success("添加成功");
-            loading.close();
+         this.loading.close();
             this.$emit("nextStep");
           } else {
             this.$message.error();
             ("添加失败");
-            loading.close();
+         this.loading.close();
           }
         });
     },
   },
   mounted() {},
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 <style scoped>

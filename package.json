@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.0.0-rc.8",
-    "axios": "^0.16.2",
-    "core-js": "^2.6.5",
+    "ajv": "^6.9.1",
+    "ajv-keywords": "^3.5.2",
+    "axios": "^0.21.0",
+    "core-js": "^3.6.5",
     "echarts": "^5.1.1",
     "echarts-gl": "^2.0.4",
     "element-ui": "^2.15.1",
@@ -23,14 +25,13 @@
     "numeric-keyboard": "0.0.5",
     "qs": "^6.10.1",
     "rj-theme": "^2.4.6",
-    "vue": "^2.5.16",
+    "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
     "vue-echart": "^1.0.5",
     "vue-echarts": "^6.0.0-rc.5",
     "vue-loading-overlay": "^2.0.2",
     "vue-native-websocket": "^2.0.5",
-    "vue-router": "^2.7.0",
-    "vuex": "^3.0.1"
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -7,7 +7,7 @@ import CourseElectives from '@/page/courseElectives/courseElectives'
 import Achievement from '@/page/achievement'
 import TeacherManagement from '@/page/teacherManagement/teacherManagement'
 import changeTheme from '../components/theme/themeIndex'
-
+import Login from '../components/login/login'
 // const Home= ()=> import('@/components/home/header')
 
 Vue.use(Router)
@@ -61,9 +61,20 @@ const routes = [
     path: '/changeTheme',
     name: 'ChangeTheme',
     component: changeTheme
+  },,
+  {
+    // 登录管理
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
  
 ]
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+} 
 
 export default new Router({
   routes,

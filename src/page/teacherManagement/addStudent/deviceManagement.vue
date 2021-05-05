@@ -2,10 +2,11 @@
 <template>
   <div>
     <el-form :model="form" :rules="rules" ref="form">
-      <el-form-item :label="labelVal" prop="classmenbel">
+      <!-- 将classmenbels 和 classmenbel 区分开 -->
+      <el-form-item :label="labelVal" prop="classmenbels">
         <el-select
           size="small"
-          v-model="form.classmenbel"
+          v-model="form.classmenbels"
           placeholder="请选择"
           filterable
           multiple
@@ -19,7 +20,6 @@
           </el-option>
         </el-select>
       </el-form-item>
-      
     </el-form>
     <div>
       <el-button @click="finish" type="primary" size="small" class="__p_YR_u_25"
@@ -34,17 +34,17 @@ import { nanoid } from "nanoid";
 export default {
   name: "addressConfig",
   props: {
-    id: {
-      // default:'4'
-    },
+    id: {},
     isaddTeacher: {},
     classes: {},
+    grades: {},
   },
   data() {
     let isInteger = (rule, value, callback) => {
       return value == "0" || /^-?[1-9]\d*$/.test(value);
     };
     return {
+      loading:"",
       labelVal: "学 生",
       cid: "",
       options: [],
@@ -54,13 +54,13 @@ export default {
       form: {
         pid: "",
         classes: "",
-        classmenbel: [],
+        classmenbels: [],
       },
       classmenbel: [],
 
       isNext: false,
       rules: {
-        classmenbel: [{ required: true, message: "该字段不能为空" }],
+        classmenbels: [{ required: true, message: "该字段不能为空" }],
         ip: [{ required: true, message: "该字段不能为空" }],
         mask: [{ required: true, message: "该字段不能为空" }],
         gateway: [{ required: true, message: "该字段不能为空" }],
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     finish() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中...",
         spinner: "el-icon-loading",
@@ -79,9 +79,9 @@ export default {
 
       let form = this.form;
 
-      if (this.form.classmenbel.length > 0) {
+      if (this.form.classmenbels.length > 0) {
         this.studentsData.map((item, index) => {
-          this.form.classmenbel.map((item1) => {
+          this.form.classmenbels.map((item1) => {
             if (item1 == item.schoolNumber) {
               return this.classmenbel.push(item);
             }
@@ -107,7 +107,7 @@ export default {
           // if(_arr.length>1){
           this.cid = nanoid();
           console.log(this.cid);
-          _arr.push(this.pid, this.form.classes, this.cid);
+          _arr.push(this.pid, this.form.classes, this.cid, this.grades);
 
           this.values.push(_arr);
 
@@ -116,8 +116,7 @@ export default {
         if (this.isaddTeacher == "1") {
           form.teacherMessage = this.values;
         } else {
-          form.classmenbel = this.values; 
-
+          form.classmenbel = this.values;
         }
       }
       console.log(this.isaddTeacher);
@@ -128,11 +127,11 @@ export default {
           if (res.data.success) {
             this.$message.success("添加成功");
             this.$emit("updata");
-            loading.close();
+            this.loading.close();
           } else {
             this.$message.error();
             ("添加失败");
-            loading.close();
+            this.loading.close();
           }
         });
       } else {
@@ -141,13 +140,12 @@ export default {
         this.$axios.post("/api/addClass/addStudents", form).then((res) => {
           console.log(res);
           if (res.data.success) {
-            this.$message.success("添加成功");
+            this.$message.success(`${res.data.msg}`);
             this.$emit("updata");
-            loading.close();
+            this.loading.close();
           } else {
-            this.$message.error();
-            ("添加失败");
-            loading.close();
+            this.$message.error(`${res.data.msg}`);
+            this.loading.close();
           }
         });
       }
@@ -182,6 +180,9 @@ export default {
     this.pid = this.id;
     this.form.classes = this.classes;
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

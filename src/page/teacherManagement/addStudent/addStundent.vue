@@ -7,6 +7,7 @@
           ref="deviceManagement"
           :id="id"
           :classes='classes'
+          :grades='grades'
           :isaddTeacher='isaddTeacher'
           @change="change"
           @updata = 'updata'
@@ -27,6 +28,7 @@ export default {
   props: {
     id: {},
     classes:{},
+    grades:{},
     isaddTeacher:{}
   },
   data() {

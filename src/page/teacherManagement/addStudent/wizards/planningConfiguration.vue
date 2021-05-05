@@ -100,10 +100,11 @@ export default {
   components: {},
   props: {
     schoolNumber: {},
-    studentData:{}
+    studentData: {},
   },
   data() {
     return {
+      loading: "",
       form: {
         admissionData: "",
         admissionGrade: "",
@@ -127,7 +128,7 @@ export default {
     handleNextBtnClick() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
-          const loading = this.$loading({
+          this.loading = this.$loading({
             lock: true,
             text: "处理中...",
             spinner: "el-icon-loading",
@@ -142,7 +143,7 @@ export default {
               return;
             } else {
               this.$message.success(`${res.data.msg}`);
-              loading.close();
+              this.loading.close();
               this.$emit("nextStep");
             }
           });
@@ -172,6 +173,9 @@ export default {
       this.form.schoolNumber = this.schoolNumber;
       console.log(this.schoolNumber, "schoolNumber 2222");
     }
+  },
+  destroyed() {
+    this.loading.close();
   },
 };
 </script>

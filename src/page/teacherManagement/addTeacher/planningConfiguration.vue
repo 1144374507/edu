@@ -103,6 +103,7 @@ export default {
   },
   data() {
     return {
+      loading:"",
       form: {
         admissionData: "",
         admissionGrade: "",
@@ -126,7 +127,7 @@ export default {
     handleNextBtnClick() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
-          const loading = this.$loading({
+          this.loading = this.$loading({
             lock: true,
             text: "处理中...",
             spinner: "el-icon-loading",
@@ -141,7 +142,7 @@ export default {
               return;
             } else {
               this.$message.success(`${res.data.msg}`);
-              loading.close();
+             this.loading.close();
               this.$emit("nextStep");
             }
           });
@@ -167,6 +168,9 @@ export default {
 
     }
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 <style lang="scss" scoped>

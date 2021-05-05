@@ -9,6 +9,7 @@ import axios from 'axios'
 import vueAxios from 'vue-axios'
 
 // import {store} from '@/assets/js/extend4srt.js'
+import store from '@/store/index'
 import './theme/index.css'
 import './theme/theme-000/index.css'
 import '@/assets/js/extend4theme.js'
@@ -205,10 +206,73 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 Vue.use(vueAxios, axios);
 /* eslint-disable no-new */
+// import store from './store'
+
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    next();
+  } else {
+    let token = window.localStorage.token;
+    if (token === 'null' || token === '' || token === undefined) {
+      next('/login');
+    } else {
+      next();
+    }
+  }
+})
+
+//添加请求拦截器
+axios.interceptors.request.use(
+  config => {
+    console.log('store.state.token', router.history.current.name);
+    if (store.state.token) {
+      config.headers.common['authorization'] ='Bearer '+ store.state.token
+    } else {
+      if (router.history.current.name != 'Login') {
+        Vue.prototype.$message.error(`token不存在，请重新登陆`);
+        console.log('this', this);
+
+      }
+
+    }
+    return config;
+  },
+  error => {
+    //对请求错误做什么
+    return Promise.reject(error);
+  }
+)
+
+
+
+//http reponse拦截器
+
+axios.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          localStorage.removeItem('token');
+          /*     router.push('/views/login');*/
+          router.replace({
+            path: '/login',
+            query: { redirect: router.currentRoute.fullPath }//登录成功后跳入浏览的当前页面
+          })
+      }
+    }
+
+  }
+)
+
+
 new Vue({
   el: '#app',
+  store,
   router,
-  // store,
   components: { App },
   template: '<App/>'
 })

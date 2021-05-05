@@ -75,8 +75,9 @@
             </el-row>
           </div>
           <div v-if="!isShow" class="setmgtop"></div>
-          
-          <div>
+
+          <!-- 课表 -->
+          <div style="width: 100%">
             <el-table
               :data="data"
               border
@@ -87,73 +88,64 @@
               <el-table-column
                 label=""
                 prop="sectiontime"
-                width="100px"
                 align="left"
                 header-align="left"
               ></el-table-column
               ><el-table-column
                 label="节次"
                 prop="sections"
-                width="100px"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="时间"
                 prop="time"
-                width="100px"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="星期一"
-                prop="courseday1"
-                width="100px"
+                prop="mom"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="星期二"
-                prop="courseday2"
-                width="100px"
+                prop="tue"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="星期三"
-                prop="sections"
-                width="100px"
+                prop="wed"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="星期四"
-                prop="sections"
-                width="100px"
+                prop="thurs"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="星期五"
-                prop="sections"
-                width="100px"
+                prop="friday"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="星期六"
-                prop="sections"
-                width="100px"
+                prop="sat"
                 align="left"
                 header-align="left"
               ></el-table-column>
               <el-table-column
                 label="星期日"
-                prop="sections"
-                width="100px"
+                prop="sun"
                 align="left"
                 header-align="left"
-              ></el-table-column>
+              >
+              </el-table-column>
             </el-table>
           </div>
 
@@ -167,7 +159,10 @@
 export default {
   data() {
     return {
+      pid: "",
+      grades: "高一",
       activeindex: 1,
+      schoolNumber: "2017012065",
       isShow: false,
       term: [
         {
@@ -198,83 +193,133 @@ export default {
       value: "高一/秋季",
 
       defaultOpeneds: ["1"],
-     
 
       data: [
-        {
-          sections: "早读",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sectiontime: "上午",
-          sections: "第一节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第二节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第三节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第四节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sectiontime: "下午",
-          sections: "第一节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第二节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第三节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sectiontime: "晚上",
-          sections: "第一节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第二节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
-        {
-          sections: "第三节",
-          time: "07:10 - 7:40",
-          courseday1: "语文",
-          courseday2: "数学",
-        },
+        // {
+        //   sections: "早读",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sectiontime: "上午",
+        //   sections: "第一节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sections: "第二节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sections: "第三节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sections: "第四节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sectiontime: "下午",
+        //   sections: "第一节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sections: "第二节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sections: "第三节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sectiontime: "晚上",
+        //   sections: "第一节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sections: "第二节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
+        // {
+        //   sections: "第三节",
+        //   time: "07:10 - 7:40",
+        //   courseday1: "语文",
+        //   courseday2: "数学",
+        // },
       ],
- 
     };
   },
+  created() {
+    let date = new Date();
+    const res = date.getFullYear() - parseInt("2017级");
+    // date.getMonth(); //获取当前月份(0-11,0代表1月)
+    if (res <= 1) {
+      if (date.getMonth() > 9) {
+        this.grade = "高一";
+      } else {
+        this.grade = "高一";
+      }
+    } else if (res <= 2) {
+      if (date.getMonth() > 9) {
+        this.grade = "高二";
+      } else {
+        this.grade = "高二";
+      }
+    } else {
+      if (date.getMonth() > 9) {
+        this.grade = "高三";
+      } else {
+        this.grade = "高三";
+      }
+    }
+    this.getPid();
+  },
   methods: {
+    getPid() {
+      this.$axios
+        .get(
+          `/api/getPid?schoolNumber=${this.schoolNumber}&&grades=${this.grades}`
+        )
+        .then((res) => {
+          console.log(res);
+          if (res.data.success) {
+            this.pid = res.data.list[0].pid;
+            this.getSchedule();
+          } else {
+            this.$message.error("接口异常");
+          }
+          // this.data = res.data.list
+        });
+    },
+    getSchedule() {
+      this.$axios
+        .get(`/api/teacherManagement/getSchedule/${this.pid}`)
+        .then((res) => {
+          if (res.data.success) {
+            this.data = res.data.list;
+          } else {
+            this.$message.error("接口异常");
+          }
+        });
+    },
     setShow() {
       this.isShow = false;
     },
@@ -295,10 +340,10 @@ export default {
           };
         } else if (rowIndex === 5) {
           return {
-            rowspan: 3,
+            rowspan: 4,
             colspan: 1,
           };
-        } else if (rowIndex === 8) {
+        } else if (rowIndex === 9) {
           return {
             rowspan: 3,
             colspan: 1,

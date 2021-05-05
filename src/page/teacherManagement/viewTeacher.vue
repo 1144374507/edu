@@ -218,8 +218,9 @@ export default {
   props: {},
   data() {
     return {
+      loading: "",
       form: {
-        key: "grades",
+        key: "name",
         value: "",
       },
       teacherData: {},
@@ -233,7 +234,7 @@ export default {
   },
   methods: {
     goSearch() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中",
         spinner: "el-icon-loading",
@@ -246,9 +247,9 @@ export default {
           if (res.data.success) {
             this.teacherMessage = res.data.list;
             this.$message.success("查询成功");
-            loading.close();
+            this.loading.close();
           } else {
-            loading.close();
+            this.loading.close();
             this.$message.error("查询失败，请重试");
           }
         });
@@ -261,19 +262,20 @@ export default {
       this.teacherData = data;
     },
     getData() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
       });
       this.$axios.get("/api/addClass/getTeachers").then((res) => {
+        console.log(res);
         if (res.data.success) {
           this.teacherMessage = res.data.list;
           // this.$message.success("查询成功");
-          loading.close();
+          this.loading.close();
         } else {
-          loading.close();
+          tjis.loading.close();
           this.$message.success("查询失败，请重试");
         }
       });
@@ -295,7 +297,7 @@ export default {
           .then((res) => {
             if (res.data.success) {
               this.$message.success("删除成功");
-              loading.close();
+              this.loading.close();
               this.getData();
             }
           });
@@ -316,6 +318,16 @@ export default {
   },
   created() {
     this.getData();
+  },
+  beforeRouteLeave(to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+    console.log("this", this);
+    this.loading.close();
+    next();
+  },
+  destroyed() {
+    this.loading.close();
   },
 };
 </script>

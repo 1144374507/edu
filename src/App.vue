@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header v-if="this.$route.name != 'Login'"></Header>
     <router-view />
   </div>
 </template>
@@ -22,6 +22,9 @@ export default {
       return this.$getViewportSize().height;
     },
   },
+  created(){
+    console.log(this.$route.name == 'Login','login');
+  }
 };
 </script>
 

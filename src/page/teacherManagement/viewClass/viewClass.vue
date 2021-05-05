@@ -151,6 +151,7 @@
       @updata="updata"
       :id="updataId"
       :classes="classes"
+      :grades='grades'
     ></classMessage>
     <teacherMessage
       @updata="updata"
@@ -180,8 +181,11 @@ export default {
   },
   data() {
     return {
+      loading:"",
       // let aerr =[ 1,1,1,1]
       // arr.push(a)
+      grades:'',
+      classes:"",
       updataId: "",
       classmenbel: [],
       teacherMessage: [],
@@ -218,7 +222,7 @@ export default {
     deleteClass(id, row) {
       console.log(row);
       this.$confirm("确认删除吗？").then(() => {
-        const loading = this.$loading({
+        this.loading = this.$loading({
           lock: true,
           text: "处理中...",
           spinner: "el-icon-loading",
@@ -230,7 +234,7 @@ export default {
             console.log(res);
             if (res.data.succeed) {
               this.$message.success("操作成功");
-              loading.close();
+          this.loading.close();
               this.getdata();
             }
           });
@@ -240,6 +244,7 @@ export default {
       console.log(scop, "scop");
       this.updataId = scop.id;
       this.classes = scop.classes;
+      this.grades = scop.grades;
       this.classmenbel = classmenbel;
 
       this.teacherMessage = teacherMessage;
@@ -250,7 +255,7 @@ export default {
       this.isShowClassMessage = false;
     },
     getdata() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中...",
         spinner: "el-icon-loading",
@@ -270,12 +275,12 @@ export default {
             });
           }
 
-          loading.close();
+      this.loading.close();
         }
       });
     },
     getSearchGrade() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中...",
         spinner: "el-icon-loading",
@@ -286,10 +291,10 @@ export default {
           if (res.data.success) {
             this.data = res.data.list;
             this.$message.success("搜索成功");
-            loading.close();
+        this.loading.close();
           } else {
             this.$message.error("搜索失败，请重试");
-            loading.close();
+        this.loading.close();
           }
         });
       }else{
@@ -300,6 +305,9 @@ export default {
   created() {
     this.getdata();
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

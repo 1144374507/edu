@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import moduleName from 'vuex'
+// import moduleName from 'vuex'
 import Vue from 'vue'
 import * as token from '@/common/js/tokenMng.js'
 import {

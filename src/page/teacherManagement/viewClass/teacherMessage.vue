@@ -166,7 +166,7 @@ export default {
     // 删除
     deleteTeacher(cid) {
       this.$confirm("确认删除吗？").then(() => {
-        const loading = this.$loading({
+        this.loading = this.$loading({
           lock: true,
           text: "处理中",
           spinner: "el-icon-loading",
@@ -179,7 +179,7 @@ export default {
             if (res.data.success) {
               this.$message.success("删除成功");
               this.$emit("updata");
-              loading.close();
+            this.loading.close();
             }
           });
       });
@@ -198,6 +198,9 @@ export default {
     },
   },
   created() {},
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

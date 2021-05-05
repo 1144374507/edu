@@ -105,7 +105,7 @@ export default {
   },
   data() {
     return {
-
+      loading:"",
       values: [],
       data1: [
         {
@@ -313,7 +313,7 @@ export default {
       }
     },
     save() {
-      const loading = this.$loading({
+      this.loading = this.$loading({
         lock: true,
         text: "处理中...",
         spinner: "el-icon-loading",
@@ -324,12 +324,12 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$message.success("修改成功");
-            loading.close();
+         this.loading.close();
             this.$emit("closeAddSchedule", true);
           } else {
             this.$message.error();
             ("修改失败");
-            loading.close();
+         this.loading.close();
             this.$emit("closeAddSchedule", false);
           }
         });
@@ -347,6 +347,9 @@ export default {
       this.data1 = arr
     }
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

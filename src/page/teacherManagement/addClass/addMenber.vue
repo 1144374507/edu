@@ -9,15 +9,15 @@
         :rules="rules"
       >
         <div>
-          <div class="__p_12z_u_7">为班级添加学生</div>
+          <div class="__p_12z_u_7">为班级添加成员</div>
 
           <div style="display: flex">
-            <el-form-item label=" 学 生 ：" prop="classmenbel">
+            <el-form-item label=" 学 生 ：" prop="classmenbels">
               <div class="asm-input-wraop111">
                 <el-select
                   class="asm-input"
                   size="small"
-                  v-model="form.classmenbel"
+                  v-model="form.classmenbels"
                   placeholder="请选择"
                   filterable
                   multiple
@@ -38,12 +38,12 @@
             <div style="clear: both"></div>
           </div>
           <div style="display: flex">
-            <el-form-item label=" 老 师 ：" prop="teacherMessage">
+            <el-form-item label=" 老 师 ：" prop="teacherMessages">
               <div class="asm-input-wraop111">
                 <el-select
                   class="asm-input"
                   size="small"
-                  v-model="form.teacherMessage"
+                  v-model="form.teacherMessages"
                   placeholder="请选择"
                   filterable
                   multiple
@@ -86,13 +86,16 @@ import { nanoid } from "nanoid";
 export default {
   props: {
     pid: {},
+    classes: {},
+    grades: {},
   },
   data() {
     return {
+      loading:"",
       form: {
         pid: "",
         classes: "",
-        classmenbel: [],
+        classmenbels: [],
       },
       cid: "",
       values: [],
@@ -306,17 +309,14 @@ export default {
         grades: "",
         classes: "",
         monitor: "",
-        classmenbel: "",
-        teacherMessage: "",
+        classmenbels: "",
+        teacherMessages: "",
       },
       classmenbel: [],
       teacherMessage: [],
       rules: {
-        grades: [{ required: true, message: "请输入" }],
-        classes: [{ required: true, message: "请输入" }],
-        monitor: [{ required: false, message: "请输入" }],
-        classmenbel: [{ required: true, message: "请输入" }],
-        teacherMessage: [{ required: true, message: "请输入" }],
+        classmenbels: [{ required: true, message: "请输入" }],
+        teacherMessages: [{ required: true, message: "请输入" }],
       },
     };
   },
@@ -347,126 +347,114 @@ export default {
     },
 
     handleNextBtnClick() {
-      this.form.id = nanoid();
-      this.pid = this.form.id;
-      this.$refs["form"].validate((valid) => {
-        if (valid) {
-          const loading = this.$loading({
-            lock: true,
-            text: "处理中...",
-            spinner: "el-icon-loading",
-            background: "rgba(0, 0, 0, 0.7)",
-          });
+     this.loading = this.$loading({
+        lock: true,
+        text: "处理中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
 
-          let form = this.form;
+      let form = this.form;
 
-          if (this.form.classmenbel.length > 0) {
-            this.studentsData.map((item, index) => {
-              this.form.classmenbel.map((item1) => {
-                if (item1 == item.schoolNumber) {
-                  return this.classmenbel.push(item);
-                }
-              });
-            });
-
-            this.classmenbel.forEach((n, i) => {
-              var _arr = [];
-              var x = 0;
-              for (var m in n) {
-                if (
-                  Object.keys(n)[x] == "name" ||
-                  Object.keys(n)[x] == "sex" ||
-                  Object.keys(n)[x] == "schoolNumber"
-                ) {
-                  _arr.push(n[m]);
-                  this.cid = this.pid + n[m];
-                }
-                x++;
-              }
-              // if(_arr.length>1){
-              this.cid = nanoid();
-              console.log(this.cid, "this.cid");
-
-              _arr.push(this.pid, this.form.classes, this.cid);
-
-              this.values.push(_arr);
-
-              // }
-            });
-            console.log(this.values, "this.values");
-            form.classmenbel = this.values;
-          }
-
-          if (this.form.teacherMessage.length > 0) {
-            this.teacherData.map((item, index) => {
-              this.form.teacherMessage.map((item1) => {
-                if (item1 == item.schoolNumber) {
-                  return this.teacherMessage.push(item);
-                }
-              });
-            });
-
-            // ch处理老师的数据
-            this.teacherMessage.forEach((n, i) => {
-              let _arr = [];
-              let x = 0;
-              for (var m in n) {
-                console.log(m);
-                console.log(Object.keys(n)[x]);
-                if (
-                  Object.keys(n)[x] == "name" ||
-                  Object.keys(n)[x] == "sex" ||
-                  Object.keys(n)[x] == "schoolNumber" ||
-                  Object.keys(n)[x] == "courseName" ||
-                  Object.keys(n)[x] == "office" ||
-                  Object.keys(n)[x] == "tel"
-                ) {
-                  _arr.push(n[m]);
-                }
-                x++;
-              }
-              // if(_arr.length>1){
-              _arr.push(this.pid);
-
-              this.teachervalues.push(_arr);
-
-              // }
-            });
-            console.log(this.teachervalues, "this.teachervalues");
-
-            form.teacherMessage = this.teachervalues;
-          }
-          this.$axios.post("/api/addClass/addStudents", form).then((res) => {
-            console.log(res);
-            if (res.data.success) {
-              this.$message.success("添加学生成功");
-              // this.$emit("updata");
-              // loading.close();
-              //添加老师
-              this.$axios
-                .post("/api/addClass/addTeachers", form)
-                .then((res) => {
-                  console.log(res);
-                  if (res.data.success) {
-                    this.$message.success("添加老师成功");
-                    this.$emit("updata");
-                    loading.close();
-                  } else {
-                    this.$message.error();
-                    ("添加失败");
-                    loading.close();
-                  }
-                });
-            } else {
-              this.$message.error();
-              ("添加失败");
-              loading.close();
+      // 处理学生数据
+      if (this.form.classmenbels.length > 0) {
+        this.studentsData.map((item, index) => {
+          this.form.classmenbels.map((item1) => {
+            if (item1 == item.schoolNumber) {
+              return this.classmenbel.push(item);
             }
           });
+        });
+
+        this.classmenbel.forEach((n, i) => {
+          var _arr = [];
+          var x = 0;
+          for (var m in n) {
+            if (
+              Object.keys(n)[x] == "name" ||
+              Object.keys(n)[x] == "sex" ||
+              Object.keys(n)[x] == "schoolNumber" ||
+              Object.keys(n)[x] == "courseName" ||
+              Object.keys(n)[x] == "office" ||
+              Object.keys(n)[x] == "tel"
+            ) {
+              _arr.push(n[m]);
+            }
+            x++;
+          }
+          this.cid = nanoid();
+          console.log(this.cid);
+          _arr.push(this.pid, this.classes, this.cid, this.grades);
+          this.values = [];
+          this.values.push(_arr);
+        });
+        form.classmenbel = this.values;
+      }
+      //添加学生
+      console.log("form", form);
+
+      this.$axios.post("/api/addClass/addStudents", form).then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          this.$message.success(`${res.data.msg}`);
+          this.$emit("nextStep");
+       this.loading.close();
+        } else {
+          this.$message.error(`${res.data.msg}`);
+       this.loading.close();
+        }
+      });
+      let form1 = this.form;
+      // 处理老师数据
+      if (this.form.teacherMessages.length > 0) {
+        this.teacherData.map((item, index) => {
+          this.form.teacherMessages.map((item1) => {
+            if (item1 == item.schoolNumber) {
+              return this.teacherMessage.push(item);
+            }
+          });
+        });
+
+        this.teacherMessage.forEach((n, i) => {
+          var _arr = [];
+          var x = 0;
+          for (var m in n) {
+            if (
+              Object.keys(n)[x] == "name" ||
+              Object.keys(n)[x] == "sex" ||
+              Object.keys(n)[x] == "schoolNumber" ||
+              Object.keys(n)[x] == "courseName" ||
+              Object.keys(n)[x] == "office" ||
+              Object.keys(n)[x] == "tel"
+            ) {
+              _arr.push(n[m]);
+            }
+            x++;
+          }
+          this.cid = nanoid();
+          console.log(this.cid);
+          _arr.push(this.pid, this.classes, this.cid);
+          this.values = [];
+          this.values.push(_arr);
+        });
+        form1.teacherMessage = this.values;
+      }
+      console.log("form1", form1);
+      //添加老师
+      this.$axios.post("/api/addClass/addTeachers", form1).then((res) => {
+        if (res.data.success) {
+          this.$message.success(`${res.data.msg}`);
+       this.loading.close();
+        } else {
+          this.$message.error(`${res.data.msg}`);
+       this.loading.close();
         }
       });
     },
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 

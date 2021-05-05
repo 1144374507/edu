@@ -101,6 +101,7 @@ export default {
   },
   data() {
     return {
+      loading:"",
       deployFinishDialogVisible: false,
       form: {
         qq: "",
@@ -129,7 +130,7 @@ export default {
       this.deployFinishDialogVisible = true;
       this.$refs["form"].validate((valid) => {
         if (valid) {
-          const loading = this.$loading({
+          this.loading = this.$loading({
             lock: true,
             text: "处理中...",
             spinner: "el-icon-loading",
@@ -146,7 +147,7 @@ export default {
                 return;
               } else {
                 this.$message.success(`${res.data.msg}`);
-                loading.close();
+              this.loading.close();
 
                 if (this.teacherData) {
                   this.$emit("colseDielog");
@@ -181,6 +182,9 @@ export default {
       console.log(this.schoolNumber, "schoolNumber");
     }
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 <style scoped>

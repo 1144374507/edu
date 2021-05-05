@@ -1,7 +1,6 @@
 
 <template>
   <div>
-   
     <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
@@ -215,11 +214,11 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
-          
-     if(key==1) this.$router.push("/userManagement")
-     if(key==2) this.$router.push("/scheduleManagement")
-     if(key==3) this.$router.push("/achievement")
-     if(key==4) this.$router.push("/teacherManagement")
+
+      if (key == 1) this.$router.push("/userManagement");
+      if (key == 2) this.$router.push("/scheduleManagement");
+      if (key == 3) this.$router.push("/achievement");
+      if (key == 4) this.$router.push("/teacherManagement");
     },
     goBack: function () {
       this.showModifyOpiton = false;
@@ -229,8 +228,10 @@ export default {
     },
     //注销
     logout: function () {
-      // let self = this;
-      // self.$store.commit(self.$storeTypes.LOGOUT);
+      let self = this;
+      self.$store.commit("$_removeStorage");
+      this.$router.push("/login");
+
       // self.$nextTick(function () {
       //   self.$router.push(
       //     self.$store.state.loginUserInfo.loginOutUrl || "/login"
@@ -270,26 +271,25 @@ export default {
       });
     },
   },
-  created(){
+  created() {
     // 初始化菜单
-    if(this.$route.name == 'UserManagement'){
-      this.activeIndex = '1'
-      return
+    if (this.$route.name == "UserManagement") {
+      this.activeIndex = "1";
+      return;
     }
-    if(this.$route.name == 'ScheduleManagement'){
-      this.activeIndex = '2'
-      return
+    if (this.$route.name == "ScheduleManagement") {
+      this.activeIndex = "2";
+      return;
     }
-    if(this.$route.name == 'Achievement'){
-      this.activeIndex = '3'
-      return
+    if (this.$route.name == "Achievement") {
+      this.activeIndex = "3";
+      return;
     }
-    if(this.$route.name == 'TeacherManagement'){
-      this.activeIndex = '4'
-      return
+    if (this.$route.name == "TeacherManagement") {
+      this.activeIndex = "4";
+      return;
     }
-
-  }
+  },
 };
 </script>
 

@@ -34,11 +34,11 @@
                             class="__p_12e_u_66"
                         />
                         <div class="__p_12e_u_67">
-                            <span class="__p_12e_u_68">② 添加课表</span>
+                            <span class="__p_12e_u_68">② 添加成员</span>
                         </div>
                     </div>
                 </el-col>
-                <!-- <el-col :span="8">
+                <el-col :span="8">
                     <div
                         class="__p_12e_u_69"
                         id="qa-test-binding-config-template"
@@ -50,10 +50,10 @@
                             class="__p_12e_u_70"
                         />
                         <div class="__p_12e_u_71">
-                            <span class="__p_12e_u_72">③ 绑定配置模板</span>
+                            <span class="__p_12e_u_72">③ 添加课表</span>
                         </div>
                     </div>
-                </el-col> -->
+                </el-col>
             </el-row>
             <div class="__p_12e_u_73">
                 <el-button

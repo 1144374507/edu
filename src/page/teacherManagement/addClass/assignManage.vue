@@ -66,7 +66,7 @@
               </el-tooltip>
             </div>
           </el-form-item>
-          <div style="display: flex">
+          <!-- <div style="display: flex">
             <el-form-item label=" 学 生 ：" prop="classmenbel">
               <div class="asm-input-wraop111">
                 <el-select
@@ -116,7 +116,7 @@
                 </el-tooltip>
               </div>
             </el-form-item>
-          </div>
+          </div> -->
         </div>
       </el-form>
     </el-card>
@@ -137,6 +137,7 @@ import { nanoid } from "nanoid";
 export default {
   data() {
     return {
+      loading:"",
       cid: "",
       values: [],
       teachervalues: [],
@@ -392,7 +393,7 @@ export default {
       this.pid = this.form.id;
       this.$refs["form"].validate((valid) => {
         if (valid) {
-          const loading = this.$loading({
+         this.loading = this.$loading({
             lock: true,
             text: "处理中...",
             spinner: "el-icon-loading",
@@ -428,7 +429,12 @@ export default {
               this.cid = nanoid();
               console.log(this.cid, "this.cid");
 
-              _arr.push(this.pid, this.form.classes, this.cid);
+              _arr.push(
+                this.pid,
+                this.form.classes,
+                this.cid,
+                this.form.grades
+              );
 
               this.values.push(_arr);
 
@@ -469,7 +475,7 @@ export default {
 
               this.cid = nanoid();
               // if(_arr.length>1){
-              _arr.push(this.pid,this.form.classes,this.cid);
+              _arr.push(this.pid, this.form.classes, this.cid);
 
               this.teachervalues.push(_arr);
 
@@ -495,33 +501,41 @@ export default {
                   .post(`/api/addClass/createSchedule`, this.data2)
                   .then((res) => {
                     if (res.data.success) {
-                      this.$message.success("保存成功");
-                      loading.close();
-                      this.$emit("nextStep", this.pid);
+                      this.$message.success(`${res.data.msg}`);
+                      this.loading.close();
+                      console.log("this.form.classes", this.form.classes);
+                      this.$emit(
+                        "nextStep",
+                        this.pid,
+                        this.form.grades,
+                        this.form.classes
+                      );
                     } else {
-                      this.$message.error();
-                      ("保存失败");
-                      loading.close();
+                      this.$message.error(`${res.data.msg}`);
+                      this.loading.close();
                     }
                   });
               } else {
                 this.$message({
                   type: "error",
-                  message: res.data.message || "保存失败",
+                  message: res.data.msg || "保存失败",
                 });
-                loading.close();
+                this.loading.close();
               }
             })
             .catch((err) => {
               this.$message({
                 type: "error",
-                message: err.message || "保存失败",
+                message: err.msg || "保存失败",
               });
             });
         }
       });
     },
   },
+  destroyed(){
+    this.loading.close()
+  }
 };
 </script>
 
@@ -575,8 +589,6 @@ export default {
   // left: 0;
   // top: 0;
 }
-
- 
 </style>
 
 <style scoped lang="scss">
