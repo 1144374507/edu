@@ -24,6 +24,7 @@ export default {
   },
   created(){
     console.log(this.$route.name == 'Login','login');
+    // this.$store.getters.getSortage
   }
 };
 </script>

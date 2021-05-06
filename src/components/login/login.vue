@@ -80,14 +80,27 @@ export default {
         this.loginTxt = "登录中...";
 
         this.$axios.post("/api/login", this.form).then((res) => {
-          console.log('res',res);
+          console.log("res", res);
           if (res.data.success) {
             this.loginTxt = "登录";
 
-            // this.$store.commit(this.$storeTypes.LOGIN, res.data.result);
-            this.$store.commit('$_setStorage',res.data.token)
-            console.log('localStorage',localStorage);
-            this.$router.push("/userManagement");
+            this.$store.commit("$_setStorage", res.data.token);
+            console.log("localStorage", localStorage);
+            if (res.data.root == "false") {
+              this.$axios
+                .get(`/api/getUserData/${this.form.userName}`)
+                .then((res) => {
+                  console.log("res", res);
+                  if (res.data.success) {
+                    this.$store.commit("$_setUserdata", res.data.list[0]);
+                    console.log(this.$store.state.userdata, "userdata");
+                    this.$router.push("/userManagement");
+                  }
+                });
+            } else {
+              this.$router.push("/teacherManagement");
+            }
+            this.$store.commit("$_adminCount", res.data.root);
           } else {
             console.log("进入失败");
             this.loginTxt = "登录";
@@ -165,12 +178,16 @@ export default {
   margin-top: 30vh;
   border: 1px solid #bbbbbb;
   border-radius: 5px;
-  background-color: #bbb;
+  background-color: #eaf2f5;
 }
 .__login__wrapp__ {
   position: absolute;
   width: 100%;
   height: 100vh;
-  background-color: rgb(172, 144, 144);
+  /* background-color: rgb(172, 144, 144); */
+  background-image: url(./img/login_bg.jpg);
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: 100% 80%;
 }
 </style>

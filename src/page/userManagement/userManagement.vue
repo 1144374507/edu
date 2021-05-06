@@ -6,7 +6,7 @@
         <div>
           <div>
             <img
-              src="http://vve.qiniu.qjzd.net/FhoxiAgrwxt4pfXTbbMTgB9j7hpy"
+              src="./img/user.png"
               class="__p_137_u_4"
             />
           </div>
@@ -783,25 +783,7 @@ export default {
       edit: false,
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-      personMessage: {
-        height: "178",
-        weight: "65kg",
-        tel: "18045207896",
-        homepage: "",
-        profile: "", //简介
-        qq: "1144374507",
-        email: "1144374507@qq.com",
-        postcode: "366201", //邮编
-        parents: "", //家长信息
-        name: "江盛锋",
-        englishName: "jiangshengfeng",
-        schoolNumber: "2017021065",
-        idCardNum: "350825199803121116",
-        grades: "2017级",
-        admissionDate: "20170901", //入学日期
-        admissionGrade: "2017级", //入学年级
-        overseas: "", //留学生
-      },
+      personMessage: '',
     };
   },
   methods: {
@@ -811,13 +793,22 @@ export default {
     },
   },
   created() {
+    console.log(this.$store.state.adminCount, "adminCount");
+    console.log(this.$store.state.userdata, "userdata");
+    console.log(this.$store.state.adminCount == "false");
+    if (this.$store.state.userdata) {
+
+      this.personMessage = this.$store.state.userdata;
+      console.log('this.personMessage',this.personMessage);
+    }
+
+
     console.log("studentData", this.studentData);
     if (this.studentData) {
       console.log("aaaaaa");
       this.personMessage = this.studentData;
     }
     console.log("personMessage", this.personMessage);
-
   },
 };
 </script>

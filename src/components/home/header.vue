@@ -48,9 +48,7 @@
             >
               <div style="display: flex; align-items: center">
                 <span class="user-logo">
-                  <img
-                    src="../../../static/eweb-base-img/theme-00aeff/user.png"
-                  />
+                  <img src="./img/back.png" />
                 </span>
 
                 <span
@@ -94,7 +92,7 @@
                 id="goBack"
                 style="height: 18px"
                 @click="goBack"
-                src="../../../static/eweb-base-img/theme-00aeff/goback.png"
+                src="./img/back.png"
               />
               <span style="margin-left: 13px; font-size: 15px">修改密码</span>
             </div>
@@ -141,10 +139,7 @@
               cursor: pointer;
             "
           >
-            <img
-              class="user-logo"
-              src="../../../static/eweb-base-img/theme-00aeff/user.png"
-            />
+            <img class="user-logo" src="./img/user.png" />
             admin
             <i
               class="el-icon-caret-bottom"
@@ -408,6 +403,10 @@ export default {
     height: 24px;
     // background-color: rgb(31, 7, 7) !important;
     display: inline-block;
+  }
+  .user-logo:hover {
+    border: 1px solid rgb(157, 116, 223);    
+    display: none;
   }
 }
 .el-popover {

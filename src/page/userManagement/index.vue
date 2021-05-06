@@ -57,25 +57,7 @@ export default {
       fits: ["fill"],
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-      personMessage: {
-        height: "178",
-        weight: "65kg",
-        tel: "18045207896",
-        homepage: "",
-        profile: "", //简介
-        qq: "1144374507",
-        email: "1144374507@qq.com",
-        postcode: "366201", //邮编
-        parents: "", //家长信息
-        name: "江盛锋",
-        englishName: "jiangshengfeng",
-        schoolNumber: "2017021065",
-        idCardNum: "350825199803121116",
-        grades: "2017级",
-        admissionDate: "20170901", //入学日期
-        admissionGrade: "2017级", //入学年级
-        overseas: "", //留学生
-      },
+      personMessage: '',
     };
   },
   methods: {
@@ -84,6 +66,7 @@ export default {
     },
   },
   created() {
+    
     console.log("studentData", this.studentData);
     if (this.studentData) {
       this.personMessage = this.studentData;

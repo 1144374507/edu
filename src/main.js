@@ -227,7 +227,10 @@ axios.interceptors.request.use(
   config => {
     console.log('store.state.token', router.history.current.name);
     if (store.state.token) {
-      config.headers.common['authorization'] ='Bearer '+ store.state.token
+
+      let token = `Bearer ${store.state.token}`
+      token = token.replace(/\"/g, "");
+      config.headers.common['authorization'] = token
     } else {
       if (router.history.current.name != 'Login') {
         Vue.prototype.$message.error(`token不存在，请重新登陆`);
