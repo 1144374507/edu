@@ -229,7 +229,7 @@ axios.interceptors.request.use(
     if (store.state.token) {
 
       let token = `Bearer ${store.state.token}`
-      token = token.replace(/\"/g, "");
+      // token = token.replace(/\"/g, "");
       config.headers.common['authorization'] = token
     } else {
       if (router.history.current.name != 'Login') {

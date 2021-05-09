@@ -55,7 +55,7 @@ export default {
     return {
       loginTxt: "登录",
       form: {
-        userName: "2017021065",
+        userName: "2021021065",
         passWord: "123456",
       },
       rules: {
@@ -92,15 +92,17 @@ export default {
                 .then((res) => {
                   console.log("res", res);
                   if (res.data.success) {
-                    this.$store.commit("$_setUserdata", res.data.list[0]);
-                    console.log(this.$store.state.userdata, "userdata");
+                    this.$store.commit("$_setUserdata", res.data.list[0]||{});
+                    console.log(this.$store.state.userdata||{}, "userdata");
                     this.$router.push("/userManagement");
                   }
                 });
             } else {
               this.$router.push("/teacherManagement");
+              this.$store.commit("$_setUserdata", {});
             }
             this.$store.commit("$_adminCount", res.data.root);
+            this.$store.commit("$_userName", this.form.userName);
           } else {
             console.log("进入失败");
             this.loginTxt = "登录";

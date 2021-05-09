@@ -9,7 +9,8 @@ const store = new Vuex.Store({
     return {
       token: localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : '',
       userdata: localStorage.getItem('userdata') ? JSON.parse(localStorage.getItem('userdata')) : {},
-      adminCount: localStorage.getItem('adminCount') ? JSON.parse(localStorage.getItem('adminCount') ): '',
+      adminCount: localStorage.getItem('adminCount') ? JSON.parse(localStorage.getItem('adminCount')) : '',
+      userName: localStorage.getItem('userName') ? JSON.parse(localStorage.getItem('userName')) : '',
     }
   },
   getters: {
@@ -47,8 +48,10 @@ const store = new Vuex.Store({
       localStorage.setItem('userdata', JSON.stringify(value))
 
     },
-
-
+    $_userName(state, value) {
+      state.userName = value;
+      localStorage.setItem('userName', JSON.stringify(value))
+    },
     $_adminCount(state, value) {
       state.adminCount = value;
       localStorage.setItem('adminCount', JSON.stringify(value))

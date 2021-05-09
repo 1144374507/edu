@@ -1,16 +1,16 @@
 
 <template>
-  <div>
+  <div class="el-menu-wrapp">
     <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
     >
-      <el-menu-item index="1">个人管理</el-menu-item>
-      <el-menu-item index="2">课程管理</el-menu-item>
-      <el-menu-item index="3">成绩管理</el-menu-item>
-      <el-menu-item index="4">教师管理</el-menu-item>
+      <el-menu-item v-if="!isAdmin" index="1">个人管理</el-menu-item>
+      <el-menu-item v-if="!isAdmin" index="2">课程管理</el-menu-item>
+      <el-menu-item v-if="!isAdmin" index="3">成绩管理</el-menu-item>
+      <el-menu-item v-if="isAdmin" index="4">教师管理</el-menu-item>
       <div class="user __change__theme__wrap__">
         <div class="">
           <span class="">
@@ -48,13 +48,13 @@
             >
               <div style="display: flex; align-items: center">
                 <span class="user-logo">
-                  <img src="./img/back.png" />
+                  <!-- <img @click="goBack"  src="./img/back.png" /> -->
                 </span>
 
                 <span
                   class="el-dropdown-link"
                   style="font-size: 15px !important; margin-left: 20px"
-                  >admin</span
+                  >{{ modifyForm.userName }}</span
                 >
               </div>
               <div
@@ -103,25 +103,25 @@
               ref="modifyForm"
               :model="modifyForm"
             >
-              <el-form-item label="当前密码：" prop="curPwd">
+              <el-form-item label="当前密码：" prop="passWord">
                 <el-input
-                  id="curPwd"
-                  type="password"
-                  v-model.trim="modifyForm.curPwd"
+                  placeholder="请输入当前密码"
+                  v-model.trim="modifyForm.passWord"
+                  show-password
                 ></el-input>
               </el-form-item>
-              <el-form-item label="新密码：" prop="newPwd">
+              <el-form-item label="新密码：" prop="newPassWord">
                 <el-input
-                  id="newPwd"
-                  type="password"
-                  v-model.trim="modifyForm.newPwd"
-                ></el-input>
+                  placeholder="请输入新密码"
+                  v-model.trim="modifyForm.newPassWord"
+                  show-password
+                ></el-input> 
               </el-form-item>
-              <el-form-item label="确认新密码：" prop="confirmPwd">
+              <el-form-item label="确认密码：" prop="confirmPwd">
                 <el-input
-                  id="confirmPwd"
-                  type="password"
+                  placeholder="请确认密码"
                   v-model.trim="modifyForm.confirmPwd"
+                  show-password
                 ></el-input>
               </el-form-item>
               <el-form-item>
@@ -140,7 +140,7 @@
             "
           >
             <img class="user-logo" src="./img/user.png" />
-            admin
+            {{ modifyForm.userName }}
             <i
               class="el-icon-caret-bottom"
               style="font-size: 12px !important"
@@ -161,30 +161,31 @@ export default {
   data() {
     //验证确认密码
     var validateConfirmPwd = (rule, value, callback) => {
-      if (value !== this.modifyForm.newPwd) {
+      if (value !== this.modifyForm.newPassWord) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
     };
     return {
+      isAdmin: false,
       activeIndex: "1",
       visible2: false,
       showModifyOpiton: false,
       modifyForm: {
-        userName: "admin",
-        curPwd: "",
-        newPwd: "",
+        userName: "",
+        passWord: "",
+        newPassWord: "",
         confirmPwd: "",
       },
       rules: {
-        curPwd: [
+        passWord: [
           {
             required: true,
             message: "请输入当前密码",
           },
         ],
-        newPwd: [
+        newPassWord: [
           {
             required: true,
             message: "请输入新密码",
@@ -241,25 +242,20 @@ export default {
       self.$refs["modifyForm"].validate((valid) => {
         if (valid) {
           self.$axios
-            .post("/api/common/webmaster/modifyPassword", {
-              userId: "self.$store.state.userId",
-              userName: "self.$store.state.userName",
-              oldPassword: self.modifyForm.curPwd,
-              password: self.modifyForm.newPwd,
-            })
+            .post("/api/updataPassword", this.modifyForm)
             .then((res) => {
               if (res.data.success) {
                 //提示用户修改成功，然后等待3秒，自动跳转到登录页
-                self.rjMessage.success("修改成功，3秒后自动跳转到登录页");
+                self.$message.success("修改成功，3秒后自动跳转到登录页");
                 setTimeout(() => {
                   self.logout();
                 }, 3000);
               } else {
-                self.rjMessage.error(res.data.message || res.data.msg);
+                self.$message.error(res.data.message || res.data.msg);
               }
             })
             .catch((error) => {
-              self.rjMessage.error("当前密码错误");
+              self.$message.error("当前密码错误");
               // 异常统一在axios/index.js中处理掉
             });
         }
@@ -267,6 +263,13 @@ export default {
     },
   },
   created() {
+    this.modifyForm.userName = this.$store.state.userName;
+    console.log("userName", this.$store.state.userName);
+    if (this.$store.state.adminCount == "false") {
+      this.isAdmin = false;
+    } else {
+      this.isAdmin = true;
+    }
     // 初始化菜单
     if (this.$route.name == "UserManagement") {
       this.activeIndex = "1";
@@ -405,7 +408,7 @@ export default {
     display: inline-block;
   }
   .user-logo:hover {
-    border: 1px solid rgb(157, 116, 223);    
+    border: 1px solid rgb(157, 116, 223);
     display: none;
   }
 }
@@ -419,6 +422,11 @@ export default {
   margin-top: 10px;
   .el-popover {
     height: 120px !important;
+  }
+}
+.el-menu-wrapp {
+  .el-menu {
+    margin-left: 199px !important;
   }
 }
 </style>

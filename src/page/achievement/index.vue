@@ -215,13 +215,13 @@ export default {
   },
   data() {
     return {
-      loading:"",
+      loading: "",
       length: "",
       isAdd: false,
       edit: false,
       failedGrade: false,
-      grade: "高一/秋季",
-      schoolNumber: "2017021065",
+      grade: "",
+      schoolNumber: "",
       isShow: true,
       key: "",
       defaultOpeneds: ["2"],
@@ -257,35 +257,47 @@ export default {
     };
   },
   created() {
+    let grades = "";
+    if (this.$store.state.userdata) {
+      this.schoolNumber = this.$store.state.userdata.schoolNumber;
+      grades = this.$store.state.userdata.grades;
+    }
     if (this.studentData) {
       this.schoolNumber = this.studentData.schoolNumber;
-      let date = new Date();
-      const res = date.getFullYear() - parseInt(this.studentData.grades);
-      // date.getMonth(); //获取当前月份(0-11,0代表1月)
-      if (res <= 1) {
-        if (date.getMonth() > 9) {
-          this.grade = "高一/秋季";
-          this.grade2 = "高一/秋季";
-        } else {
-          this.grade = "高一/春季";
-          this.grade2 = "高一/春季";
-        }
-      } else if (res <= 2) {
-        if (date.getMonth() > 9) {
-          this.grade = "高二/秋季";
-          this.grade2 = "高二/秋季";
-        } else {
-          this.grade = "高二/春季";
-          this.grade2 = "高二/春季";
-        }
+      grades =this.studentData.grades
+    }
+    let date = new Date();
+    const res = date.getFullYear() - parseInt(grades);
+    console.log("res", res);
+    // date.getMonth(); //获取当前月份(0-11,0代表1月)
+    if (res == 0) {
+      if (date.getMonth() > 9) {
+        this.grade = "高一/秋季";
+        this.grade2 = "高一/秋季";
+      }
+    } else if (res == 1) {
+      if (date.getMonth() > 9 || date.getMonth() < 3) {
+        this.grade = "高二/秋季";
+        this.grade2 = "高二/秋季";
       } else {
-        if (date.getMonth() > 9) {
-          this.grade = "高三/秋季";
-          this.grade2 = "高三/秋季";
-        } else {
-          this.grade = "高三/春季";
-          this.grade2 = "高三/春季";
-        }
+        this.grade = "高一/春季";
+        this.grade2 = "高一/春季";
+      }
+    } else if (res == 2) {
+      if (date.getMonth() > 9 || date.getMonth() < 3) {
+        this.grade = "高三/秋季";
+        this.grade2 = "高三/秋季";
+      } else {
+        this.grade = "高二/春季";
+        this.grade2 = "高二/春季";
+      }
+    } else {
+      if (date.getMonth() > 9 || date.getMonth() < 3) {
+        this.grade = "高二/秋季";
+        this.grade2 = "高二/秋季";
+      } else {
+        this.grade = "高三/春季";
+        this.grade2 = "高三/春季";
       }
     }
     this.getmark();
@@ -307,9 +319,9 @@ export default {
             if (res.data.success) {
               this.getmark();
               this.$message.success("删除成功");
-            this.loading.close();
+              this.loading.close();
             } else {
-            this.loading.close();
+              this.loading.close();
               this.$message.error("删除失败，请重试");
             }
           });
@@ -358,9 +370,9 @@ export default {
             this.edit = false;
             this.getmark();
             this.$message.success("编辑成功");
-          this.loading.close();
+            this.loading.close();
           } else {
-          this.loading.close();
+            this.loading.close();
             this.$message.error("编辑失败，请重试");
           }
         });
@@ -388,7 +400,7 @@ export default {
             this.data = res.data.list;
             this.length = this.data.length;
             this.tatolData = res.data.list;
-          this.loading.close();
+            this.loading.close();
 
             // 不及格成绩
             if (this.failedGrade) {
@@ -398,19 +410,19 @@ export default {
                   item.courseName == "数学" ||
                   item.courseName == "英语"
                 ) {
-                  if (item.mark * 1 <= 90) {
+                  if (item.mark * 1 < 90) {
                     return item;
                   }
                 } else if (item.courseName == "物理") {
-                  if (item.mark * 1 <= 110 * 0.6) {
+                  if (item.mark * 1 < 110 * 0.6) {
                     return item;
                   }
                 } else if (item.courseName == "化学") {
-                  if (item.mark * 1 <= 100 * 0.6) {
+                  if (item.mark * 1 < 100 * 0.6) {
                     return item;
                   }
                 } else if (item.courseName == "生物") {
-                  if (item.mark * 1 <= 90 * 0.6) {
+                  if (item.mark * 1 < 90 * 0.6) {
                     return item;
                   }
                 } else if (item.mark == "及格") {
@@ -421,7 +433,7 @@ export default {
               });
             }
           } else {
-          this.loading.close();
+            this.loading.close();
             this.$message.success("查询失败，请重试");
           }
         });
@@ -471,9 +483,9 @@ export default {
       // });
     },
   },
-  destroyed(){
-    this.loading.close()
-  }
+  destroyed() {
+    this.loading.close();
+  },
 };
 </script>
 

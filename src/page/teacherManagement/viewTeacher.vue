@@ -275,7 +275,7 @@ export default {
           // this.$message.success("查询成功");
           this.loading.close();
         } else {
-          tjis.loading.close();
+          this.loading.close();
           this.$message.success("查询失败，请重试");
         }
       });
@@ -283,7 +283,7 @@ export default {
     // 删除
     deleteTeacher(schoolNumber) {
       this.$confirm("确认删除吗？").then(() => {
-        const loading = this.$loading({
+        this.loading = this.$loading({
           lock: true,
           text: "处理中",
           spinner: "el-icon-loading",
