@@ -35,6 +35,10 @@
   </div>
 </template>
 <script>
+import bcrypt  from 'bcryptjs'
+import CryptoJS from 'crypto-js'
+import {encrypt,decrypt} from '@/common/js/encrypt.js'
+
 export default {
   props: {
     loginUrl: {},
@@ -72,6 +76,14 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      const {userName,passWord } = this.form
+      let form ={
+        userName,
+        passWord: encrypt(passWord)
+      }
+      console.log('form',form);
+      let jiemi  = decrypt(form.passWord)
+      console.log('jiemi',jiemi);
       this.$refs[formName].validate((valid) => {
         if (!valid) {
           return;
@@ -79,7 +91,7 @@ export default {
         if (this.loginTxt == "登录中...") return;
         this.loginTxt = "登录中...";
 
-        this.$axios.post("/api/login", this.form).then((res) => {
+        this.$axios.post("/api/login",form).then((res) => {
           console.log("res", res);
           if (res.data.success) {
             this.loginTxt = "登录";
