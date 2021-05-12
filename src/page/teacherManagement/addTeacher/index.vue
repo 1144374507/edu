@@ -2,6 +2,7 @@
   <div>
     <Overview
       v-if="showOverview"
+      :teacherData="teacherData"
       @startBtnClick="handleStartBtnClick"
       @goStep="handleGoStep"
     ></Overview>

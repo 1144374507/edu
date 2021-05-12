@@ -2,7 +2,9 @@
     <div>
         <div>
             <div class="__p_12e_u_57">
-                <span class="__p_12e_u_58">创建老师</span>
+
+                <span v-if='teacherData' class="__p_12e_u_58">编辑老师信息</span>
+                <span v-else class="__p_12e_u_58">创建老师</span>
             </div>
             <el-row :gutter="16">
                 <el-col :span="8">
@@ -35,7 +37,7 @@
                             class="__p_12e_u_70"
                         />
                         <div class="__p_12e_u_71">
-                            <span class="__p_12e_u_72">②个人简介 </span>
+                            <span class="__p_12e_u_72">② 联系方式及其他 </span>
                         </div>
                     </div>
                 </el-col>
@@ -56,6 +58,7 @@
 <script>
 export default {
   props:{
+    teacherData:{}
   },
     data() {
         return {

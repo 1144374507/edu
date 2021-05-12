@@ -106,14 +106,14 @@
                     </div>
                   </el-table-column> -->
                 </el-table>
-                <el-pagination
+                <!-- <el-pagination
                   :current-page="1"
                   :page-sizes="[50, 100, 200]"
                   :page-size="50"
                   :total="100"
                   layout="total, sizes, prev, pager, next, jumper"
                   class="__p_13f_u_128"
-                ></el-pagination>
+                ></el-pagination> -->
               </div>
             </el-row>
             <el-button @click="addTeacher('1')"> 添加老师 </el-button>
