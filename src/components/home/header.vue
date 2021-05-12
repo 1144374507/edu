@@ -115,7 +115,7 @@
                   placeholder="请输入新密码"
                   v-model.trim="modifyForm.newPassWord"
                   show-password
-                ></el-input> 
+                ></el-input>
               </el-form-item>
               <el-form-item label="确认密码：" prop="confirmPwd">
                 <el-input
@@ -153,6 +153,7 @@
   </div>
 </template>
 <script>
+import {encrypt} from '@/common/js/encrypt.js'
 import themeIndex from "../theme/themeIndex";
 export default {
   components: {
@@ -238,11 +239,18 @@ export default {
       //密码不能为空
       //新密码和确认密码要相等
       //提交密码
+      const { userName,passWord, newPassWord, confirmPwd } = this.modifyForm;
+      let modifyForm = {
+        userName,
+        passWord:encrypt(passWord),
+        newPassWord:encrypt(newPassWord),
+        confirmPwd:encrypt(confirmPwd),
+      };
       let self = this;
       self.$refs["modifyForm"].validate((valid) => {
         if (valid) {
           self.$axios
-            .post("/api/updataPassword", this.modifyForm)
+            .post("/api/updataPassword",modifyForm)
             .then((res) => {
               if (res.data.success) {
                 //提示用户修改成功，然后等待3秒，自动跳转到登录页
