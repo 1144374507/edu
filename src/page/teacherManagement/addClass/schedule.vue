@@ -57,19 +57,19 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$message.success("添加成功");
-         this.loading.close();
+         this.loading&&this.loading.close();
             this.$emit("nextStep");
           } else {
             this.$message.error();
             ("添加失败");
-         this.loading.close();
+         this.loading&&this.loading.close();
           }
         });
     },
   },
   mounted() {},
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

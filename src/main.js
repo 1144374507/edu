@@ -246,7 +246,8 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 )
-
+import XLSX from 'xlsx'
+Vue.use(XLSX)
 
 
 //http reponse拦截器

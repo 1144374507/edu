@@ -127,11 +127,11 @@ export default {
           if (res.data.success) {
             this.$message.success("添加成功");
             this.$emit("updata");
-            this.loading.close();
+            this.loading&&this.loading.close();
           } else {
             this.$message.error();
             ("添加失败");
-            this.loading.close();
+            this.loading&&this.loading.close();
           }
         });
       } else {
@@ -142,10 +142,10 @@ export default {
           if (res.data.success) {
             this.$message.success(`${res.data.msg}`);
             this.$emit("updata");
-            this.loading.close();
+            this.loading&&this.loading.close();
           } else {
             this.$message.error(`${res.data.msg}`);
-            this.loading.close();
+            this.loading&&this.loading.close();
           }
         });
       }
@@ -181,7 +181,7 @@ export default {
     this.form.classes = this.classes;
   },
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

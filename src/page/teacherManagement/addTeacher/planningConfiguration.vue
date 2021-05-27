@@ -142,7 +142,7 @@ export default {
               return;
             } else {
               this.$message.success(`${res.data.msg}`);
-             this.loading.close();
+             this.loading&&this.loading.close();
               this.$emit("nextStep");
             }
           });
@@ -169,7 +169,7 @@ export default {
     }
   },
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

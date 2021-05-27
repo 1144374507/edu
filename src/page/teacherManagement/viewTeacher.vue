@@ -247,9 +247,9 @@ export default {
           if (res.data.success) {
             this.teacherMessage = res.data.list;
             this.$message.success("查询成功");
-            this.loading.close();
+            this.loading&&this.loading.close();
           } else {
-            this.loading.close();
+            this.loading&&this.loading.close();
             this.$message.error("查询失败，请重试");
           }
         });
@@ -273,9 +273,9 @@ export default {
         if (res.data.success) {
           this.teacherMessage = res.data.list;
           // this.$message.success("查询成功");
-          this.loading.close();
+          this.loading&&this.loading.close();
         } else {
-          this.loading.close();
+          this.loading&&this.loading.close();
           this.$message.success("查询失败，请重试");
         }
       });
@@ -297,7 +297,7 @@ export default {
           .then((res) => {
             if (res.data.success) {
               this.$message.success("删除成功");
-              this.loading.close();
+              this.loading&&this.loading.close();
               this.getData();
             }
           });
@@ -323,11 +323,11 @@ export default {
     // 导航离开该组件的对应路由时调用
     // 可以访问组件实例 `this`
     console.log("this", this);
-    this.loading.close();
+    this.loading&&this.loading.close();
     next();
   },
   destroyed() {
-    this.loading.close();
+    this.loading&&this.loading.close();
   },
 };
 </script>

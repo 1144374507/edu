@@ -319,9 +319,9 @@ export default {
             if (res.data.success) {
               this.getmark();
               this.$message.success("删除成功");
-              this.loading.close();
+              this.loading&&this.loading.close();
             } else {
-              this.loading.close();
+              this.loading&&this.loading.close();
               this.$message.error("删除失败，请重试");
             }
           });
@@ -370,9 +370,9 @@ export default {
             this.edit = false;
             this.getmark();
             this.$message.success("编辑成功");
-            this.loading.close();
+            this.loading&&this.loading.close();
           } else {
-            this.loading.close();
+            this.loading&&this.loading.close();
             this.$message.error("编辑失败，请重试");
           }
         });
@@ -400,7 +400,7 @@ export default {
             this.data = res.data.list;
             this.length = this.data.length;
             this.tatolData = res.data.list;
-            this.loading.close();
+            this.loading&&this.loading.close();
 
             // 不及格成绩
             if (this.failedGrade) {
@@ -433,7 +433,7 @@ export default {
               });
             }
           } else {
-            this.loading.close();
+            this.loading&&this.loading.close();
             this.$message.success("查询失败，请重试");
           }
         });
@@ -484,7 +484,7 @@ export default {
     },
   },
   destroyed() {
-    this.loading.close();
+    this.loading&&this.loading.close();
   },
 };
 </script>

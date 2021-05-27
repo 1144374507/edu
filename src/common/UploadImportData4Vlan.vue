@@ -77,7 +77,7 @@ export default {
       return true;
     },
     handleSuccess(res, file) {
-			this.loading.close();
+			this.loading&&this.loading.close();
       console.log(res);
 			const params = this.rjDialogParams() || {};
 			if (params.isWhiteList == true && res != null && res != "" && res.success) {
@@ -153,7 +153,7 @@ export default {
       }
     },
     handleError(err, file) {
-			this.loading.close();
+			this.loading&&this.loading.close();
       this.$alert("导入失败。", "导入失败", {
         confirmButtonText: "关闭",
         type: "error",

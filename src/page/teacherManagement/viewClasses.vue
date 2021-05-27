@@ -293,11 +293,11 @@ export default {
             if (res.data.success) {
               this.$message.success("删除成功");
               this.$emit("updata");
-              this.loading.close();
+              this.loading&&this.loading.close();
               this.getData();
             } else {
               this.$message.erro("删除失败");
-              this.loading.close();
+              this.loading&&this.loading.close();
             }
           });
       });
@@ -315,9 +315,9 @@ export default {
           this.studentsData = res.data.list;
           this.classmenbel = res.data.list;
           this.$message.success("查询成功");
-          this.loading.close();
+          this.loading&&this.loading.close();
         } else {
-          this.loading.close();
+          this.loading&&this.loading.close();
           this.$message.success("查询失败，请重试");
         }
       });
@@ -338,9 +338,9 @@ export default {
             this.studentsData = res.data.list;
             this.classmenbel = res.data.list;
             this.$message.success("查询成功");
-            this.loading.close();
+            this.loading&&this.loading.close();
           } else {
-            this.loading.close();
+            this.loading&&this.loading.close();
             this.$message.success("查询失败，请重试");
           }
         });
@@ -350,7 +350,7 @@ export default {
     this.getData();
   },
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

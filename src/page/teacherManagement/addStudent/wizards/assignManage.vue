@@ -209,13 +209,13 @@ export default {
               .then((res) => {
                 if (!res.data.success) {
                   this.$message.error(`${res.data.msg}`);
-                this.loading.close();
+                this.loading&&this.loading.close();
                   return;
                 } else {
                   this.$message.success(`${res.data.msg}`);
                   let data = this.form.schoolNumber;
                   this.$emit("nextStep", data);
-                this.loading.close();
+                this.loading&&this.loading.close();
                 }
               });
           } else {
@@ -226,14 +226,14 @@ export default {
                 console.log(!res.data.success);
                 if (!res.data.success) {
                   this.$message.error(`${res.data.msg}`);
-                this.loading.close();
+                this.loading&&this.loading.close();
                   return;
                 } else {
                   this.$message.success(`${res.data.msg}`);
                   console.log(this.form.schoolNumber, "this.form.schoolNumber");
                   let data = this.form.schoolNumber;
                   this.$emit("nextStep", data);
-                this.loading.close();
+                this.loading&&this.loading.close();
                 }
               });
           }
@@ -242,7 +242,7 @@ export default {
     },
   },
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

@@ -86,7 +86,7 @@ export default {
     },
     handleSuccess(res, file) {
       if(this.loading){
-         this.loading.close();
+         this.loading&&this.loading.close();
       }
       if (res == null || res == "") {
         console.log(res);
@@ -139,7 +139,7 @@ export default {
     },
     handleError(err, file) {
       if(this.loading){
-         this.loading.close();
+         this.loading&&this.loading.close();
       }
       this.$alert("导入失败，请修改后重新导入。", "导入失败", {
         confirmButtonText: "关闭",

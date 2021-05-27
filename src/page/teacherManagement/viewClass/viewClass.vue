@@ -234,7 +234,7 @@ export default {
             console.log(res);
             if (res.data.succeed) {
               this.$message.success("操作成功");
-          this.loading.close();
+          this.loading&&this.loading.close();
               this.getdata();
             }
           });
@@ -275,7 +275,7 @@ export default {
             });
           }
 
-      this.loading.close();
+      this.loading&&this.loading.close();
         }
       });
     },
@@ -291,10 +291,10 @@ export default {
           if (res.data.success) {
             this.data = res.data.list;
             this.$message.success("搜索成功");
-        this.loading.close();
+        this.loading&&this.loading.close();
           } else {
             this.$message.error("搜索失败，请重试");
-        this.loading.close();
+        this.loading&&this.loading.close();
           }
         });
       }else{
@@ -306,7 +306,7 @@ export default {
     this.getdata();
   },
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

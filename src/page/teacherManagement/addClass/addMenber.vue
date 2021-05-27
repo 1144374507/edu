@@ -398,10 +398,10 @@ export default {
         if (res.data.success) {
           this.$message.success(`${res.data.msg}`);
           this.$emit("nextStep");
-       this.loading.close();
+       this.loading&&this.loading.close();
         } else {
           this.$message.error(`${res.data.msg}`);
-       this.loading.close();
+       this.loading&&this.loading.close();
         }
       });
       let form1 = this.form;
@@ -444,16 +444,16 @@ export default {
       this.$axios.post("/api/addClass/addTeachers", form1).then((res) => {
         if (res.data.success) {
           this.$message.success(`${res.data.msg}`);
-       this.loading.close();
+       this.loading&&this.loading.close();
         } else {
           this.$message.error(`${res.data.msg}`);
-       this.loading.close();
+       this.loading&&this.loading.close();
         }
       });
     },
   },
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

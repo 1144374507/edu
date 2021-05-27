@@ -150,14 +150,17 @@
       </div>
     </el-menu>
     <div class="line"></div>
+    <demo></demo>
   </div>
 </template>
 <script>
 import {encrypt} from '@/common/js/encrypt.js'
 import themeIndex from "../theme/themeIndex";
+import demo from './demo1'
 export default {
   components: {
     themeIndex,
+    demo
   },
   data() {
     //验证确认密码

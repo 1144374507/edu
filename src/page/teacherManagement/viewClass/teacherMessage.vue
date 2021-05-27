@@ -179,7 +179,7 @@ export default {
             if (res.data.success) {
               this.$message.success("删除成功");
               this.$emit("updata");
-            this.loading.close();
+            this.loading&&this.loading.close();
             }
           });
       });
@@ -199,7 +199,7 @@ export default {
   },
   created() {},
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

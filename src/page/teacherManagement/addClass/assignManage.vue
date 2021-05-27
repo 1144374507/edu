@@ -502,7 +502,7 @@ export default {
                   .then((res) => {
                     if (res.data.success) {
                       this.$message.success(`${res.data.msg}`);
-                      this.loading.close();
+                      this.loading&&this.loading.close();
                       console.log("this.form.classes", this.form.classes);
                       this.$emit(
                         "nextStep",
@@ -512,7 +512,7 @@ export default {
                       );
                     } else {
                       this.$message.error(`${res.data.msg}`);
-                      this.loading.close();
+                      this.loading&&this.loading.close();
                     }
                   });
               } else {
@@ -520,7 +520,7 @@ export default {
                   type: "error",
                   message: res.data.msg || "保存失败",
                 });
-                this.loading.close();
+                this.loading&&this.loading.close();
               }
             })
             .catch((err) => {
@@ -534,7 +534,7 @@ export default {
     },
   },
   destroyed(){
-    this.loading.close()
+    this.loading&&this.loading.close()
   }
 };
 </script>

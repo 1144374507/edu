@@ -269,7 +269,7 @@ export default {
   },
   created() {
     let date = new Date();
-    const res = date.getFullYear() - parseInt("2017级");
+    const res = date.getFullYear() - parseInt(this.$store.state.userdata.grades);
     // date.getMonth(); //获取当前月份(0-11,0代表1月)
     if (res <= 1) {
       if (date.getMonth() > 9) {
@@ -290,7 +290,11 @@ export default {
         this.grade = "高三";
       }
     }
+    this.schoolNumber = this.$store.state.userName
+    // this.grades = Number()
+    console.log('this.schoolNumber',this.schoolNumber);
     this.getPid();
+
   },
   methods: {
     getPid() {
