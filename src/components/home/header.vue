@@ -150,17 +150,20 @@
       </div>
     </el-menu>
     <div class="line"></div>
-    <demo></demo>
+    <!-- <demo></demo> -->
+    <!-- <demo1></demo1> -->
   </div>
 </template>
 <script>
 import {encrypt} from '@/common/js/encrypt.js'
 import themeIndex from "../theme/themeIndex";
-import demo from './demo1'
+// import demo1 from './demo1'
+// import demo from './batchCreateStudent'
 export default {
   components: {
     themeIndex,
-    demo
+    // demo,
+    // demo1,
   },
   data() {
     //验证确认密码

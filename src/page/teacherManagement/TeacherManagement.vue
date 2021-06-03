@@ -53,7 +53,7 @@
             v-if="isShowTemplate == '6-2'"
           ></addClass>
           <addTeacher key="6-3" v-if="isShowTemplate == '6-3'"></addTeacher>
-          <addStudent v-if="isShowTemplate == '6-1'"></addStudent>
+          <addStudent :craeateStudent='true' v-if="isShowTemplate == '6-1'"></addStudent>
         </el-main>
       </el-container>
     </el-container>

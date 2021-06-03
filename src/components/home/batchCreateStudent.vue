@@ -1,82 +1,131 @@
 <template>
-  <div id="js003">
-    <div class="main-title">Excel Demo</div>
-    <div class="main-title-time">2020-04-03</div>
-    <div class="main-title-tip">
-      应好多小伙伴的要求，先增加一个小 Demo。该 Demo
-      仅用于展示功能，略粗糙，若有 Bug，请谅解，也可在
-      <a target="_blank" href="https://github.com/xrkffgg/Kvue/issues"
-        >https://github.com/xrkffgg/Kvue/issues</a
+  <div>
+    <div class="batchCreateStudent">
+      <!-- :action="uploadUrl" -->
+      <!-- :headers="headers" -->
+
+      <el-upload
+        action=""
+        :on-change="handleChange"
+        :file-list="fileListUpload"
+        :show-file-list="false"
+        accept=".xls,.xlsx"
+        :auto-upload="false"
+        style="display: inline-block; margin-right: 10px"
+        ref="upload"
+        :fileList="fileList"
+        :limit="2"
       >
-      提出来。可点击下载 Demo Excel，若因网络问题，可在目录 src/assets/excel
-      中查看。导出的 Excel 会自动下载到浏览器默认的下载地址中。引入 2 个 JS
-      文件，最新的查看
-      <a
-        target="_blank"
-        href="https://github.com/xrkffgg/Ktools/tree/master/JS/002.Excel"
-        >https://github.com/xrkffgg/Ktools/tree/master/JS/002.Excel</a
-      >
-    </div>
-    <div class="main-content">
-      <div style="display: flex; width: 340px; justify-content: space-between">
-        <!-- <el-button type="primary" plain size="small" @click="doDown">下载 Excel</el-button> -->
-        <el-button type="primary" plain size="small" @click="save"
-          >保存</el-button
-        >
-        <el-upload
-          action=""
-          :on-change="handleChange"
-          :file-list="fileListUpload"
-          :show-file-list="false"
-          accept=".xls,.xlsx"
-          :auto-upload="false"
-        >
-          <el-button :loading="disbtn" size="small" type="primary"
+        <!-- <el-button
+          icon="el-icon-upload"
+          type="primary"
+          id="qa-test-deploy-excelbBind-upload"
+          >上传Excel</el-button
+        > -->
+        <el-button    type="primary" icon="el-icon-upload"
             >上传 Excel</el-button
           >
-        </el-upload>
-        <el-button
-          type="success"
-          plain
-          :loading="disbtn"
-          size="small"
-          @click="doOut"
-          >导出 Excel</el-button
+      </el-upload>
+
+      <el-button
+        icon="el-icon-download"
+        @click="doOut"
+        id="qa-test-deploy-excelbBind-download"
+        >下载 Excel</el-button
+      >
+      <!-- <span class="__tip" style="margin-left: 14px">
+        <i class="el-icon-info" style="margin-right: 3px"></i>
+        每次最多1000条数据，且导入的文件大小不超过10MB
+      </span> -->
+    </div>
+    <div class="__filelist" v-if="fileList.length">
+      <img
+        style="margin-right: 8px"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF7SURBVHgBjVNBUsJAEOxdF7khT4gvEF8AZ6sUzlIqeYHyAv2BxQsIh8hNBB+Q8gf6AuMPgp7EuOMkG7IJSMFUbdVuZqa3p9MrsAz/pAFSAQTq2DUk7lR+EJV7CPLwLQc7Nau4wQhDVfoY0xvcp3AngHEH0Lqu4J/2GKkJIocpXcFvN8uV+gXdZ28TjoB/RtgeNwDNLSaFUCpkBu92BELEcBHvHF4hn+u5oIQes4zstXqa1iDR0XKJsPg85uIRurNDSHq14LqPH+Ha9eUtU0URHVRrtzif9XisawZq5RkpA+zrQmltasYqAwC/MHMSCQhRSCgH3cePUu244xjiVsQwpe63h1jM+6geTBiolY0Xrlw0gpJeIqIFSESUvIhHIURZY+ZKclPlc0LK7NO/YNQ3ilPWsGbnSoCL/0dgAO0Ce22+ha2VKC/DUqFIjLTSXEznu4d2gFiPcLnZdWsMykbSEZQ4wtBQ2xoxPyYpCwz8Dr8uPYFx4vagVPDBH94FlvgPLfxjAAAAAElFTkSuQmCC"
+        alt=""
+      />
+      <span style="flex: 1">{{ fileList[0].name }}</span>
+      <i
+        class="el-icon-delete __delete"
+        @click="clearFile"
+        id="qa-test-deploy-excelbBind-delete"
+      ></i>
+    </div>
+
+    <div style="margin-top: 50px">
+      <!-- <div class="__legend" style="white-space: nowrap; margin-bottom: 20px">
+        绑定记录
+      </div> -->
+      <div>
+        <el-table :data="list" stripe style="margin-top: 10px" >
+        <el-table-column
+          type="index"
         >
-      </div>
-      <el-table :data="list" stripe style="margin-top: 10px" border>
-        <el-table-column type="index"> </el-table-column>
-        <el-table-column label="姓名" prop="name"> </el-table-column>
-        <el-table-column label="英文名字" prop="englishName"> </el-table-column>
+        </el-table-column>
+        <el-table-column  label="姓名" prop="name">
+        </el-table-column>
+        <el-table-column  label="英文名字" prop="englishName">
+        </el-table-column>
         <!-- <el-table-column  label="年龄"  prop = 'age'> </el-table-column> -->
         <!-- <el-table-column  label="班级" prop="classes">
         </el-table-column> -->
-        <el-table-column label="体重" prop="weight"> </el-table-column>
-        <el-table-column label="身高" prop="height"> </el-table-column>
-        <el-table-column label="性别" prop="sex"> </el-table-column>
-        <el-table-column label="年级" prop="grades"> </el-table-column>
-        <el-table-column label="入学年级" prop="admissionGrade">
+        <el-table-column  label="体重" prop="weight">
         </el-table-column>
-        <el-table-column label="入学日期" prop="admissionData">
+        <el-table-column  label="身高" prop="height">
         </el-table-column>
-        <el-table-column label="是否留学生" prop="overseas"> </el-table-column>
-        <el-table-column label="学号" prop="schoolNumber"> </el-table-column>
-        <el-table-column label="身份证号码" prop="idCardNum"> </el-table-column>
-        <el-table-column label="qq" prop="qq"> </el-table-column>
-        <el-table-column label="邮箱" prop="email"> </el-table-column>
-        <el-table-column label="邮编" prop="postcode"> </el-table-column>
-        <el-table-column label="个人简介" prop="profile"> </el-table-column>
-        <el-table-column label="电话号码" prop="tel"> </el-table-column>
-        <el-table-column label="个人主页" prop="homepage"> </el-table-column>
+        <el-table-column  label="性别" prop="sex"> </el-table-column>
+        <el-table-column label="年级" prop="grades">
+        </el-table-column>
+        <el-table-column  label="入学年级" prop="admissionGrade">
+        </el-table-column>
+        <el-table-column  label="入学日期" prop="admissionData">
+        </el-table-column>
+        <el-table-column  label="是否留学生" prop="overseas">
+        </el-table-column>
+        <el-table-column  label="学号" prop="schoolNumber">
+        </el-table-column>
+        <el-table-column  label="身份证号码" prop="idCardNum">
+        </el-table-column>
+        <el-table-column  label="qq" prop="qq"> </el-table-column>
+        <el-table-column  label="邮箱" prop="email">
+        </el-table-column>
+        <el-table-column  label="邮编" prop="postcode">
+        </el-table-column>
+        <el-table-column  label="个人简介" prop="profile">
+        </el-table-column>
+        <el-table-column  label="电话号码" prop="tel">
+        </el-table-column>
+        <el-table-column  label="个人主页" prop="homepage">
+        </el-table-column>
       </el-table>
+      </div>
+    </div>
+    <div style="text-align: center ;padding-top: 8px">
+      <el-button
+        @click="$emit('cancel')"
+        style="width: 112px"
+        id="qa-test-deploy-excelbBind-cancel"
+        >取消</el-button
+      >
+      <el-button
+        @click="save"
+        type="primary"
+        style="width: 112px"
+        id="qa-test-deploy-excelbBind-affirm"
+        >绑定</el-button
+      >
     </div>
   </div>
 </template>
-
 <script>
 export default {
+  props: {},
   data() {
     return {
+      cliParamToRequestArr: [],
+      fileList: [],
+      bindList: [],
+      bindPageList: [],
       da: [],
       list: [],
       fileListUpload: [],
@@ -84,18 +133,48 @@ export default {
       disbtn: false,
     };
   },
-
   methods: {
+    onProgress() {
+      this.loading = this.$loading({
+        lock: true,
+        text: "处理中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+    },
+    sizeChangeHandle(val) {
+      this.page_size = val;
+    },
+    currentChangeHandle(val) {
+      this.page_no = val;
+    },
+    clearFile() {
+      this.fileList = [];
+      this.$refs.upload.clearFiles();
+    },
+
     save() {
+      if (!this.list.length) {
+        this.$message({
+          type: "error",
+          message: "绑定记录为空",
+        });
+        return;
+      }
       const list = this.list;
       console.log(list, "list1");
       this.$axios
         .post(`/api/createStudent/batchCreateStudent`, { list })
         .then((res) => {
           console.log(res, "res");
+          if(res.data.success){
+            this.$message.success(res.data.msg||'添加成功')
+            return
+          }
+          this.$message.error(res.data.msg||'接口异常')
         });
     },
-    doDown() {
+    downLoad() {
       let url = "../../EXcel/Export2Excel.js";
       window.location.href = url;
     },
@@ -117,7 +196,7 @@ export default {
       } else {
         this.$message({
           type: "warning",
-          message: "附件格式错误，请删除后重新上传！",
+          message: "附件格式错误，请重新上传！",
         });
       }
     },
@@ -356,3 +435,53 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.theme-2b6afd {
+  .__tip {
+    font-size: 12px;
+    color: #8e99a0;
+  }
+  .__filelist {
+    background: #f7f9fc;
+    border: 1px solid #e3e5ea;
+    border-radius: 12px;
+    margin-top: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .__delete {
+    color: #f20742;
+    &:hover {
+      color: lighten($color: #f20742, $amount: 10);
+      cursor: pointer;
+    }
+  }
+  .__legend {
+    position: relative;
+    font-size: 16px;
+    line-height: 20px;
+    color: #505a60;
+    padding-left: 10px;
+    &::before {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 0;
+      margin-top: -6px;
+      height: 12px;
+      width: 2px;
+      border-radius: 1px;
+      background-color: #006eff;
+    }
+  }
+}
+</style>
+<style lang="scss">
+.batchCreateStudent{
+  display: flex;
+  justify-content: flex-start !important;
+}
+</style>

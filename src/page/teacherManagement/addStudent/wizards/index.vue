@@ -2,12 +2,14 @@
   <div class="__student__wrapp__" >
     <Overview
       :isCrearteTeacher="isCrearteTeacher"
+      :craeateStudent='craeateStudent'
       v-if="showOverview"
       :edit='edit'
       @startBtnClick="handleStartBtnClick"
+      @startBtnClickBatch='handleStartBtnClickBatch'
       @goStep="handleGoStep"
     ></Overview>
-    <div v-else>
+    <div v-if="!showBatchCreateStudent && !showOverview">
       <el-card>
         <el-steps :active="activeStep" simple class="m-simple-steps">
           <el-step
@@ -58,6 +60,9 @@
         </div>
       </div>
     </div>
+    <div v-if="showBatchCreateStudent">
+      <batchCreateStudent @cancel='handleCancel'></batchCreateStudent>
+    </div>
   </div>
 </template>
 <script>
@@ -67,6 +72,7 @@ import Overview from "./overview.vue";
 import PlanningConfiguration from "./planningConfiguration.vue";
 import deployFinish from "./deployFinish";
 import DeployFinish from "./deployFinish.vue";
+import batchCreateStudent from '@/components/home/batchCreateStudent'
 
 export default {
 
@@ -77,23 +83,33 @@ export default {
     PlanningConfiguration,
     deployFinish,
     DeployFinish,
+    batchCreateStudent
   },
   props: {
-    isCrearteTeacher: {},edit:{},studentData:{}
+    isCrearteTeacher: {},edit:{},studentData:{},craeateStudent:{}
   },
   data() {
     return {
+      showBatchCreateStudent:false,
       showOverview: true,
       schoolNumber: "",
       activeStep: 1,
     };
   },
   methods: {
+    handleCancel(){
+      this.showBatchCreateStudent = false 
+      this.showOverview = true
+    },
     colseDielog(){
       this.$emit('colseDielog')
     },
     handleStartBtnClick() {
       this.showOverview = false;
+    },
+    handleStartBtnClickBatch(){
+      this.showOverview = false;
+      this.showBatchCreateStudent = true;
     },
     handlePreStep() {
       this.activeStep--;

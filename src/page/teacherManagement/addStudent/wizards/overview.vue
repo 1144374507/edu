@@ -4,7 +4,7 @@
             <div class="__p_12e_u_57">
                 <span v-if="isCrearteTeacher" class="__p_12e_u_58">创建老师</span>
                 <span v-else-if='edit' class="__p_12e_u_58">编辑学生</span>
-                <span v-else class="__p_12e_u_58">创建学生</span>
+                <span v-else-if="craeateStudent" class="__p_12e_u_58">创建学生</span>
             </div>
             <el-row :gutter="16">
                 <el-col :span="8">
@@ -66,6 +66,15 @@
                     @click="handleStartBtnClick"
                     >开始</el-button
                 >
+                <el-button
+                    v-if="craeateStudent"
+                    type="primary"
+                    size="small"
+                    class="__p_12e_u_74"
+                    id="qa-test-wizards-open"
+                    @click="handleStartBatch"
+                    >批量添加</el-button
+                >
             </div>
         </div>
     </div>
@@ -74,7 +83,8 @@
 export default {
   props:{
     isCrearteTeacher:{},
-    edit:{}
+    edit:{},
+    craeateStudent:{}
   },
     data() {
         return {
@@ -96,6 +106,10 @@ export default {
         // },
         handleStartBtnClick() {
             this.$emit("startBtnClick");
+        },
+        handleStartBatch(){
+            this.$emit("startBtnClickBatch");
+
         },
         handleStep1Click() {
             if (!this.allowEditItem) return;
