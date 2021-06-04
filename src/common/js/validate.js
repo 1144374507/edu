@@ -1,60 +1,91 @@
 export function validateIntegerLength(rule, value, callback) {
-	var pattern = new RegExp("^[0-9]\\d*$");
-	if (!value && rule.required) {
-		callback(new Error(rule.message));
-	}
-	if (!value && value !== 0) {
-		callback()
-	} else if (!pattern.test(value)) {
-		callback(new Error('请输入整数'));
-	} else if (value < rule.min) {
-		callback(new Error('不能小于' + rule.min));
-	} else if (value > rule.max) {
-		callback(new Error('不能大于' + rule.max));
-	}
-	callback();
+  var pattern = new RegExp("^[0-9]\\d*$");
+  if (!value && rule.required) {
+    callback(new Error(rule.message));
+  }
+  if (!value && value !== 0) {
+    callback()
+  } else if (!pattern.test(value)) {
+    callback(new Error('请输入整数'));
+  } else if (value < rule.min) {
+    callback(new Error('不能小于' + rule.min));
+  } else if (value > rule.max) {
+    callback(new Error('不能大于' + rule.max));
+  }
+  callback();
 }
 
 export function validateIp(rule, value, callback) {
-	var pattern = new RegExp("^(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\." +
-		"(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
-		"(0\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
-		"(0\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)$");
-	if (rule.required && !value) {
-		callback(new Error('请输入正确的IP'));
-	}
-	if (value && !pattern.test(value)) {
-		callback(new Error('请输入正确的IP'));
-	}
-	callback();
+  var pattern = new RegExp("^(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\." +
+    "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
+    "(0\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
+    "(0\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)$");
+  if (rule.required && !value) {
+    callback(new Error('请输入正确的IP'));
+  }
+  if (value && !pattern.test(value)) {
+    callback(new Error('请输入正确的IP'));
+  }
+  callback();
 }
 
 export function validateMac(rule, value, callback) {
-	var pattern = new RegExp(
-		"((^([0-9a-fA-F]{2})(([0-9a-fA-F]{2}){5})$)|(^([0-9a-fA-F]{2})((:[0-9a-fA-F]{2}){5})$)|(^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$)|(^([0-9a-fA-F]{4})((\\.[0-9a-fA-F]{4}){2})$))"
-	);
-	if (value && !pattern.test(value)) {
-		callback(new Error('请输入正确的MAC'));
-	}
-	callback();
+  var pattern = new RegExp(
+    "((^([0-9a-fA-F]{2})(([0-9a-fA-F]{2}){5})$)|(^([0-9a-fA-F]{2})((:[0-9a-fA-F]{2}){5})$)|(^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$)|(^([0-9a-fA-F]{4})((\\.[0-9a-fA-F]{4}){2})$))"
+  );
+  if (value && !pattern.test(value)) {
+    callback(new Error('请输入正确的MAC'));
+  }
+  callback();
 }
 
 export function validateMask(rule, value, callback) {
-	if (rule.required && !value) {
-		callback(new Error('请输入正确的子网掩码1'));
-	}
-	var exp =
-		/^(254|252|248|240|224|192|128|0)\.0\.0\.0|255\.(254|252|248|240|224|192|128|0)\.0\.0|255\.255\.(254|252|248|240|224|192|128|0)\.0|255\.255\.255\.(254|252|248|240|224|192|128|0)$/;
-	if (value && !value.match(exp)) {
-		callback(new Error('请输入正确的子网掩码'));
-	}
-	callback();
+  if (rule.required && !value) {
+    callback(new Error('请输入正确的子网掩码1'));
+  }
+  var exp =
+    /^(254|252|248|240|224|192|128|0)\.0\.0\.0|255\.(254|252|248|240|224|192|128|0)\.0\.0|255\.255\.(254|252|248|240|224|192|128|0)\.0|255\.255\.255\.(254|252|248|240|224|192|128|0)$/;
+  if (value && !value.match(exp)) {
+    callback(new Error('请输入正确的子网掩码'));
+  }
+  callback();
 }
 
 const TEXT_REG = new RegExp("^[[\u4e00-\u9fa5a-zA-Z0-9_/.-]+$")
-export function validateText (rule, value, callback) {
-	if (!TEXT_REG.test(value) && value.length >=1 && value.length <= 31) {
-		callback(new Error('支持中文、字母、符号_-/.和数字，长度为1-31个字符'));
-	}
-	callback();
+export function validateText(rule, value, callback) {
+  if (!TEXT_REG.test(value) && value.length >= 1 && value.length <= 31) {
+    callback(new Error('支持中文、字母、符号_-/.和数字，长度为1-31个字符'));
+  }
+  callback();
 }
+
+// 省份证号码校验
+export function testCard(text) {
+  var idcardReg = /^\d{17}[\d|x]$|^\d{15}$/;
+  return idcardReg.test(text);
+};
+// 电话号码校验
+export function testTel(text) {
+  var reg_tel = /^[0-9-()（）]{7,18}$/
+  return reg_tel.test(text);
+};
+// qq号码校验
+export function testQQ(text) {
+  let reg = /^[1-9]([0-9]{4,10})$/
+  return reg.test(text);
+};
+// 邮编号码校验
+export function testPostcode(text) {
+  let reg = /^\d{6}$/
+  return reg.test(text);
+};
+// 邮箱号码校验
+export function testEmile(text) {
+  let reg = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/
+  return reg.test(text);
+};
+// 学号校验校验
+export function testSchoolNumble(text) {
+  let reg = /^[1-9][0-9]{9}$/
+  return reg.test(text);
+};

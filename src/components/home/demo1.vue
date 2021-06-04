@@ -102,6 +102,7 @@ export default {
 
     // 上传附件
     handleChange(file, fileList) {
+      console.log('12312321');
       this.fileTemp = file.raw;
       this.doBegin();
     },

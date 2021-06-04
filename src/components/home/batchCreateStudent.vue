@@ -14,7 +14,6 @@
         style="display: inline-block; margin-right: 10px"
         ref="upload"
         :fileList="fileList"
-        :limit="2"
       >
         <!-- <el-button
           icon="el-icon-upload"
@@ -22,9 +21,7 @@
           id="qa-test-deploy-excelbBind-upload"
           >上传Excel</el-button
         > -->
-        <el-button    type="primary" icon="el-icon-upload"
-            >上传 Excel</el-button
-          >
+        <el-button type="primary" icon="el-icon-upload">上传 Excel</el-button>
       </el-upload>
 
       <el-button
@@ -57,50 +54,37 @@
         绑定记录
       </div> -->
       <div>
-        <el-table :data="list" stripe style="margin-top: 10px" >
-        <el-table-column
-          type="index"
-        >
-        </el-table-column>
-        <el-table-column  label="姓名" prop="name">
-        </el-table-column>
-        <el-table-column  label="英文名字" prop="englishName">
-        </el-table-column>
-        <!-- <el-table-column  label="年龄"  prop = 'age'> </el-table-column> -->
-        <!-- <el-table-column  label="班级" prop="classes">
+        <el-table :data="list" stripe style="margin-top: 10px">
+          <el-table-column type="index"> </el-table-column>
+          <el-table-column label="姓名" prop="name"> </el-table-column>
+          <el-table-column label="英文名字" prop="englishName">
+          </el-table-column>
+          <!-- <el-table-column  label="年龄"  prop = 'age'> </el-table-column> -->
+          <!-- <el-table-column  label="班级" prop="classes">
         </el-table-column> -->
-        <el-table-column  label="体重" prop="weight">
-        </el-table-column>
-        <el-table-column  label="身高" prop="height">
-        </el-table-column>
-        <el-table-column  label="性别" prop="sex"> </el-table-column>
-        <el-table-column label="年级" prop="grades">
-        </el-table-column>
-        <el-table-column  label="入学年级" prop="admissionGrade">
-        </el-table-column>
-        <el-table-column  label="入学日期" prop="admissionData">
-        </el-table-column>
-        <el-table-column  label="是否留学生" prop="overseas">
-        </el-table-column>
-        <el-table-column  label="学号" prop="schoolNumber">
-        </el-table-column>
-        <el-table-column  label="身份证号码" prop="idCardNum">
-        </el-table-column>
-        <el-table-column  label="qq" prop="qq"> </el-table-column>
-        <el-table-column  label="邮箱" prop="email">
-        </el-table-column>
-        <el-table-column  label="邮编" prop="postcode">
-        </el-table-column>
-        <el-table-column  label="个人简介" prop="profile">
-        </el-table-column>
-        <el-table-column  label="电话号码" prop="tel">
-        </el-table-column>
-        <el-table-column  label="个人主页" prop="homepage">
-        </el-table-column>
-      </el-table>
+          <el-table-column label="体重（kg）" prop="weight"> </el-table-column>
+          <el-table-column label="身高（cm）" prop="height"> </el-table-column>
+          <el-table-column label="性别" prop="sex"> </el-table-column>
+          <el-table-column label="年级" prop="grades"> </el-table-column>
+          <el-table-column label="入学年级" prop="admissionGrade">
+          </el-table-column>
+          <el-table-column label="入学日期" prop="admissionData">
+          </el-table-column>
+          <el-table-column label="是否留学生" prop="overseas">
+          </el-table-column>
+          <el-table-column label="学号" prop="schoolNumber"> </el-table-column>
+          <el-table-column label="身份证号码" prop="idCardNum">
+          </el-table-column>
+          <el-table-column label="qq" prop="qq"> </el-table-column>
+          <el-table-column label="邮箱" prop="email"> </el-table-column>
+          <el-table-column label="邮编" prop="postcode"> </el-table-column>
+          <el-table-column label="个人简介" prop="profile"> </el-table-column>
+          <el-table-column label="电话号码" prop="tel"> </el-table-column>
+          <el-table-column label="个人主页" prop="homepage"> </el-table-column>
+        </el-table>
       </div>
     </div>
-    <div style="text-align: center ;padding-top: 8px">
+    <div style="text-align: center; padding-top: 8px">
       <el-button
         @click="$emit('cancel')"
         style="width: 112px"
@@ -112,12 +96,20 @@
         type="primary"
         style="width: 112px"
         id="qa-test-deploy-excelbBind-affirm"
-        >绑定</el-button
+        >创建</el-button
       >
     </div>
   </div>
 </template>
 <script>
+import {
+  testSchoolNumble,
+  testEmile,
+  testPostcode,
+  testQQ,
+  testTel,
+  testCard,
+} from '@/common/js/validate.js'
 export default {
   props: {},
   data() {
@@ -167,11 +159,11 @@ export default {
         .post(`/api/createStudent/batchCreateStudent`, { list })
         .then((res) => {
           console.log(res, "res");
-          if(res.data.success){
-            this.$message.success(res.data.msg||'添加成功')
-            return
+          if (res.data.success) {
+            this.$message.success(res.data.msg || "添加成功");
+            return;
           }
-          this.$message.error(res.data.msg||'接口异常')
+          this.$message.error(res.data.msg || "接口异常");
         });
     },
     downLoad() {
@@ -300,13 +292,102 @@ export default {
               _this.$confirm(`第${index * 1 + 1}行，电话号码不能为空`);
               return;
             }
+            // 表单校验
+            // 省份证号码校验
+            // const testCard = (text) => {
+            //   var idcardReg = /^\d{17}[\d|x]|\d{15}$/;
+            //   return idcardReg.test(text);
+            // };
+            if (!testCard(this.da[index]["身份证号码（必填）"])) {
+              _this.$confirm(`第${index * 1 + 1}行，身份证号码格式错误`);
+              return;
+            }
+            // 电话号码校验
+            // const testTel = (text) => {
+            //   var reg_tel = /^[0-9-()（）]{7,18}$/;
+            //   return reg_tel.test(text);
+            // };
+            if (!testTel(this.da[index]["电话号码（必填）"])) {
+              _this.$confirm(`第${index * 1 + 1}行，请输入正确的手机号码`);
+              return;
+            }
+            // qq号码校验
+            // const testQQ = (text) => {
+            //   let reg = /^[1-9]([0-9]{4,10})$/;
+            //   return reg.test(text);
+            // };
+            if (
+              this.da[index]["qq"] != undefined &&
+              !testQQ(this.da[index]["qq"])
+            ) {
+              _this.$confirm(`第${index * 1 + 1}行，请输入正确的qq号码`);
+              return;
+            }
+            // 邮编号码校验
+            // const testPostcode = (text) => {
+            //   let reg = /^\d{6}$/;
+            //   return reg.test(text);
+            // };
+            if (
+              this.da[index]["邮编"] != undefined &&
+              !testPostcode(this.da[index]["邮编"])
+            ) {
+              _this.$confirm(`第${index * 1 + 1}行，请输入正确的邮政编码`);
+              return;
+            }
+            // 邮箱号码校验
+            // const testEmile = (text) => {
+            //   let reg = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/;
+            //   return reg.test(text);
+            // };
+            if (
+              this.da[index]["邮箱"] != undefined &&
+              !testEmile(this.da[index]["邮箱"])
+            ) {
+              _this.$confirm(`第${index * 1 + 1}行，请输入正确的邮箱号码`);
+              return;
+            }
+
+            // 学号校验校验
+            // const testSchoolNumble = (text) => {
+            //   let reg = /^[1-9][0-9]{9}$/;
+            //   return reg.test(text);
+            // };
+            if (
+              this.da[index]["学号（必填）"] != undefined &&
+              !testSchoolNumble(this.da[index]["学号（必填）"])
+            ) {
+              _this.$confirm(`第${index * 1 + 1}行，请输入正确的学号`);
+              return;
+            }
+
+            // 验证身高
+            const testNumble = (text) => {
+              let reg = /^[1-9][0-9]{0,}$/;
+              return reg.test(text);
+            };
+            if (
+              this.da[index]["体重（kg）"] != undefined &&
+              !testNumble(this.da[index]["体重（kg）"])
+            ) {
+              _this.$confirm(`第${index * 1 + 1}行，请输入正确的体重（kg）`);
+              return;
+            }
+            if (
+              this.da[index]["身高（cm）"] != undefined &&
+              !testNumble(this.da[index]["身高（cm）"])
+            ) {
+              _this.$confirm(`第${index * 1 + 1}行，请输入正确的身高（cm）`);
+              return;
+            }
+
             let obj = {};
             obj.name = this.da[index]["姓名（必填）"];
             obj.englishName = this.da[index]["英文名字"];
             // obj.age = this.da[index]["年龄"];
             // obj.classes = this.da[index]["班级"];
-            obj.weight = this.da[index]["体重"];
-            obj.height = this.da[index]["身高"];
+            obj.weight = this.da[index]["体重（kg）"];
+            obj.height = this.da[index]["身高（cm）"];
             obj.sex = this.da[index]["性别"];
             obj.grades = this.da[index]["年级（必填）"];
             obj.admissionGrade = this.da[index]["入学年级（必填）"];
@@ -385,8 +466,8 @@ export default {
           "英文名字",
           // "年龄",
           // "班级",
-          "体重",
-          "身高",
+          "体重（kg）",
+          "身高（cm）",
           "性别",
           "年级（必填）",
           "入学年级（必填）",
@@ -480,7 +561,7 @@ export default {
 }
 </style>
 <style lang="scss">
-.batchCreateStudent{
+.batchCreateStudent {
   display: flex;
   justify-content: flex-start !important;
 }
