@@ -293,11 +293,11 @@ export default {
             if (res.data.success) {
               this.$message.success("删除成功");
               this.$emit("updata");
-              this.loading&&this.loading.close();
+              this.loading && this.loading.close();
               this.getData();
             } else {
               this.$message.erro("删除失败");
-              this.loading&&this.loading.close();
+              this.loading && this.loading.close();
             }
           });
       });
@@ -310,17 +310,23 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
       });
-      this.$axios.get("/api/addClass/getStudents").then((res) => {
-        if (res.data.success) {
-          this.studentsData = res.data.list;
-          this.classmenbel = res.data.list;
-          this.$message.success("查询成功");
-          this.loading&&this.loading.close();
-        } else {
-          this.loading&&this.loading.close();
-          this.$message.success("查询失败，请重试");
-        }
-      });
+      this.$axios
+        .get("/api/addClass/getStudents")
+        .then((res) => {
+          if (res.data.success) {
+            this.studentsData = res.data.list;
+            this.classmenbel = res.data.list;
+            // this.$message.success("查询成功");
+            this.loading && this.loading.close();
+          } else {
+            this.loading && this.loading.close();
+            this.$message.success("查询失败，请重试");
+          }
+        })
+        .catch(() => {
+          this.loading && this.loading.close();
+          this.$message.error("接口异常");
+        });
     },
 
     goSearch() {
@@ -338,9 +344,9 @@ export default {
             this.studentsData = res.data.list;
             this.classmenbel = res.data.list;
             this.$message.success("查询成功");
-            this.loading&&this.loading.close();
+            this.loading && this.loading.close();
           } else {
-            this.loading&&this.loading.close();
+            this.loading && this.loading.close();
             this.$message.success("查询失败，请重试");
           }
         });
@@ -349,9 +355,9 @@ export default {
   created() {
     this.getData();
   },
-  destroyed(){
-    this.loading&&this.loading.close()
-  }
+  destroyed() {
+    this.loading && this.loading.close();
+  },
 };
 </script>
 

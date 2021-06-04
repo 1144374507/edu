@@ -109,7 +109,7 @@ import {
   testQQ,
   testTel,
   testCard,
-} from '@/common/js/validate.js'
+} from "@/common/js/validate.js";
 export default {
   props: {},
   data() {
@@ -153,18 +153,32 @@ export default {
         });
         return;
       }
-      const list = this.list;
-      console.log(list, "list1");
-      this.$axios
-        .post(`/api/createStudent/batchCreateStudent`, { list })
-        .then((res) => {
-          console.log(res, "res");
-          if (res.data.success) {
-            this.$message.success(res.data.msg || "添加成功");
-            return;
-          }
-          this.$message.error(res.data.msg || "接口异常");
+      this.$confirm(
+        "点击确认将批量创建学生，可以在查看学生下查看，创建学生成功后将会自动创建学生登录账号，账号为学号，初始密码为123456"
+      ).then(() => {
+        this.loading = this.$loading({
+          lock: true,
+          text: "处理中",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)",
         });
+
+        const list = this.list;
+        console.log(list, "list1");
+        this.$axios
+          .post(`/api/createStudent/batchCreateStudent`, { list })
+          .then((res) => {
+            console.log(res, "res");
+            if (res.data.success) {
+              this.$message.success(res.data.msg || "添加成功");
+              this.loading && this.loading.close();
+
+              return;
+            }
+            this.$message.error(res.data.msg || "接口异常");
+            this.loading && this.loading.close();
+          });
+      });
     },
     downLoad() {
       let url = "../../EXcel/Export2Excel.js";

@@ -151,7 +151,7 @@
       @updata="updata"
       :id="updataId"
       :classes="classes"
-      :grades='grades'
+      :grades="grades"
     ></classMessage>
     <teacherMessage
       @updata="updata"
@@ -181,11 +181,11 @@ export default {
   },
   data() {
     return {
-      loading:"",
+      loading: "",
       // let aerr =[ 1,1,1,1]
       // arr.push(a)
-      grades:'',
-      classes:"",
+      grades: "",
+      classes: "",
       updataId: "",
       classmenbel: [],
       teacherMessage: [],
@@ -234,7 +234,7 @@ export default {
             console.log(res);
             if (res.data.succeed) {
               this.$message.success("操作成功");
-          this.loading&&this.loading.close();
+              this.loading && this.loading.close();
               this.getdata();
             }
           });
@@ -275,9 +275,17 @@ export default {
             });
           }
 
-      this.loading&&this.loading.close();
+          this.loading && this.loading.close();
+          return
         }
-      });
+        this.loading && this.loading.close();
+        this.$message.error(res.data.msg||'接口异常')
+
+      }).catch(() => {
+        this.loading && this.loading.close();
+        this.$message.error('接口异常')
+
+      })
     },
     getSearchGrade() {
       this.loading = this.$loading({
@@ -291,23 +299,23 @@ export default {
           if (res.data.success) {
             this.data = res.data.list;
             this.$message.success("搜索成功");
-        this.loading&&this.loading.close();
+            this.loading && this.loading.close();
           } else {
             this.$message.error("搜索失败，请重试");
-        this.loading&&this.loading.close();
+            this.loading && this.loading.close();
           }
         });
-      }else{
-        this.getdata()
+      } else {
+        this.getdata();
       }
     },
   },
   created() {
     this.getdata();
   },
-  destroyed(){
-    this.loading&&this.loading.close()
-  }
+  destroyed() {
+    this.loading && this.loading.close();
+  },
 };
 </script>
 
@@ -1270,7 +1278,7 @@ export default {
 </style>
 
 <style lang="less">
-.__p_13f_u_103{
+.__p_13f_u_103 {
   margin-bottom: 15px;
 }
 .__p_13f_u_87 {
